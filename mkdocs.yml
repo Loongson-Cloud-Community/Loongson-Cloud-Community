@@ -1,2 +1,6 @@
-site_name: 龙芯云WIKI
-theme: readthedocs
+site_name: 龙芯云
+theme:
+    name: material
+    language: zh
+    palette:
+      primary: red
