@@ -1,5 +1,7 @@
 # 龙芯云文档
 
+## 龙芯软件源
 
-## 软件移植清单
- - minio [指导手册](./移植手册/minio.md)
+- [cr.loongnix.cn](cr.loongnix.cn)  容器镜像仓库
+- [goproxy.loongnix.cn](goproxy.loongnix.cn) GO mod 代理源
+- [maven.loongnix.cn](maven.loongnix.cn) JAVA maven 源
