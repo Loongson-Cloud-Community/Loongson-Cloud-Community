@@ -15,14 +15,13 @@
 
 ```
 
-## maven 源收录清单
+## 软件收录清单
 
-### com.github.jnr
-- jffi
-  - 1.2.23
-- jnr-ffi
-  - 2.1.12
-- jnr-constants
-  - 0.9.15
-- jnr-posix
-  - 3.0.54
+### com.github.jnr - jffi
+- 1.2.23
+### com.github.jnr - jnr-ffi
+- 2.1.12
+### com.github.jnr - jnr-constants
+- 0.9.15
+### com.github.jnr - jnr-posix
+- 3.0.54
