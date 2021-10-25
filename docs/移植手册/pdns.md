@@ -58,7 +58,7 @@ index 88a658c5a..11abc3e64 100644
 
 （2）生成makefile文件：
 ```
-./configure --with-module = "bind gmysql" --sysconfdir=/etc/powerdns --with-unixodbc-lib=/usr/lib/loongarch64-linux-gnu
+./configure --with-modules="bind gmysql" --sysconfdir=/etc/powerdns --with-unixodbc-lib=/usr/lib/loongarch64-linux-gnu
 ```
 
 （3）生成二进制
