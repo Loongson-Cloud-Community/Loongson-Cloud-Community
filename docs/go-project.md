@@ -1,4 +1,4 @@
-# go 项目
+# go 项目通用移植参考
 
 本文章介绍使用 go mod 模式管理 的 go 语言项目的通用移植方法。
 
@@ -28,5 +28,5 @@ go build $TARGET
 
 如果在设置 GOPROXY 为龙芯源之前 GOPATH 里已经有架构相关的依赖包，则可能导致编译时使用旧的依赖包，所以可以先清空 GOPATH
 
-## 说明
+## 问题反馈
 如果您发现有龙芯未集成的架构相关的依赖包，可以反馈给我们[issues](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/issues)
