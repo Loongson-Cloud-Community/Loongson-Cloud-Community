@@ -11,5 +11,5 @@
 - [Loongson Cloud Dockerfiles](https://github.com/Loongson-Cloud-Community/dockerfiles) 容器镜像源码
 
 ## 指导手册
- [Instruction Manual](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/tree/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C) 项目移>植手册
+ [Instruction Manual](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/tree/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C) 项目移植手册
 
