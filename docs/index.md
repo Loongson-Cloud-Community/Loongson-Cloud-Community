@@ -1,6 +1,7 @@
 # 主页
 
 ## 2022-08
+- golang 1.15.6 [archive](https://github.com/Loongson-Cloud-Community/go/releases/tag/go1.15.6-loongarch64)
 - trivy 0.16.0 [archive](https://github.com/Loongson-Cloud-Community/trivy/releases/tag/v0.16.0)
 - spark 3.0.0 [archive](https://github.com/Loongson-Cloud-Community/spark/releases/tag/v3.0.0)
 - bazel 3.1.0 [archive](https://github.com/Loongson-Cloud-Community/bazel/releases/tag/3.1.0)
