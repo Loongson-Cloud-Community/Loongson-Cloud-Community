@@ -1,4 +1,4 @@
-# etcd 移植以及 rpm 包制作参考
+# etcd
 
 ## etcd 移植
 移植的环境为 [cr.loongnix.cn/library/golang:1.19-alpine 镜像](https://cr.loongnix.cn/repository/library/golang?tab=tags)。
