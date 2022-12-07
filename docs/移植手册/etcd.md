@@ -2,11 +2,13 @@
 
 ## etcd 移植
 移植的环境为 [cr.loongnix.cn/library/golang:1.19-alpine 镜像](https://cr.loongnix.cn/repository/library/golang?tab=tags)。
+
 1. 拉取 [etcd 源码](https://github.com/etcd-io/etcd)并切换到 3.5.5 版本
 ```    
 git clone https://github.com/etcd-io/etcd.git
 git checkout v3.5.5
 ```
+
 2. 修改脚本和源码
 ```
 diff --git a/scripts/build-binary b/scripts/build-binary
@@ -34,11 +36,13 @@ index 470eb83be..9ed379b50 100644
                 runtime.GOARCH == "s390x" {
                 return
 ```
+
 3. 对 golang env 进行修改
 ```
 go env -w GOSUMDB=off
 go env -w GOPROXY=https://goproxy.cn,direct
 ```
+
 4. 编译
 ```
 cd server
@@ -60,7 +64,9 @@ go env -w GOPROXY=http://goproxy.loongnix.cn
 
 ## rpm 包制作
 制作 rpm 包的环境为 [cr.loongnix.cn/loongson/loongnix-server:8.4.0 镜像](https://cr.loongnix.cn/repository/loongson/loongnix-server?tab=tags)。
+
 1. 在 x86_64 机器上拉取同版本 rpm 包
+ 
 2. 在 x86_64 机器上解压 rpm 包的 .sepc 文件以及源文件
 ```
 yum install rpm-build rpmrebuild rpm cpio
@@ -73,7 +79,6 @@ rpm2cpio etcd-3.5.5-2.fc37.x86_64.rpm | cpio -div
 将 etcd.spec 以及源文件拷贝到制作 rpm 的环境中。
 
 3. 构建打包文件
-
 使用之前编译的二进制文件替换源文件中的二进制文件后创建打包目录：
 ```
 [root@ec3237ae9ac7 rpmbuild]# tree -L 1
@@ -85,7 +90,7 @@ rpm2cpio etcd-3.5.5-2.fc37.x86_64.rpm | cpio -div
 ├── SPECS
 └── SRPMS
 ```
-修改 etcd.sepc 文件，更改架构名称，删除动态库的依赖，修改 release 版本。将修改后的文件移动到 SPECS 目录下，将源文件按照 etcd.sepc 中的名称命名（Name-Version-Release.BuildArch）,如：etcd-3.5.5-2.loongarch64。并移动到 BUILDROOT 目录下。
+修改 etcd.sepc 文件，更改架构名称，删除动态库的依赖，修改 release 版本。将修改后的文件移动到 SPECS 目录下，将源文件按照 etcd.sepc 中的名称命名（Name-Version-Release.BuildArch），如：etcd-3.5.5-2.loongarch64，并移动到 BUILDROOT 目录下。
 
 4. 打包
 ```
