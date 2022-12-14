@@ -2,7 +2,7 @@
 
 ## 项目信息
 weave是weaveworks公司的核心项目，用来解决docker网络问题，weave创建的虚拟网络可以将部署在多个主机上的容器连接起来，对容器来说，weave就像一个巨大的以太网交换机，所有介入这个交换机的容器都可以直接通信。    
-项目地址：git@github.com:Loongson-Cloud-Community/weave.git         
+项目地址：https://github.com/Loongson-Cloud-Community/weave/tree/loong64-2.1.3         
 项目分支：loong64-2.1.3                
 ## 项目构建     
 准备：提前下载镜像cr.loongnix.cn/library/alpine:3.11.11            
