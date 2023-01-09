@@ -1,4 +1,4 @@
-# weave构建指导
+# weaveworks/weave
 
 ## 项目信息
 weave是weaveworks公司的核心项目，用来解决docker网络问题，weave创建的虚拟网络可以将部署在多个主机上的容器连接起来，对容器来说，weave就像一个巨大的以太网交换机，所有介入这个交换机的容器都可以直接通信。    
