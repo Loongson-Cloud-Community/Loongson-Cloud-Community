@@ -24,7 +24,7 @@ Linux node1 4.19.0-19-loongson-3 #1 SMP pkg_lnd10_4.19.190-7.6 Wed Nov 16 11:12:
 ## 安装软件包
 ```
 apt install libapr1-dev libssl-dev cmake ninja-build libunwind-dev golang-1.19-go
-export PATH=
+export PATH=/usr/lib/go-1.19/bin:$PATH
 ```
 
 ## 源码修改
