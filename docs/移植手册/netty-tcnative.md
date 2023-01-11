@@ -79,7 +79,13 @@ index 2619560..18d3d01 100644
 ./mvnw install
 ```
 
-## 5. 备注
+## 5. 包含组件
+netty-tcnative-{os-arch}：动态连接到libapr-1和openssl，要使用该组件，系统必须同事安装和配置libapr-1和openssl,该组件管理员可以自由升级openssl而无需重新编译应用。       
+netty-tcnative-boringssl-static-{os-arch}: 静态链接到谷歌的boringssl，是openssl的一个分支，具有附加功能，静态链接使得在系统上使用tcnative变得更容易，该库不需要apr。
+netty-tcnative-boringssl-static: 其中包含了所有受支持的netty-tcnative-boringssl-static-{os-arch}，不需要关心平台架构。
+netty-tcnative-openssl-static-{os-arch}: 静态链接到libapr-1和openssl
+
+## 6. 备注
 (1)若出现以下问题类似的是由于网络原因造成的：
 ```
      [echo] Downloading and unpacking APR
