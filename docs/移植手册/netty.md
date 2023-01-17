@@ -26,7 +26,12 @@ uname -a
 Linux node1 4.19.0-19-loongson-3 #1 SMP pkg_lnd10_4.19.190-7.6 Wed Nov 16 11:12:41 UTC 2022 loongarch64 loongarch64 loongarch64 GNU/Linux
 ```
 
-## 3. 源码修改
+## 3. 安装依赖
+```
+apt-get install autoconf automake libtool make tar gcc openjdk-11-jdk libapr1-dev libssl-dev cmake ninja-build libunwind-dev golang-1.19-go
+```
+
+## 4. 源码修改
 ```
 diff --git a/common/src/main/java/io/netty/util/internal/PlatformDependent.java b/common/src/main/java/io/netty/util/internal/PlatformDependent.java
 index b7ce81484f..463426c12f 100644
@@ -83,7 +88,7 @@ index e4064cfe9b..0301616136 100644
      <plugins>
 ```
 
-## 4. 构建命令
+## 5. 构建命令
 ```
 ./mvnw  install -DskipTests
 ```
