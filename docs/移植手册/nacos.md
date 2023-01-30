@@ -86,9 +86,95 @@ nacos-2.1.0/
 
 ## 04 构建过程
 
+1. [protoc-la64](https://github.com/Loongson-Cloud-Community/protobuf/releases/download/v3.20.1/protoc_loong64)
+2. [protoc-gen-grpc-java-la64-server](https://github.com/Loongson-Cloud-Community/grpc-java/releases/download/loong64-v1.26.0/protoc-gen-grpc-java-la64-server)
+3. [nacos架构相关依赖的jar文件](https://github.com/Loongson-Cloud-Community/nacos/releases/download/2.1.0/nacos_m2.tar.gz)
+
+构建命令：`mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U`
+
+最终构建成功的制品位于：“distribution/target/”
+
 ## 05 测试
 
-- db
+启动命令： `./startup.sh -m standalone`
+
+- 检查架构相关的jar包
+
+```shell
+root@nacos_server2 /w/n/n/d/t/n/n/tmp (la64-Alpha-2.1.0) [SIGINT]# for file in (find ./ -name "*.jar"); jar tf $file | grep ".so\$" && echo $file; end
+librocksdbjni-linux64.so
+./BOOT-INF/lib/rocksdbjni-5.18.4.jar
+META-INF/native/libnetty_transport_native_epoll_loongarch_64.so
+./BOOT-INF/lib/netty-all-4.1.59.Final.jar
+META-INF/native/libio_grpc_netty_shaded_netty_tcnative.so
+META-INF/native/libio_grpc_netty_shaded_netty_transport_native_epoll_loongarch_64.so
+./BOOT-INF/lib/nacos-client-2.1.0.jar
+META-INF/native/libio_grpc_netty_shaded_netty_tcnative.so
+META-INF/native/libio_grpc_netty_shaded_netty_transport_native_epoll_loongarch_64.so
+./BOOT-INF/lib/grpc-netty-shaded-1.26.0.jar
+com/sun/jna/linux-x86/libjnidispatch.so
+com/sun/jna/linux-x86-64/libjnidispatch.so
+com/sun/jna/linux-arm/libjnidispatch.so
+com/sun/jna/linux-armel/libjnidispatch.so
+com/sun/jna/linux-aarch64/libjnidispatch.so
+com/sun/jna/linux-ppc/libjnidispatch.so
+com/sun/jna/linux-ppc64le/libjnidispatch.so
+com/sun/jna/linux-mips64el/libjnidispatch.so
+com/sun/jna/linux-loongarch64/libjnidispatch.so
+com/sun/jna/linux-s390x/libjnidispatch.so
+com/sun/jna/linux-riscv64/libjnidispatch.so
+com/sun/jna/sunos-x86/libjnidispatch.so
+com/sun/jna/sunos-x86-64/libjnidispatch.so
+com/sun/jna/sunos-sparc/libjnidispatch.so
+com/sun/jna/sunos-sparcv9/libjnidispatch.so
+com/sun/jna/freebsd-x86/libjnidispatch.so
+com/sun/jna/freebsd-x86-64/libjnidispatch.so
+com/sun/jna/openbsd-x86/libjnidispatch.so
+com/sun/jna/openbsd-x86-64/libjnidispatch.so
+./BOOT-INF/lib/jna-4.5.2.jar
+```
+
+- rocksdbjni数据库文件
+
+```
+root@nacos_server2 /tmp# file /tmp/librocksdbjni3982187426176383834.so 
+/tmp/librocksdbjni3982187426176383834.so: ELF 64-bit LSB shared object, *unknown arch 0x102* version 1 (GNU/Linux), dynamically linked, BuildID[sha1]=d7103584459702015a1fcdaaacdb2c7dd0888be4, not stripped
+```
+
 - 端口
+
+```shell
+root@nacos_server2 /w/n/n/d/t/n/n/bin (la64-Alpha-2.1.0) [SIGINT]# ss -ntlp
+State              Recv-Q             Send-Q                         Local Address:Port                         Peer Address:Port             Process                                         
+LISTEN             0                  128                                  0.0.0.0:9848                              0.0.0.0:*                 users:(("java",pid=108239,fd=464))             
+LISTEN             0                  128                                  0.0.0.0:9849                              0.0.0.0:*                 users:(("java",pid=108239,fd=465))             
+LISTEN             0                  128                                  0.0.0.0:7848                              0.0.0.0:*                 users:(("java",pid=108239,fd=466))             
+LISTEN             0                  100                                  0.0.0.0:8848                              0.0.0.0:*                 users:(("java",pid=108239,fd=601))
+```
+
+- 端口连通性
+
+```shell
+root@nacos_server2 /w/n/n/d/t/n/n/bin (la64-Alpha-2.1.0)# telnet 127.0.0.1 9848
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+�^CConnection closed by foreign host.
+root@nacos_server2 /w/n/n/d/t/n/n/bin (la64-Alpha-2.1.0) [1]# telnet 127.0.0.1 9849
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+�^CConnection closed by foreign host.
+root@nacos_server2 /w/n/n/d/t/n/n/bin (la64-Alpha-2.1.0) [1]# telnet 127.0.0.1 7848
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+�^CConnection closed by foreign host.
+root@nacos_server2 /w/n/n/d/t/n/n/bin (la64-Alpha-2.1.0) [1]# telnet 127.0.0.1 8848
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+^CConnection closed by foreign host.
+```
 
 
