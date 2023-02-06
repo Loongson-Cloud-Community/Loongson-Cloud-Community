@@ -25,6 +25,10 @@ kubectl apply -f calico.yaml
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 ### 部署kubevirt
+#### 安装依赖
+```
+yum -y install qemu-kvm libvirt virt-install bridge-utils
+```
 #### 下载kubevirt v0.35.0镜像
 ```
 docker pull cr.loongnix.cn/kubevirt/virt-operator:0.35.0 &&\
