@@ -96,6 +96,6 @@ netty-tcnative-openssl-static-{os-arch}: 静态链接到libapr-1和openssl
 可以手动下载apr-1.6.5.tar.gz，然后将其复制到/home/zhaixiaojuan/workspace/netty-tcnative-test/libressl-static/target/apr-1.6.5.tar.gz并对其进行解压
 
 (2) 
- 以下两个连接是适配LA架构的，可直接下载使用（即可省略上面步骤”3源码修改“的内容）
+ 以下两个连接是适配LA架构的，可直接下载使用（即可省略上面步骤”3源码修改“的内容）           
 https://github.com/Loongson-Cloud-Community/netty-tcnative/tree/loong64-netty-tcnative-parent-2.0.26.Final      
 https://github.com/Loongson-Cloud-Community/netty-tcnative/tree/loong64-netty-tcnative-parent-2.0.29.Final      
