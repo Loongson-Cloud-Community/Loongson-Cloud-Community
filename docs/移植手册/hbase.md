@@ -158,8 +158,7 @@ jnr-posix 3.0.54
 [点击这里](https://github.com/Loongson-Cloud-Community/jnr-ffi/commit/2c2623da57abfaca16a2b9af1d6bad5ac15045c2)查看修改。  
 修改后执行：
 ```
-./mvnw package
-./mvnw install
+./mvnw install -DskipTests=true
 ```
 #### jnr-constants
 [点击这里](https://github.com/jnr/jnr-constants/tree/jnr-constants-0.9.15)跳转到`jnr-constants`项目。  
