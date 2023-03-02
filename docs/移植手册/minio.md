@@ -20,7 +20,7 @@ rm go.sum
 
 设置龙芯 `GOPROXY` 代理，设置关闭 `GOSUMDB` 校验
 ```
-export GOPROXY=http://goproxy.loongnix.cn
+export GOPROXY=http://goproxy.loongnix.cn:3000
 export GOSUMDB=off
 ```
 
