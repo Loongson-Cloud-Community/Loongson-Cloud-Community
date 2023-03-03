@@ -65,7 +65,7 @@ mvn package -Pdist,native -DskipTests -Dtar
 .m2路径中包含了以下与架构相关的包：
 
 ### node-v12.19.1     
-在.m2中的具体路径：~/.m2/repository/com/github/eirslett/node/12.19.1/node-v12.19.1-linux-loongarch64.tar.gz       
+在.m2中的具体路径：~/.m2/repository/com/github/eirslett/node/12.19.1/node-v12.19.1-linux-loongarch64.tar.gz            
 该tar包的下载地址：http://ftp.loongnix.cn/nodejs/LoongArch/dist/
 
 ### grpc-java-1.26.0     
@@ -73,31 +73,31 @@ mvn package -Pdist,native -DskipTests -Dtar
 具体构建方法参考：https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/grpc-java.md
 
 ### protobuf-3.7.1
-在.m2中的具体路径：~/.m2/repository/com/google/protobuf/protoc/3.7.1/protoc-3.7.1-linux-loongarch_64.exe
+在.m2中的具体路径：~/.m2/repository/com/google/protobuf/protoc/3.7.1/protoc-3.7.1-linux-loongarch_64.exe       
 具体构建方法查看上面的“5.构建准备”。
 
 ### protobuf-2.5.0
-在.m2中具体位置：~/.m2/repository/com/google/protobuf/protoc/2.5.0/protoc-2.5.0-linux-loongarch_64.exe
+在.m2中具体位置：~/.m2/repository/com/google/protobuf/protoc/2.5.0/protoc-2.5.0-linux-loongarch_64.exe        
 具体构建方法参考：https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/protobuf.md 
 
 ### netty-4.1.77
-在.m2中的具体路径：~/.m2/repository/io/netty/netty-transport-native-epoll/4.1.77.Final/netty-transport-native-epoll-4.1.77.Final-linux-loongarch64.jar     
+在.m2中的具体路径：~/.m2/repository/io/netty/netty-transport-native-epoll/4.1.77.Final/netty-transport-native-epoll-4.1.77.Final-linux-loongarch64.jar           
 具体构建方法参考：https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/netty.md     
 
 ### zstd-jni-1.4.9-1
-在.m2中的具体路径：~/.m2/repository/com/github/luben/zstd-jni/1.4.9-1/zstd-jni-1.4.9-1.jar      
+在.m2中的具体路径：~/.m2/repository/com/github/luben/zstd-jni/1.4.9-1/zstd-jni-1.4.9-1.jar         
 具体构建方法参考：https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/zstd-jni.md    
 
 ### snappy-java-1.1.8.2
-在.m2中的具体路径：~/.m2/repository/org/xerial/snappy/snappy-java/1.1.8.2/snappy-java-1.1.8.2.jar     
+在.m2中的具体路径：~/.m2/repository/org/xerial/snappy/snappy-java/1.1.8.2/snappy-java-1.1.8.2.jar        
 具体构建方法参考官方：https://github.com/xerial/snappy-java/blob/master/BUILD.md
 
 ### lz4-java-1.7.1
-在.m2中的具体路径：~/.m2/repository/org/lz4/lz4-java/1.7.1/lz4-java-1.7.1.jar    
+在.m2中的具体路径：~/.m2/repository/org/lz4/lz4-java/1.7.1/lz4-java-1.7.1.jar       
 具体构建方法参考官方：https://github.com/lz4/lz4-java
 
 ### wildfly-openssl-1.0.7
-在.m2中的具体路径：~/.m2/repository/org/wildfly/openssl/wildfly-openssl/1.0.7.Final/wildfly-openssl-1.0.7.Final.jar     
+在.m2中的具体路径：~/.m2/repository/org/wildfly/openssl/wildfly-openssl/1.0.7.Final/wildfly-openssl-1.0.7.Final.jar               
 具体构建方法参考：https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/wildfly-openssl.md 
 
 ### jna-5.2.0
@@ -105,12 +105,12 @@ mvn package -Pdist,native -DskipTests -Dtar
 具体构建方法参考：https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/jna.md
 
 ### leveldbjni-all
-在.m2中的路径：~/.m2/repository/org/fusesource/leveldbjni/leveldbjni-all/1.8/leveldbjni-all-1.8.jar    
+在.m2中的路径：~/.m2/repository/org/fusesource/leveldbjni/leveldbjni-all/1.8/leveldbjni-all-1.8.jar              
 具体构建方法参考官方：https://github.com/fusesource/leveldbjni/blob/leveldbjni-1.8/readme.md#building 
 
 ### netty-all
-在netty-all文件netty-all-4.1.77.Final.pom中添加了LA架构，具体添加内容如下：
-~/.m2/repository/io/netty/netty-all/4.1.77.Final/netty-all-4.1.77.Final.pom：
+在netty-all文件netty-all-4.1.77.Final.pom中添加了LA架构，具体添加内容如下：      
+~/.m2/repository/io/netty/netty-all/4.1.77.Final/netty-all-4.1.77.Final.pom：       
 ```
 861     <dependency>
  862       <groupId>io.netty</groupId>
