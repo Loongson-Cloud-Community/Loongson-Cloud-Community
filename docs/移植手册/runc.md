@@ -29,4 +29,5 @@ go mod vendor
 ```
 
 ### 5. 编译
-`make runc`
+动态编译：  `make runc`
+静态编译：  `make static`
