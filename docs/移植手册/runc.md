@@ -22,7 +22,7 @@ yum install libseccomp-devel golang make git vim -y
 
 ### 4. 更新 vendor 下的 golang/sys golang/net 库
 ```
-export GOPROXY=http://goproxy.loongnix.cn
+export GOPROXY=http://goproxy.loongnix.cn:3000
 export GOSUMDB=off
 rm -f go.sum
 go mod vendor
