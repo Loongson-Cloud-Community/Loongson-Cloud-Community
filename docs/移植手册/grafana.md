@@ -69,3 +69,5 @@ go run build.go package-only
 grafana-6.7.4-1679366822.linux-loong64.tar.gz  grafana_6.7.4-1679366822_loong64.deb  grafana-6.7.4-1679366822.loong64.rpm
 ```
 
+## 备注   
+在构建前端时需要注意，不能使用ssh远程登录机器构建，必须在本机上构建，因为在构建时会用到phantomjs这个二进制，该二进制在使用时，远程ssh无法返回图形结果从而导致报错
