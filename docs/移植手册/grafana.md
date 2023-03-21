@@ -42,14 +42,14 @@ source ~/.bashrc
 ```
 
 ## 构建步骤
-### （1）构建前端：
+### （1）构建前端
 ```
 npm install -g yarn
 yarn install --pure-lockfile   
 npm run build
 ```
 
-### （2）构建后端：
+### （2）构建后端
 ```
 go run build.go build 
 ```
