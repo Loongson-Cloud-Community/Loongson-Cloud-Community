@@ -65,5 +65,5 @@ buildah version 1.29.1 (image-spec 1.0.2-dev, runtime-spec 1.0.2-dev)
 
 ## 备注
 二进制获取地址：https://github.com/Loongson-Cloud-Community/buildah/releases/download/loong64-v1.29.1/loong64-debian-bin-v1.29.1.tar.gz       
-该二进制用于龙芯debian10系统，在使用时需要提前安装golang-1.19(龙芯server系统上确包，暂时无法构建)       
+该二进制用于龙芯debian10系统，在使用时需要提前安装golang-1.19(龙芯server系统上缺包，暂时无法构建)       
 由于二进制构建时使用到了cgo,无法构建为静态二进制。     
