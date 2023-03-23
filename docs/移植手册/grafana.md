@@ -46,6 +46,7 @@ source ~/.bashrc
 ```
 npm install -g yarn
 yarn install --pure-lockfile   
+npx browserslist@latest --update-db     
 npm run build
 ```
 
