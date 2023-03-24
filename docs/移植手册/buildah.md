@@ -136,6 +136,7 @@ registries = []
 registries = []
  ```
   
+ 此时buildah二进制便可以正常工作
   
 
 
