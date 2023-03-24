@@ -46,9 +46,13 @@ source ~/.bashrc
 ```
 npm install -g yarn
 yarn install --pure-lockfile   
-npx browserslist@latest --update-db     
-npm run build
+npx browserslist@latest --update-db    //更新browserslist，否则会因为版本较低而报错   
+npm run watch    //等同于yarn start命令
+
+//这里需要重新打开一个terminal, 因为上面的watch会启动一个监视进程
+npm run build    //这一步对机器的性能要求较高，普通的PC在运行时可能会卡死，最好使用服务器
 ```
+注意： 在运行npm run watch或者yarn start命令后,会在本地启动一个监视进程，会监控当前项目文件，只要任何文件发生变化，便会重新进行构建
 
 ### （2）构建后端
 ```
