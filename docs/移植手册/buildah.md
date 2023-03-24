@@ -68,7 +68,7 @@ buildah version 1.29.1 (image-spec 1.0.2-dev, runtime-spec 1.0.2-dev)
 解压该tar包，并将其添加到PATH目录下。      
 注意：由于二进制构建时使用到了cgo,无法构建为静态二进制。   
 
-## 使用方法
+## 7. 使用方法
 该buildah在使用时还依赖golang,runc,cni,具体使用步骤如下：
 （1）按照上面的3～5的步骤(或者步骤6)将buildah安装到本地环境上
 （2）安装golang-1.19
