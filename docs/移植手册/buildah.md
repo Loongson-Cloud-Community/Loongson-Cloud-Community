@@ -69,10 +69,10 @@ buildah version 1.29.1 (image-spec 1.0.2-dev, runtime-spec 1.0.2-dev)
 注意：由于二进制构建时使用到了cgo,无法构建为静态二进制。   
 
 ## 7. 使用方法
-该buildah在使用时还依赖golang,runc,cni,具体使用步骤如下：
-（1）按照上面的3～5的步骤(或者步骤6)将buildah安装到本地环境上
-（2）安装golang-1.19
- (3) runc安装：    
+该buildah在使用时还依赖golang,runc,cni,具体使用步骤如下：       
+（1）按照上面的3～5的步骤(或者步骤6)将buildah安装到本地环境上       
+（2）安装golang-1.19      
+ (3) runc安装：     
  下载二进制：https://github.com/Loongson-Cloud-Community/runc/releases/download/commit-d5be3e26050c-loongarch64/loong64-bin-main-d5be3e26050c.tar.gz  ，并将其解压到本地/usr/bin/目录下。    
  buildah对runc有版本要求，当前系统自带的runc版本较低，与buildah不配套
  （4）cni构建
