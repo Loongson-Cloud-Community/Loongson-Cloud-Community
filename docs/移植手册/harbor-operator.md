@@ -23,7 +23,11 @@ Linux cloud-01 4.19.0-17-loongson-3 #1 SMP 4.19.190-6.1 Mon Apr 11 13:19:19 UTC 
 安装golang-1.19   
 
 ## 3. 源码适配
-该项目本身与架构无关，只需更新一下依赖的sys库和stringer版本，具体修改查看https://github.com/Loongson-Cloud-Community/harbor-operator/tree/loong64-release-1.2.0 的git log信息。         
+该项目本身与架构无关，只需更新一下依赖的sys库和stringer版本，具体修改查看https://github.com/Loongson-Cloud-Community/harbor-operator/tree/loong64-release-1.2.0 的git log信息。 
+更新sys的版本命令：
+```
+go get  -d golang.org/x/sys@bc2c85ada10aa9b6aa9607e9ac9ad0761b95cf1d
+```
 
 ## 4. 构建
 ### 4.1 二进制构建
