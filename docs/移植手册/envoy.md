@@ -1,4 +1,4 @@
-# Envoy 移植手册
+# envoy
 
 由于 envoy 的构建依赖 bazel，目前 bazel for loongarch64 稳定版本为 3.1.0。根据 envoy 官方依赖关系，选择 envoy 1.15.0  作为目标版本进行移植。
 
