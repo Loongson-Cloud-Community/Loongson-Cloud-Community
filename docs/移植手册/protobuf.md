@@ -32,8 +32,8 @@ Linux 5cef9fb1156f 4.19.190-2.1.lns8.loongarch64 #1 SMP Thu Sep 23 08:52:56 UTC 
 编译有两种方式静态编译和动态编译，源码默认的编译方式动态编译
 ```
 ./autogen.sh  
-./configure （静态编译：./configure --enable-static）
-make （静态编译 make LDFLAGS=-all-static）
+./configure （静态编译：./configure --enable-shared=no）
+make （全部静态编译 make LDFLAGS=-all-static）
 ```
 ```
 make check 
