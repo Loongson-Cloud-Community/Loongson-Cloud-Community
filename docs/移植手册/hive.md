@@ -97,14 +97,71 @@ https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/d
 https://github.com/Loongson-Cloud-Community/netty/tree/loong64-netty-4.0.52.Final           
 https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/netty.md        
 
+## 5. pom文件修改
+### 5.1 calcite-1.10.0.pom
+在～/.m2/repository/org/apache/calcite/calcite/1.10.0/calcite-1.10.0.pom中修改pentaho-aggdesigner-algorithm的下载地址，代码如下，即用785～789行的代码替换791～801行的代码：
+```
+108     <pentaho-aggdesigner.version>5.1.5-jhyde</pentaho-aggdesigner.version>
+......
+360       <dependency>
+361         <groupId>org.pentaho</groupId>
+362         <artifactId>pentaho-aggdesigner-algorithm</artifactId>
+363         <version>${pentaho-aggdesigner.version}</version>
+364       </dependency>
+......
+776   <repositories>
+777     <repository>
+778       <id>central</id>
+779       <name>Central Repository</name>
+780       <url>http://repo.maven.apache.org/maven2</url>
+781       <layout>default</layout>
+782       <snapshots>
+783         <enabled>false</enabled>
+784       </snapshots>
+785     </repository>
+786         <repository>
+787         <id>spring</id>
+788         <url>https://maven.aliyun.com/repository/spring</url>
+789     </repository>
+790     <!--
+791     <repository>
+792       <releases>
+793         <enabled>true</enabled>
+794         <updatePolicy>always</updatePolicy>
+795         <checksumPolicy>warn</checksumPolicy>
+796       </releases>
+797       <id>conjars</id>
+798       <name>Conjars</name>
+799       <url>http://conjars.org/repo</url>
+800       <layout>default</layout>
+801     </repository>
+802     -->
+803   </repositories>
+```
+这里之所以修改pentaho-aggdesigner-algorithm的下载地址，是因为791～801行的代码设置的下载地址已经不存在，目前下载地址已经更新为https://maven.aliyun.com/repository/spring , 
+若不替换则会报以下错误：
+```
+[INFO] -----------------< org.apache.hive:hive-upgrade-acid >------------------
+[INFO] Building Hive Upgrade Acid 3.1.2                                  [1/42]
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from conjars: http://conjars.org/repo/org/pentaho/pentaho-aggdesigner-algorithm/5.1.5-jhyde/pentaho-aggdesigner-algorithm-5.1.5-jhyde.pom
+......
+[ERROR] Failed to execute goal on project hive-upgrade-acid: Could not resolve dependencies for project org.apache.hive:hive-upgrade-acid:jar:3.1.2: Failed to collect dependencies at org.apache.hive:hive-exec:jar:2.3.3 -> org.apache.calcite:calcite-core:jar:1.10.0 -> org.pentaho:pentaho-aggdesigner-algorithm:jar:5.1.5-jhyde: Failed to read artifact descriptor for org.pentaho:pentaho-aggdesigner-algorithm:jar:5.1.5-jhyde: Could not transfer artifact org.pentaho:pentaho-aggdesigner-algorithm:pom:5.1.5-jhyde from/to conjars (http://conjars.org/repo): Connect to conjars.org:80 [conjars.org/54.235.127.59] failed: 连接超时 (Connection timed out) -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException
+```
+
+### 5.2 async-http-client-2.0.37.pom
 
 
 
-
-构建指令
+## 6. 构建指令
 ```
 mvn clean install -Pdist -DskipTests -Dmaven.javadoc.skip=true 
 ```
-
 
 
