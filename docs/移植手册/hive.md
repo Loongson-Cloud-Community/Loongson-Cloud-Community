@@ -72,6 +72,33 @@ https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/d
 ### 4.9 java-util-1.3.2 jar包
 1）直接下载：
 下载 https://github.com/Loongson-Cloud-Community/java-util/releases/download/java-util-1.3.2/java-util-1.3.2.jar  存放置~/.m2/repository/com/metamx/java-util/1.3.2/ 目录下；
+2）或者从源码构建：
+从官方下载源码(https://github.com/metamx/java-util.git), 执行命令“mvn install -DskipTests”
+
+### 4.10 druid-0.12.0 jar包
+1）直接下载：
+下载 https://github.com/Loongson-Cloud-Community/druid/releases/download/druid-0.12.0/java-util-0.12.0.jar 存放置~/.m2/repository/io/druid/java-util/0.12.0/ 目录下；
+2）或者从源码构建：
+从官方下载源码(https://github.com/apache/druid.git), 执行命令“mvn clean install -pl java-util -am -DskipTests” 只构建java-util模块。
+
+### 4.11 netty-4.1.17 jar包
+1）直接下载：
+下载 https://github.com/Loongson-Cloud-Community/netty/releases/download/loong64-netty-4.1.17.Final/netty-4.1.17-jar.tar.gz 从中获取netty-transport-4.1.17.Final.jar将其存放置~/.m2/repository/io/netty/netty-transport/4.1.17.Final/ 目录下。
+2）或者从源码构建：
+参考：
+https://github.com/Loongson-Cloud-Community/netty/tree/loong64-netty-4.1.17.Final       
+https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/netty.md      
+
+### 4.12 netty-4.0.52 jar包
+1）直接下载：
+下载 https://github.com/Loongson-Cloud-Community/netty/releases/download/loong64-netty-4.0.52.Final/loong64-netty-4.0.52-jar.tar.gz 从中获取netty-transport-4.0.52.Final.jar将其存放置~/.m2/repository/io/netty/netty-transport/4.0.52.Final/ 目录下。
+2）或者从源码构建：
+参考：
+https://github.com/Loongson-Cloud-Community/netty/tree/loong64-netty-4.0.52.Final           
+https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/netty.md        
+
+
+
 
 
 构建指令
