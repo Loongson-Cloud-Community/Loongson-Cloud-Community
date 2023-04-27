@@ -156,7 +156,30 @@ Downloading from conjars: http://conjars.org/repo/org/pentaho/pentaho-aggdesigne
 ```
 
 ### 5.2 async-http-client-2.0.37.pom
-
+需要在～/.m2/repository/org/asynchttpclient/async-http-client/2.0.37/async-http-client-2.0.37.pom中做以下修改：     
+（即将44行原本的linux-x86_64修改为linux-loongarch_64）    
+```
+27         <dependencies>
+ 28                 <dependency>
+ 29                         <groupId>org.asynchttpclient</groupId>
+ 30                         <artifactId>async-http-client-netty-utils</artifactId>
+ 31                         <version>${project.version}</version>
+ 32                 </dependency>
+ 33                 <dependency>
+ 34                         <groupId>io.netty</groupId>
+ 35                         <artifactId>netty-codec-http</artifactId>
+ 36                 </dependency>
+ 37                 <dependency>
+ 38                         <groupId>io.netty</groupId>
+ 39                         <artifactId>netty-handler</artifactId>
+ 40                 </dependency>
+ 41                 <dependency>
+ 42                         <groupId>io.netty</groupId>
+ 43                         <artifactId>netty-transport-native-epoll</artifactId>
+ 44                         <classifier>linux-loongarch_64</classifier>
+ 45                 </dependency>
+```
+这里之所以这样修改，是因为在～/.m2/repository/org/asynchttpclient/async-http-client/2.0.37/async-http-client-2.0.37.pom中设置了对netty-transport-native-epoll的架构依赖，若不修改，最后生成的 hive-druid-handler-3.1.2.jar中包含的将是x86架构的.so文件（libnetty_transport_native_epoll_x86_64.so）。
 
 
 ## 6. 构建指令
