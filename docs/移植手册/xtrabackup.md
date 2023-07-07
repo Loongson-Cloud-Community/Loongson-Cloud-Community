@@ -3,7 +3,8 @@
 1. [xtrabackup介绍](https://developer.huawei.com/consumer/cn/forum/topic/0202691724541050734)
 2. [源码构建-官方](https://docs.percona.com/percona-xtrabackup/8.0/compile-xtrabackup.html)
 3. [qpress源码地址](https://github.com/PierreLvx/qpress)
-4. [龙芯源码地址]()
+4. [龙芯源码地址](https://github.com/Loongson-Cloud-Community/percona-xtrabackup/tree/loong64-8.0)
+5. [percona-xtrabackup-8.0.33-linux-loongarch64.tar.gz](https://github.com/Loongson-Cloud-Community/percona-xtrabackup/releases/download/percona-xtrabackup-8.0.33-27/percona-xtrabackup-8.0.33-linux-loongarch64.tar.gz)
 
 ## 00x01 构建环境信息
 
@@ -130,4 +131,8 @@ index c9374636..97f58342 100644
 
 ```shell
 make package
+
+# 二进制压缩包
+root@xtrabackup /w/p/p/build (loong64-8.0)# file percona-xtrabackup-8.0.33-linux-loongarch64.tar.gz
+percona-xtrabackup-8.0.33-linux-loongarch64.tar.gz: gzip compressed data, last modified: Fri Jul  7 09:07:15 2023, from Unix, original size 338969088
 ```
