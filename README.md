@@ -13,3 +13,5 @@
 ## 指导手册
  [Instruction Manual](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/tree/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C) 项目移植手册
 
+## 协议
+https://github.com/Loongson-Cloud-Community 组织下的所有子项目协议与上游社区保持一致
