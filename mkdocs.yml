@@ -5,4 +5,11 @@ theme:
     language: zh
     palette:
       primary: red
+    features:
+        - content.action.edit
+        - content.action.view
+
+repo_name: Loongson-Cloud-Community
+repo_url: https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community
+edit_uri: edit/main/docs
 
