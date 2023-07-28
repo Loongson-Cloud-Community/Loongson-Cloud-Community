@@ -1,4 +1,4 @@
-# hive构建指导
+# hive
 
 ## 1. 构建版本
 rel/release-3.1.2

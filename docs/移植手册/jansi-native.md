@@ -1,4 +1,4 @@
-# jansi-native 构建指导
+# jansi-native
 
 ## 1. 够将版本
 1.5

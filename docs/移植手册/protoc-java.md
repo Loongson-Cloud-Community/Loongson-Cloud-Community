@@ -1,4 +1,4 @@
-# protoc-java构建指导
+# protoc-java
 
 ## 1. 构建版本
 3.5.1.1

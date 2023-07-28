@@ -1,9 +1,9 @@
-## cilium/ebpf构建指导
+# cilium-ebpf
 
-### 构建版本
+## 构建版本
 v0.10.0
 
-### 源码修改   
+## 源码修改   
 ```
 diff --git a/cmd/bpf2go/main.go b/cmd/bpf2go/main.go
 index 03ff1f8..2413336 100644
@@ -30,7 +30,7 @@ index 41a6822..273fad8 100644
  package internal
 ```
 
-### 构建
+## 构建
 执行make
 在make构建完成后会自动更新文件cmd/bpf2go/test/test_bpfel.go和examples目录下的相关文件
 

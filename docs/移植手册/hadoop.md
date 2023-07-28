@@ -1,4 +1,4 @@
-# hadoop构建指导
+# hadoop
 
 ## 1.构建版本
 hadoop-3.3.4

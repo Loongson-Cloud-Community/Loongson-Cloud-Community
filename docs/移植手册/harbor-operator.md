@@ -1,4 +1,4 @@
-# harbor-operator构建指导
+# harbor-operator
 
 ## 1. 构建环境     
 使用龙芯debian-10系统，具体环境参数如下：

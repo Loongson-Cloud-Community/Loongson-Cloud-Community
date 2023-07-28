@@ -1,4 +1,4 @@
-# minio/mc构建指导
+# minio-mc
 
 # Loongarch64
 ## 构建版本

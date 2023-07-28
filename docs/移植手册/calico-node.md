@@ -1,4 +1,4 @@
-# calico/node
+# calico-node
 ## calico/node 镜像组成
 - [x] calico 源码
     - felix

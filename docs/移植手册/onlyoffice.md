@@ -1,4 +1,4 @@
-# onlyoffice documentserver
+# onlyoffice-documentserver
 ## 快速部署
 [点击这里](https://github.com/Loongson-Cloud-Community/DocumentServer/releases/download/v7.1.1/onlyoffice-documentserver_0.0.0-0_mips64el.deb)下载 mips64 架构 onlyoffice documentsever 7.1.1 `deb` 包。
 

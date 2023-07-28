@@ -1,4 +1,4 @@
-# grafana 构建指导
+# grafana
 ## 构建版本
 v6.7.4
 
