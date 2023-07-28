@@ -8,6 +8,12 @@ theme:
     features:
         - content.action.edit
         - content.action.view
+        - navigation.instant
+        - navigation.tracking
+        - navigation.tabs
+        # - navigation.sections
+        - navigation.indexes
+        # - navigation.expand
 
 repo_name: Loongson-Cloud-Community
 repo_url: https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community
