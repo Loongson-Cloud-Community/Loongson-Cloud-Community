@@ -1,0 +1,4 @@
+mkdocs==1.4.3
+mkdocs-material==9.2.0b0
+jieba==0.42.1
+mkdocs-git-revision-date-localized-plugin==1.2.0
