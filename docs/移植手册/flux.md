@@ -9,7 +9,7 @@
 
 |名称|描述|
 |--|--|
-|官方地址|https://github.com/influxdata/flux|
+|官方地址|[https://github.com/influxdata/flux](https://github.com/influxdata/flux)|
 |版本|v0.161.0|
 
 ## 构建环境
