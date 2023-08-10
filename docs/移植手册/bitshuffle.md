@@ -48,33 +48,31 @@ Bitshuffle项目被广泛应用于科学计算、大数据分析、天文学、�
 
 __编译__
 
-    `python setup.py install --h5plugin --h5plugin-dir=spam --zstd`
-    编译执行可能报错：
-   `Can't find hdf5 with pkg-config fallback to static config`
-    需要手动创建hdf5的pkg-config文件
-    使用命令 `pkg-config --variable pc_path pkg-config `查找 pkg-config 的搜索路径。
-    在pkg-config的搜索路径下添加hdf5.pc
-    ` sudo vim hdf5.pc `
-    写入
-    ```
-    prefix=/usr
-    exec_prefix=${prefix}
-    libdir=${exec_prefix}/lib64
-    includedir=${prefix}/include
-    
-    Name: hdf5
-    Description: HDF5 Library
-    Version: 1.10.5
-    Cflags: -I${includedir}
-    Libs: -L${libdir} -lhdf5
-    ```
-    保存后继续运行，可能出现的其他问题：
-    ```
-    loongarch64-loongson-linux-gnu-gcc: error: unrecognized command line option ‘-mcpu=native’; did you mean ‘-march=native’?
-    error: command 'loongarch64-loongson-linux-gnu-gcc' failed with exit status 1  
-    ```
-    解决方案：这个错误是由于编译器不识别 -mcpu=native 这个参数引起的，它可能是由于平台或编译器版本的不同导致的。一种解决方法是将 -mcpu=native 参数替换为 -march=native，两者的作用是相同的
-    1.打开 setup.py 文件，并找到使用 -mcpu 参数的位置。
-    2.添加loongarch64架构。
-    3.保存文件
+    - 执行：`python setup.py install --h5plugin --h5plugin-dir=spam --zstd`
+    - 编译执行可能报错：`Can't find hdf5 with pkg-config fallback to static config`
+    - 解决方法：需要手动创建hdf5的pkg-config文件
+    - 使用命令 `pkg-config --variable pc_path pkg-config `查找 pkg-config 的搜索路径。
+    - 在pkg-config的搜索路径下添加hdf5.pc ` sudo vim hdf5.pc `
+       写入
+       ```
+       prefix=/usr
+       exec_prefix=${prefix}
+       libdir=${exec_prefix}/lib64
+       includedir=${prefix}/include
+       
+       Name: hdf5
+       Description: HDF5 Library
+       Version: 1.10.5
+       Cflags: -I${includedir}
+       Libs: -L${libdir} -lhdf5
+       ```
+    - 保存后继续运行，可能出现的其他问题：
+       ```
+       loongarch64-loongson-linux-gnu-gcc: error: unrecognized command line option ‘-mcpu=native’; did you mean ‘-march=native’?
+       error: command 'loongarch64-loongson-linux-gnu-gcc' failed with exit status 1  
+       ```
+    - 解决方案：这个错误是由于编译器不识别 -mcpu=native 这个参数引起的，它可能是由于平台或编译器版本的不同导致的。一种解决方法是将 -mcpu=native 参数替换为 -march=native，两者的作用是相同的
+       1.打开 setup.py 文件，并找到使用 -mcpu 参数的位置。
+       2.添加loongarch64架构。
+       3.保存文件
 
