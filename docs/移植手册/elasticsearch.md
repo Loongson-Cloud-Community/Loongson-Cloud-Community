@@ -167,5 +167,23 @@ index 1c81dfe5..3a36e5e2 100644
      private final XPackLicenseState licenseState;
 ```
 
+## 要修改的一些架构相关代码
+```
+diff --git a/server/src/main/java/org/elasticsearch/bootstrap/SystemCallFilter.java b/server/src/main/java/org/elasticsearch/bootstrap/SystemCallFilter.java
+index 4374fc2cad6..f30f62a182c 100644
+--- a/server/src/main/java/org/elasticsearch/bootstrap/SystemCallFilter.java
++++ b/server/src/main/java/org/elasticsearch/bootstrap/SystemCallFilter.java
+@@ -232,7 +232,8 @@ final class SystemCallFilter {
+         Map<String,Arch> m = new HashMap<>();
+         m.put("amd64", new Arch(0xC000003E, 0x3FFFFFFF, 57, 58, 59, 322, 317));
+         m.put("aarch64",  new Arch(0xC00000B7, 0xFFFFFFFF, 1079, 1071, 221, 281, 277));
+-        ARCHITECTURES = Collections.unmodifiableMap(m);
++        m.put("loongarch64", new Arch(0xC0000102, 0xFFFFFFFF, 1079, 1071, 221, 281, 277));
++       ARCHITECTURES = Collections.unmodifiableMap(m);
+     }
+ 
+     /** invokes prctl() from linux libc library */
+```
+
 ## 最后整合
 将在龙芯移植后的 jna.jar, linux-loongarch64 (ml-cpp), ml-cpp.jar 和 jdk 替换掉 x86 下编译生成的 tar 包即可。
