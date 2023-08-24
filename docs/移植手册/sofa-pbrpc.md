@@ -17,8 +17,8 @@
 
 |名称       |描述|
 |--         |--|
-|CPU        |3A6000|
-|系统       | Linux loongson-pc 4.19.0-19-loongson-3 |
+|CPU        |3A5000|
+|系统       | openEuler 22.03 LTS |
 
 ## 移植说明
 - 需要的软件依赖：
