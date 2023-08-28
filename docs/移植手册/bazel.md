@@ -17,19 +17,19 @@
 |系统       |debian 10 容器|
 
 ## 移植说明
-bazel的构建方式有两种：
-1. 通过已有的bazel构建
+bazel的构建方式有两种：  
+1. 通过已有的bazel构建  
 2. 从零开始  
 下文的移植步骤针对当前没有bazel二进制，从零开始构建bazel二进制
 
 ## 移植步骤
 
 __编译环境和依赖__  
-1. Bash
-2. zip,unzip
-3. C++ 工具链 
-4. JDK8 或 JDK11
-5. Python2 或 Python3
+1. Bash  
+2. zip,unzip  
+3. C++ 工具链   
+4. JDK8 或 JDK11  
+5. Python2 或 Python3  
 ```
 sudo apt-get install build-essential openjdk-11-jdk python3 zip unzip
 ```
