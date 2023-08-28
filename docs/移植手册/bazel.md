@@ -35,12 +35,12 @@ sudo apt-get install build-essential openjdk-11-jdk python3 zip unzip
 ```
 
 __下载源码__  
-从bazelbuild/build仓库的release中下载未移植的源码包：[bazel-3.7.2-dist.zip](https://github.com/bazelbuild/bazel/releases/download/3.7.2/bazel-3.7.2-dist.zip)
-从Loongson-Cloud-Community/bazel仓库的release中下载已经移植过的源码包：[bazel-3.7.2-dist.zip](https://github.com/Loongson-Cloud-Community/bazel/releases/download/3.7.2/bazel-3.7.2-dist.zip)
+从bazelbuild/build仓库的release中下载未移植的源码包：[bazel-3.7.2-dist.zip](https://github.com/bazelbuild/bazel/releases/download/3.7.2/bazel-3.7.2-dist.zip)  
+从Loongson-Cloud-Community/bazel仓库的release中下载已经移植过的源码包：[bazel-3.7.2-dist.zip](https://github.com/Loongson-Cloud-Community/bazel/releases/download/3.7.2/bazel-3.7.2-dist.zip)  
 如果您下载了已经移植过的源码包，您可以跳过下文的`移植`章节
 
 __移植__  
-关于移植过程中需要修改的文件以及如何修改可以参考[217ac55](https://github.com/Loongson-Cloud-Community/bazel/commit/217ac5503e5f57b770f30b8a335e46785d3d720f)以及[8617b8c](https://github.com/Loongson-Cloud-Community/bazel/commit/8617b8cdff6510850ea4d24621bbeec1204236bf)这两次提交
+关于移植过程中需要修改的文件以及如何修改可以参考[217ac55](https://github.com/Loongson-Cloud-Community/bazel/commit/217ac5503e5f57b770f30b8a335e46785d3d720f)以及[8617b8c](https://github.com/Loongson-Cloud-Community/bazel/commit/8617b8cdff6510850ea4d24621bbeec1204236bf)这两次提交  
 另外，您需要在`platforms/cpu/BUILD`文件末尾添加以下内容：
 ```
 constraint_value(
