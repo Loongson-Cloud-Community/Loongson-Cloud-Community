@@ -15,7 +15,7 @@ curl -OL https://artifacts.elastic.co/downloads/kibana/kibana-7.10.2-linux-x86_6
 http://ftp.loongnix.cn/nodejs/LoongArch/dist/v10.24.1/node-v10.24.1-linux-loong64.tar.gz   并解压       
 ### （3）替换node        
 将（2）中解压的node-v10.24.1-linux-loong64 重命名为 node，并替换kibana-7.10.2-linux-x86_64 中的 node 目录。
-### (4) 修改package.json
-将该文件中node的版本10.23.1修改为10.24.1
-###（5）压缩tar包
+### （4） 修改package.json
+将该文件中node的版本10.23.1修改为10.24.1    
+### （5）压缩tar包
 修改kibana-7.10.2-linux-x86_64为kibana-7.10.2-linux-loongarch64，并压缩tar包
