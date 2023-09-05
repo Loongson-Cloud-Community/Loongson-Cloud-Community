@@ -40,12 +40,19 @@ __移植步骤__
 编译完成的可执行文件位于bin目录下
 
 __测试__
+
 ```
 [yzw@kubernetes-master-1 bin]$ ./pulsar standalone
-2023-09-04T19:43:50,751+0800 [main] INFO  org.apache.pulsar.PulsarStandalone - Starting BK with RocksDb metadata store
-2023-09-04T19:43:51,280+0800 [main] INFO  org.apache.pulsar.metadata.impl.RocksdbMetadataStore - new RocksdbMetadataStore,url=MetadataStoreConfig(sessionTimeoutMillis=30000, allowReadOnlyOperations=false, configFilePath=null, batchingEnabled=true, batchingMaxDelayMillis=5, batchingMaxOperations=1000, batchingMaxSizeKb=128, metadataStoreName=metadata-store, fsyncEnable=true, synchronizer=null),instanceId=2
-2023-09-04T19:43:51,309+0800 [main] INFO  org.apache.pulsar.metadata.bookkeeper.PulsarRegistrationManager - Initializing metadata for new cluster, ledger root path: /ledgers
-2023-09-04T19:43:51,324+0800 [main] ERROR org.apache.pulsar.metadata.bookkeeper.PulsarRegistrationManager - Ledger root path: /ledgers already exists
-2023-09-04T19:43:51,472+0800 [main] INFO  org.apache.pulsar.metadata.bookkeeper.BKCluster - Starting new bookie on port: 37873
+2023-09-05T11:24:45,203+0800 [main] INFO  org.apache.pulsar.PulsarStandalone - Starting BK with RocksDb metadata store
+2023-09-05T11:24:45,646+0800 [main] INFO  org.apache.pulsar.metadata.impl.RocksdbMetadataStore - new RocksdbMetadataStore,url=MetadataStoreConfig(sessionTimeoutMillis=30000, allowReadOnlyOperations=false, configFilePath=null, batchingEnabled=true, batchingMaxDelayMillis=5, batchingMaxOperations=1000, batchingMaxSizeKb=128, metadataStoreName=metadata-store, fsyncEnable=true, synchronizer=null),instanceId=1
+2023-09-05T11:24:45,665+0800 [main] INFO  org.apache.pulsar.metadata.bookkeeper.PulsarRegistrationManager - Initializing metadata for new cluster, ledger root path: /ledgers
+2023-09-05T11:24:45,704+0800 [main] INFO  org.apache.pulsar.metadata.bookkeeper.PulsarRegistrationManager - Successfully initiated cluster. ledger root path: /ledgers instanceId: b41129fc-4e56-4fdf-8c99-5c6910aecb8d
+2023-09-05T11:24:45,726+0800 [main] INFO  org.apache.pulsar.metadata.bookkeeper.BKCluster - Starting new bookie on port: 34027
+2023-09-05T11:24:45,751+0800 [main] INFO  org.apache.bookkeeper.server.EmbeddedServer$Builder - Load lifecycle component : org.apache.bookkeeper.server.service.StatsProviderService
+2023-09-05T11:24:45,765+0800 [main] INFO  org.apache.bookkeeper.meta.MetadataDrivers - BookKeeper metadata driver manager initialized
+2023-09-05T11:24:45,870+0800 [main] INFO  org.apache.bookkeeper.bookie.LegacyCookieValidation - Stamping new cookies on all dirs [data/standalone/bookkeeper/current]
+2023-09-05T11:24:45,984+0800 [main] INFO  org.apache.bookkeeper.bookie.BookieResources - Using ledger storage: org.apache.bookkeeper.bookie.storage.ldb.DbLedgerStorage
+2023-09-05T11:24:45,990+0800 [main] INFO  org.apache.bookkeeper.bookie.storage.ldb.DbLedgerStorage - Started Db Ledger Storage
+
 ```
 要测试其他具体的如pulsar-client或pulsar-admin 见[https://pulsar.apache.org/docs/3.1.x/getting-started-standalone/](https://pulsar.apache.org/docs/3.1.x/getting-started-standalone/)
