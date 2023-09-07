@@ -39,15 +39,15 @@ __移植步骤__
    - 需要二进制包可以从[https://github.com/Loongson-Cloud-Community/pulsar-manager/releases/tag/0.4.0](https://github.com/Loongson-Cloud-Community/pulsar-manager/releases/tag/0.4.0)获取.
 
 2. 修改配置文件
-具体见 [https://github.com/Loongson-Cloud-Community/pulsar-manager/commit/68203f667d1591efc7cd0426afafeeebd0577314](https://github.com/Loongson-Cloud-Community/pulsar-manager/commit/68203f667d1591efc7cd0426afafeeebd0577314)
+   具体见 [https://github.com/Loongson-Cloud-Community/pulsar-manager/commit/68203f667d1591efc7cd0426afafeeebd0577314](https://github.com/Loongson-Cloud-Community/pulsar-manager/commit/68203f667d1591efc7cd0426afafeeebd0577314)
 3. 编译
-#跳过测试
-` ./gradlew build -x test `
- - 编译过程中可能会出现在front-end子任务下npm install失败,执行:
+   添加`-x test`跳过测试
+   ` ./gradlew build -x test `
+   - 编译过程中可能会出现在front-end子任务下npm install失败,执行:
    ```
    cd front-end && npm install --ignore-scripts && npm run build:prod
    ```
-编译成功的制品位于./build/distribution/目录下
+   编译成功的制品位于./build/distribution/目录下
 
 __测试__
 
