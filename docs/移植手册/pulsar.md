@@ -31,13 +31,15 @@ __编译环境及依赖__
 
 __移植步骤__
 1. 下载源码
-` git clone -b v3.0.0 --depth 1 https://github.com/apache/pulsar.git`
-2. 修改配置文件
-具体见 [https://github.com/Loongson-Cloud-Community/pulsar/commit/9269730f5387dadc8cf0aa010dfcbec80bc13544](https://github.com/Loongson-Cloud-Community/pulsar/commit/9269730f5387dadc8cf0aa010dfcbec80bc13544)
-3. 编译
-#最小化编译,编译较快 
-` mvn install -Pcore-modules,-main -DskipTests `
-编译完成的可执行文件位于bin目录下
+   ` git clone -b v3.0.0 --depth 1 https://github.com/apache/pulsar.git`
+   - 也可以直接下载适配代码
+   ` git clone -b loong64-3.0.0 --depth 1 [https://github.com/apache/pulsar.git](https://github.com/Loongson-Cloud-Community/pulsar.git)`
+3. 修改配置文件
+   具体见 [https://github.com/Loongson-Cloud-Community/pulsar/commit/9269730f5387dadc8cf0aa010dfcbec80bc13544](https://github.com/Loongson-Cloud-Community/pulsar/commit/9269730f5387dadc8cf0aa010dfcbec80bc13544)
+4. 编译
+   最小化编译,编译较快 
+   ` mvn install -Pcore-modules,-main -DskipTests `
+   编译完成的可执行文件位于bin目录下
 
 __测试__
 
