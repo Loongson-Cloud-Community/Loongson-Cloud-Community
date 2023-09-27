@@ -30,11 +30,11 @@ docker compose与nerdctl compose up
 该命令将构建所有平台，所有架构的tar包
 
 ## 4. 使用依赖
-若要使用nerdctl需要满足以下2个条件：
-1）使用高版本的CNI网络插件：      
+若要使用nerdctl需要满足以下2个条件：        
+1）使用高版本的CNI网络插件：           
 下载https://github.com/Loongson-Cloud-Community/plugins/releases/download/v1.3.0/loongarch64-v1.3.0-bin.tar.gz，         
-解压后重命名为bin,将其存放在/opt/cni/ 目录下
-2）卸载docker-ce       
+解压后重命名为bin,将其存放在/opt/cni/ 目录下       
+2）卸载docker-ce         
 3) 使用示例     
 ```
 [root@kubernetes-master-1 plugins]# nerdctl pull cr.loongnix.cn/library/alpine:3.11
