@@ -61,7 +61,13 @@ mvn package -Pdist,native -DskipTests -Dtar
 ```
 构建成功后会在hadoop-dist/target目录下生成tar包hadoop-3.3.4.tar.gz
 
-## 8. 备注
+## 8. 使用
+在使用hadoop二进制，需要设置本地环境环境变量JAVA_HOME，如：
+```
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.372.b07-4.0.2.an8.loongarch64/jre
+```
+
+## 9. 备注
 .m2路径中包含了以下与架构相关的包：
 
 ### node-v12.19.1     
