@@ -33,7 +33,8 @@ docker compose与nerdctl compose up
 若要使用nerdctl需要满足以下2个条件：        
 1）使用高版本的CNI网络插件：           
 下载https://github.com/Loongson-Cloud-Community/plugins/releases/download/v1.3.0/loongarch64-v1.3.0-bin.tar.gz，         
-解压后重命名为bin,将其存放在/opt/cni/ 目录下       
+解压后重命名为bin,将其存放在/opt/cni/ 目录下      
+备注： plugins源码构建指导：https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/plugins.md     
 2）卸载docker-ce         
 3) 使用示例     
 ```
