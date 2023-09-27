@@ -28,3 +28,22 @@ docker compose与nerdctl compose up
 ### 3.3 官方release包构建
 执行命令： make artifacts   
 该命令将构建所有平台，所有架构的tar包
+
+## 4. 使用依赖
+若要使用nerdctl需要满足以下2个条件：
+1）使用高版本的CNI网络插件：      
+下载https://github.com/Loongson-Cloud-Community/plugins/releases/download/v1.3.0/loongarch64-v1.3.0-bin.tar.gz，         
+解压后重命名为bin,将其存放在/opt/cni/ 目录下
+2）卸载docker-ce       
+3) 使用示例     
+```
+[root@kubernetes-master-1 plugins]# nerdctl pull cr.loongnix.cn/library/alpine:3.11
+cr.loongnix.cn/library/alpine:3.11:                                               resolved       |++++++++++++++++++++++++++++++++++++++| 
+manifest-sha256:9730184ded621302981066363fad2a8157ff071565dc3478c3e8c4fce9c08adc: done           |++++++++++++++++++++++++++++++++++++++| 
+config-sha256:530dc3f1f2ceb4bea7af5aa073e25108e98e2520049193b37e28bb1d0ae51c62:   done           |++++++++++++++++++++++++++++++++++++++| 
+elapsed: 0.5 s                                                                    total:  528.0  (1.0 KiB/s)                                       
+[root@kubernetes-master-1 plugins]# nerdctl run -it cr.loongnix.cn/library/alpine:3.11
+/ # 
+```
+
+
