@@ -130,9 +130,9 @@ ping: baidu.com: Name or service not known
 ```
 
 ## 6.网络设置
-这里主要介绍两种网络方法：
-方法1：创建网桥br0，将其绑定到物理网卡上      
-方法2：使用virbr0/docker0网桥
+这里主要介绍两种网络方法：        
+方法1：创建网桥br0，将其绑定到物理网卡上        
+方法2：使用virbr0/docker0网桥        
 ### 6.1 使用virbr0/docker0网桥
 其原理就是使用网桥virbr0/docker0这两个网桥将容器内的网络连接到主机网络上，从而使容器内使其可以访问外网。
 这里介绍如何使用virbr0网桥    
