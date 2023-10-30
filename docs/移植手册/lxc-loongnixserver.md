@@ -110,8 +110,8 @@ lxc-start loongnixserver8.4-test 20231027072735.259 ERROR    lxc_start - tools/l
 
 若想要启动容器，可将文件/usr/local/var/lib/lxc/loongnixserver8.4-test/config的第11行代码暂时注释:
 ```
- 10 # lxc.net.0.type = veth
- 11 lxc.net.0.link = lxcbr0
+ 10 lxc.net.0.type = veth
+ 11 # lxc.net.0.link = lxcbr0
  12 lxc.net.0.hwaddr = fe:e0:32:2e:57:82
  13 lxc.net.0.flags = up
  14 lxc.rootfs.path = dir:/usr/local/var/lib/lxc/loongnixserver8.4-test/rootfs
