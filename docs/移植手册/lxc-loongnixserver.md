@@ -277,16 +277,60 @@ nerdctl0    acf5f4d7-1322-45cb-b3ac-bc66859cdda7  bridge    nerdctl0
 virbr0      f9160b73-9080-4bad-a207-d8f275c66955  bridge    virbr0   
 br0         98039fb8-bce4-49d5-9dc4-413c1f070482  bridge    --   
 ```
+备注： 此时在会在/etc/sysconfig/network-scripts/目录下生成文件ifcfg-br0
+```
+ cat /etc/sysconfig/network-scripts/ifcfg-br0 
+STP=yes
+BRIDGING_OPTS=priority=32768
+TYPE=Bridge
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=dhcp
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=br0
+UUID=2acac4a7-e8da-4bbe-9133-9486eb7d1221
+DEVICE=br0
+```
+
 2) 将物理网卡enp0s3f0桥接到网桥br0上
 ```
 [root@kubernetes-master-1 network-scripts]# nmcli connection add type bridge-slave ifname enp0s3f0 master br0
 连接 "bridge-slave-enp0s3f0" (b860efd2-c0e9-4b06-9954-b5615f34bf54) 已成功添加。
 ```
-3）给网桥br0设置ip地址
+当执行完这个命令后会在/etc/sysconfig/network-scripts 目录下生成文件ifcfg-bridge-slave-enp0s3f0：      
+```
+cat /etc/sysconfig/network-scripts/ifcfg-bridge-slave-enp0s3f0 
+TYPE=Ethernet
+NAME=bridge-slave-enp0s3f0
+UUID=27d5721f-de75-48ae-9245-1b04dbb4ef3c
+DEVICE=enp0s3f0
+ONBOOT=yes
+BRIDGE=br0
+```
+
+3）启动br0
+```
+[root@kubernetes-master-1 network-scripts]# nmcli connection up br0
+连接已成功激活（master waiting for slaves）（D-Bus 活动路径：/org/freedesktop/NetworkManager/ActiveConnection/8）
+```
+
+4）给网桥br0设置ip地址       
+可选择静态设置ip地址，或动态获取ip地址。     
+静态设置ip地址：    
 ```
 [root@kubernetes-master-1 network-scripts]# nmcli c m br0 ipv4.address 10.130.0.112/24 ipv4.gateway 10.130.1.1 ipv4.method manual
 ```
-4）重启网络使上面的配置生效
+动态获取ip地址：
+```
+nmcli c m br0 ipv4.method auto
+```
+5）重启网络使上面的配置生效
 ```
 [root@kubernetes-master-1 network-scripts]# systemctl restart network
 ```
