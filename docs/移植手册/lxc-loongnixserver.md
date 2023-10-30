@@ -42,7 +42,7 @@ make install  //make install执行完后，二进制安装在/usr/local/bin目�
 make install  //make install 执行完后，模板文件将安装在/usr/local/share/lxc/templates/ 目录下
 ```
 
-## 5.使用lxc-loongnixdebian模板创建容器与启动
+## 5.使用lxc-loongnixserver模板创建容器与启动
 ### 5.1 容器创建
 ```
 lxc-create -n loongnixserver8.4-test -t loongnixserver //-n后面跟的是要创建的容器名称，-t后面跟的是模板文件
