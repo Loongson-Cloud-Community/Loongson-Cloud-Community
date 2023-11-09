@@ -110,7 +110,7 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-loongarch64
         <value>file:/usr/local/hadoop/tmp/dfs/name</value>
     </property>
 <property>
-    <!-- 指定DFS数据表（数据节点）的存储位置>
+    <!-- 指定DFS数据表（数据节点）的存储位置 -->
         <name>dfs.datanode.data.dir</name>
         <value>file:/usr/local/hadoop/tmp/dfs/data</value>
     </property>
