@@ -31,6 +31,12 @@ https://github.com/medcl/elasticsearch-analysis-ik/issues/857
 ```
 
 ## 3. 项目构建
+构建工具安装：
+```
+yum install -y java-11-openjdk
+......
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-11.0.19.0.7-11.6.0.lns8.loongarch64"
+```
 构建命令： 
 ```
 mvn clean
