@@ -643,6 +643,10 @@ Found 2 items
 -rw-r--r--   1 hadoop supergroup 1000000000 2023-11-13 11:37 /terasort/terasort-input/part-m-00000
 ```
 
+在网页上可以看到：
+![teragen](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/assets/67671683/03cc79f5-b730-4714-a1ef-ea6262811085)
+
+
 #### 3.5.2 terasort对产生的数据随机数据进行排序
 ```
 $ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar terasort /terasort/terasort-input /terasort/terasort-output
@@ -677,6 +681,9 @@ Found 3 items
 -rw-r--r--  10 hadoop supergroup          0 2023-11-14 09:31 /terasort/terasort-output/_partition.lst
 -rw-r--r--   1 hadoop supergroup 1000000000 2023-11-14 09:33 /terasort/terasort-output/part-r-00000
 ```
+在网页上可以看到：
+![terasort](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/assets/67671683/1d772af9-95d6-4b8b-a9ec-c4e73b3e062c)
+
 
 #### 3.5.3  数据校验
 teravalidate来验证terasort输出的数据是否有序，如果检查到问题，则会将乱序的key输出到目录
@@ -713,6 +720,9 @@ Found 2 items
 -rw-r--r--   1 hadoop supergroup          0 2023-11-14 09:43 /terasort/terasort-validate/_SUCCESS
 -rw-r--r--   1 hadoop supergroup         24 2023-11-14 09:43 /terasort/terasort-validate/part-r-00000
 ```
+
+在网页上可以看到：
+![teravalidate2](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/assets/67671683/b6f5080e-54e6-4e14-b964-38f5505aa5a3)
 
 
 备注：若之前创建过terasort，在重新进行测试时需要先使用“hadoop fs -rm -r /terasort”命令进行删除
