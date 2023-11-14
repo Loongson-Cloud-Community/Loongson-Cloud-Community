@@ -1,4 +1,4 @@
-# hadoop+hbase 完全分布式部署
+![teravalidate2](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/assets/67671683/59490525-da33-4575-8808-15543a51e2a8)# hadoop+hbase 完全分布式部署
 
 ## 1. 环境准备
 这里部署使用两台机器：
@@ -587,6 +587,136 @@ Took 0.0125 seconds
 此时可以看到/usr/local/hadoop/tmp/dfs/data/current/BP-1581270469-10.130.0.62-1676893644213/current/rbw目录下生成了文件了blk_xxxxxxxxxx，其中文件的内容便是put写入的内容。     
 hadoop@node02:/usr/local/hadoop/tmp/dfs/data/current/BP-1730813420-10.130.0.137-1676856486892$ grep -rn value200       
 匹配到二进制文件 current/rbw/blk_1073741851     
+
+### 3.5 Terasort测试
+Terasort是测试hadoop的一个有效的排序程序，通过hadoop自带的Terasort排序程序进行测试，一个Terasort测试分为以下三个步骤：
+#### 3.5.1 teragen产生随机数据       
+执行命令：
+```
+$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar teragen -Dmapred.map.tasks=128 10000000 /terasort/terasort-input
+2023-11-13 11:37:27,450 INFO impl.MetricsConfig: Loaded properties from hadoop-metrics2.properties
+2023-11-13 11:37:27,675 INFO impl.MetricsSystemImpl: Scheduled Metric snapshot period at 10 second(s).
+2023-11-13 11:37:27,675 INFO impl.MetricsSystemImpl: JobTracker metrics system started
+2023-11-13 11:37:27,935 INFO terasort.TeraGen: Generating 10000000 using 1
+2023-11-13 11:37:27,955 INFO mapreduce.JobSubmitter: number of splits:1
+2023-11-13 11:37:27,995 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+......
+2023-11-13 11:37:50,359 INFO mapreduce.Job:  map 100% reduce 0%
+2023-11-13 11:37:50,360 INFO mapreduce.Job: Job job_local242609962_0001 completed successfully
+2023-11-13 11:37:50,370 INFO mapreduce.Job: Counters: 22
+    File System Counters
+        FILE: Number of bytes read=281117
+        FILE: Number of bytes written=918485
+        FILE: Number of read operations=0
+        FILE: Number of large read operations=0
+        FILE: Number of write operations=0
+        HDFS: Number of bytes read=0
+        HDFS: Number of bytes written=1000000000
+        HDFS: Number of read operations=5
+        HDFS: Number of large read operations=0
+        HDFS: Number of write operations=3
+        HDFS: Number of bytes read erasure-coded=0
+    Map-Reduce Framework
+        Map input records=10000000
+        Map output records=10000000
+        Input split bytes=82
+        Spilled Records=0
+        Failed Shuffles=0
+        Merged Map outputs=0
+        GC time elapsed (ms)=113
+        Total committed heap usage (bytes)=1166540800
+    org.apache.hadoop.examples.terasort.TeraGen$Counters
+        CHECKSUM=21472776955442690
+    File Input Format Counters 
+        Bytes Read=0
+    File Output Format Counters 
+        Bytes Written=1000000000
+```
+在执行完上面的命令后会产生随机数据文件part-m-xxx：
+```
+hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs  -ls /terasort
+Found 1 items
+drwxr-xr-x   - hadoop supergroup          0 2023-11-13 11:37 /terasort/terasort-input
+hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs  -ls /terasort/terasort-input
+Found 2 items
+-rw-r--r--   1 hadoop supergroup          0 2023-11-13 11:37 /terasort/terasort-input/_SUCCESS
+-rw-r--r--   1 hadoop supergroup 1000000000 2023-11-13 11:37 /terasort/terasort-input/part-m-00000
+```
+
+#### 3.5.2 terasort对产生的数据随机数据进行排序
+```
+$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar terasort /terasort/terasort-input /terasort/terasort-output
+2023-11-14 09:31:40,955 INFO terasort.TeraSort: starting
+2023-11-14 09:31:42,493 INFO input.FileInputFormat: Total input files to process : 1
+Spent 301ms computing base-splits.
+Spent 3ms computing TeraScheduler splits.
+Computing input splits took 305ms
+Sampling 8 splits of 8
+Making 1 from 100000 sampled records
+Computing parititions took 582ms
+Spent 892ms computing partitions.
+......
+    Shuffle Errors
+        BAD_ID=0
+        CONNECTION=0
+        IO_ERROR=0
+        WRONG_LENGTH=0
+        WRONG_MAP=0
+        WRONG_REDUCE=0
+    File Input Format Counters 
+        Bytes Read=1000000000
+    File Output Format Counters 
+        Bytes Written=1000000000
+2023-11-14 09:33:18,090 INFO terasort.TeraSort: done
+```
+在执行完上面的命令后，可以看到产生了目录terasort-output和排序后的文件part-r-00000:
+```
+hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs -ls /terasort/terasort-output
+Found 3 items
+-rw-r--r--   1 hadoop supergroup          0 2023-11-14 09:33 /terasort/terasort-output/_SUCCESS
+-rw-r--r--  10 hadoop supergroup          0 2023-11-14 09:31 /terasort/terasort-output/_partition.lst
+-rw-r--r--   1 hadoop supergroup 1000000000 2023-11-14 09:33 /terasort/terasort-output/part-r-00000
+```
+
+#### 3.5.3  数据校验
+teravalidate来验证terasort输出的数据是否有序，如果检查到问题，则会将乱序的key输出到目录
+```
+$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar teravalidate /terasort/terasort-output /terasort/terasort-validate |&tee sort1G-3.log
+2023-11-14 09:43:16,470 INFO impl.MetricsConfig: Loaded properties from hadoop-metrics2.properties
+2023-11-14 09:43:16,700 INFO impl.MetricsSystemImpl: Scheduled Metric snapshot period at 10 second(s).
+2023-11-14 09:43:16,700 INFO impl.MetricsSystemImpl: JobTracker metrics system started
+2023-11-14 09:43:17,114 INFO input.FileInputFormat: Total input files to process : 1
+Spent 164ms computing base-splits.
+Spent 5ms computing TeraScheduler splits.
+......
+    Shuffle Errors
+        BAD_ID=0
+        CONNECTION=0
+        IO_ERROR=0
+        WRONG_LENGTH=0
+        WRONG_MAP=0
+        WRONG_REDUCE=0
+    File Input Format Counters 
+        Bytes Read=1000000000
+    File Output Format Counters 
+        Bytes Written=24
+```
+此时可以看到产生了目录terasort-validate和文件part-r-00000:
+```
+hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs -ls /terasort/
+Found 3 items
+drwxr-xr-x   - hadoop supergroup          0 2023-11-13 11:37 /terasort/terasort-input
+drwxr-xr-x   - hadoop supergroup          0 2023-11-14 09:33 /terasort/terasort-output
+drwxr-xr-x   - hadoop supergroup          0 2023-11-14 09:43 /terasort/terasort-validate
+hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs -ls /terasort/terasort-validate
+Found 2 items
+-rw-r--r--   1 hadoop supergroup          0 2023-11-14 09:43 /terasort/terasort-validate/_SUCCESS
+-rw-r--r--   1 hadoop supergroup         24 2023-11-14 09:43 /terasort/terasort-validate/part-r-00000
+```
+
+
+备注：若之前创建过terasort，在重新进行测试时需要先使用“hadoop fs -rm -r /terasort”命令进行删除
+
 ## 4. 集群关闭
 ```
 /usr/local/hbase/bin/stop-hbase.sh
