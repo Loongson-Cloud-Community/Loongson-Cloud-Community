@@ -263,6 +263,10 @@ Took 0.0125 seconds
 ```
 此时可以看到/usr/local/hadoop/tmp/dfs/data/current/BP-1581270469-10.130.0.62-1676893644213/current/rbw目录下生成了文件了blk_xxxxxxxxxx，其中文件的内容便是put写入的内容。
 
+### 3.5 Terasort测试
+见：
+https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/hadoop+hbase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2.md
+
 ## 4. 集群关闭
 ```
 /usr/local/hbase/bin/stop-hbase.sh
