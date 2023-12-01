@@ -92,6 +92,7 @@
 ## 二、构建
 
 ```shell
+
 ## 启动构建环境
 docker run -d --name flume --hostname flume --network host cr.loongnix.cn/openanolis/anolisos:8.8 bash -c "while true; do sleep 1;done"
 
@@ -105,3 +106,4 @@ git clone --branch loong64-1.11.0 https://github.com/Loongson-Cloud-Community/fl
 
 ## 构建
 mvn clean install -DskipTests -Dspotbugs.skip=true
+```
