@@ -105,7 +105,7 @@ https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/d
     <mirror>
       <id>conjars</id>
       <name>conjars</name>
-      <url>https://conjars.wensel.net/repo/</url>
+      <url>https://maven.aliyun.com/repository/spring<</url>
       <mirrorOf>conjars</mirrorOf>
     </mirror>
 ```
