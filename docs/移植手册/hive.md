@@ -16,6 +16,7 @@ export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
 ## 3. 源码适配
 该项目本身架构无关，无需适配
 
+# 步骤4当前已经无需执行，使用龙芯官方maven仓库即可，使用[教程](http://docs.loongnix.cn/maven/user_guide.html)
 ## 4. 依赖项准备
 hive在构建时，会依赖一些架构相关的jar包，需要提前构建loongarch64架构的jar包，具体如下：
 
@@ -98,6 +99,16 @@ https://github.com/Loongson-Cloud-Community/netty/tree/loong64-netty-4.0.52.Fina
 https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/netty.md        
 
 ## 5. pom文件修改
+### 5.0 对5.1的补充说明
+也可以直接在maven仓库中添加仓库配置 vim $MAVEN_HOME/conf/settings.xml,配置该项后无需执行5.1
+```
+    <mirror>
+      <id>conjars</id>
+      <name>conjars</name>
+      <url>https://conjars.wensel.net/repo/</url>
+      <mirrorOf>conjars</mirrorOf>
+    </mirror>
+```
 ### 5.1 calcite-1.10.0.pom
 在～/.m2/repository/org/apache/calcite/calcite/1.10.0/calcite-1.10.0.pom中修改pentaho-aggdesigner-algorithm的下载地址，代码如下，即用785～789行的代码替换791～801行的代码：
 ```
