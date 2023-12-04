@@ -10,9 +10,9 @@
 |名称       |描述|
 |--         |--|
 |名称       |pulsar|
-|版本       |3.0.0|
+|版本       |2.8.0|
 |项目地址   |[https://github.com/apache/pulsar](https://github.com/apache/pulsar)|
-|官方指导   |[https://github.com/apache/pulsar/tree/v3.0.0/README.md](https://github.com/apache/pulsar/tree/v3.0.0/README.md)|
+|官方指导   |[https://github.com/apache/pulsar/tree/v3.0.0/README.md](https://github.com/apache/pulsar/tree/v2.8.0/README.md)|
 
 ## 环境信息
 
@@ -25,21 +25,24 @@
 ## 移植步骤
 
 __编译环境及依赖__
-1. java 17 or later
-2. maven 3.5 or later
+1. java 8 
+2. maven 3.5
 3. zip
 
 __移植步骤__
 1. 下载源码
-   ` git clone -b v3.0.0 --depth 1 https://github.com/apache/pulsar.git`
+   ` git clone -b v2.8.0 --depth 1 https://github.com/apache/pulsar.git`
    - 也可以直接下载适配代码
-   ` git clone -b loong64-3.0.0 --depth 1 [https://github.com/apache/pulsar.git](https://github.com/Loongson-Cloud-Community/pulsar.git)`
+   ` git clone -b loong64-2.8.0 --depth 1 [https://github.com/apache/pulsar.git](https://github.com/Loongson-Cloud-Community/pulsar.git)`
 3. 修改配置文件
-   具体见 [https://github.com/Loongson-Cloud-Community/pulsar/commit/9269730f5387dadc8cf0aa010dfcbec80bc13544](https://github.com/Loongson-Cloud-Community/pulsar/commit/9269730f5387dadc8cf0aa010dfcbec80bc13544)
+   主要修改了项目所需依赖，未在项目中配置loongarch maven仓库，具体配置见[龙芯maven仓库配置](http://docs.loongnix.cn/maven/user_guide.html)
+   具体见 [适配更改](https://github.com/Loongson-Cloud-Community/pulsar/commit/43cbc56483d525000149e23d17d94c23bef2edcd)
 4. 编译
    最小化编译,编译较快 
    ` mvn install -Pcore-modules,-main -DskipTests `
    编译完成的可执行文件位于bin目录下
+   全部编译命令：
+   ` mvn install -DskipTests `
 
 __测试__
 
