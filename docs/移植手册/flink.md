@@ -4,7 +4,7 @@
 release-1.14.6    
 
 # 2.源码修改
-见补丁
+见补丁: https://github.com/Loongson-Cloud-Community/flink/releases/download/release-1.14.6/loongarch64-1.14.6.patch
 
 # 3.修改maven源
 将maven源修改为龙芯源。
