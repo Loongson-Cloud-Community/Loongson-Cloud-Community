@@ -31,18 +31,26 @@ __编译环境及依赖__
 
 __移植步骤__
 1. 下载源码
-   ` git clone -b v2.8.0 --depth 1 https://github.com/apache/pulsar.git`
-   - 也可以直接下载适配代码
-   ` git clone -b loong64-2.8.0 --depth 1 [https://github.com/apache/pulsar.git](https://github.com/Loongson-Cloud-Community/pulsar.git)`
-3. 修改配置文件
+   ```
+   git clone -b v2.8.0 --depth 1 https://github.com/apache/pulsar.git`
+   ```
+   也可以直接下载适配代码
+   ``` 
+   git clone -b loong64-2.8.0 --depth 1 [https://github.com/apache/pulsar.git](https://github.com/Loongson-Cloud-Community/pulsar.git)
+   ```
+2. 修改配置文件
    主要修改了项目所需依赖，未在项目中配置loongarch maven仓库，具体配置见[龙芯maven仓库配置](http://docs.loongnix.cn/maven/user_guide.html)
    具体见 [适配更改](https://github.com/Loongson-Cloud-Community/pulsar/commit/43cbc56483d525000149e23d17d94c23bef2edcd)
-4. 编译
+3. 编译
    最小化编译,编译较快 
-   ` mvn install -Pcore-modules,-main -DskipTests `
+   ```
+   mvn install -Pcore-modules,-main -DskipTests
+   ``` 
    编译完成的可执行文件位于bin目录下
    全部编译命令：
-   ` mvn install -DskipTests `
+   ``` 
+   mvn install -DskipTests 
+   ```
 
 __测试__
 

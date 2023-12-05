@@ -29,8 +29,6 @@ __下载源码__
 __移植__  
 关于移植过程中需要修改的文件以及如何修改可以参考[dbad884](https://github.com/Loongson-Cloud-Community/bookkeeper/commit/dbad884b18bf5baf45410cdb551451b13e927d05)
 
-```
-
 __编译__  
 在确保网络通畅的情况下执行：
 ```
