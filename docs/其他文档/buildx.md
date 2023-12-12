@@ -213,7 +213,11 @@ $ docker buildx build --platform linux/arm64
 ###### 使用buildkit
 ```
 $ docker builder create --name loongson　--driver=docker --driver-opt=moby/buildkit:v0.11.3
-$ docker buildx build --platform linux/arm64,linux/loongarch64
+$ docker buildx build --push --platform linux/arm64,linux/loongarch64 -t cr.loongnix.cn/library/test:latest -f Dockerfile .
+注意：构建单一架构(single arch)下镜像时使用--load --platform linux/arm64 组合
+而多架构只能使用--push --platform linux/arm64,linux/loongarch64
+--load 表示构建到本地
+--push则直接push到dockerhub
 ```
 构建完毕后，查看构建的多架构镜像信息：
 ``` 
