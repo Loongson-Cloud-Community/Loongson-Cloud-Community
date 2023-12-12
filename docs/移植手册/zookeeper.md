@@ -1,10 +1,10 @@
-# flink
+# zookeeper
 
 # 1.构建版本
-release-1.14.6    
+release-3.6.3   
 
 # 2.源码修改
-见补丁: https://github.com/Loongson-Cloud-Community/flink/releases/download/release-1.14.6/loongarch64-1.14.6.patch
+不需要修改源码
 
 # 3.修改maven源
 将maven源修改为龙芯源。
