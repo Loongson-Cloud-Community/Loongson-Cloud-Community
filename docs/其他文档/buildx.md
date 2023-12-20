@@ -63,12 +63,12 @@ docker builder create [参数] [内容|]
 docker builder create --name loongson　--driver=docker --driver-opt=moby/buildkit:v0.11.3 
 //创建名字为loongson的实例,指定构建器驱动程序为docker,指定驱动程序为buildkit，版本可选
 构建器类型
-+++++++++++++++++++++++++++++++++++
-docker docker绑定+ 默认的buildkit +
-docker-container + buildkit 　　　+
-kubernetes       + k8s集群下专用　+
-remote           + 手动连接       +
-+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++
+docker           + default buildkit    +
+docker-container + buildkit 　　　      +
+kubernetes       + k8s pod　           +
+remote           + local use buildctl  +
+++++++++++++++++++++++++++++++++++++++++
 
 主要使用前两个
 ```
@@ -80,7 +80,6 @@ docker builder rm <name>
 
 docker builder use <name>
 docker builder inspect --bootstrap <name>
-//暂时存在问题，因为目前没有支持loongarch的镜像manufast
 
 docker builder 
 
@@ -266,3 +265,22 @@ variable "TARGETARCH" {
 ```
 上述代码中目标平台若为loongarch，则需要调用lcr龙芯官方镜像源的基础镜像
 
+如果想在Dockerfile中使用前端构建器，在(龙芯镜像官网)[https://cr.loongnix.cn/search] 搜索dockerfile 查看当前前端构建器版本(experiment)，暂时只适配了buildkit/0.12.3 下的前端构建器，支持大部分新的Dockerfile DSL语法，使用示例
+(frontend原理)[https://www.yuque.com/yzewei/rb4gmw/px44zok1xgklc0if?singleDoc# 《云原生 Docker Buildkit 二》]
+```
+Dockerfile
+# syntax=cr.loongnix.cn/library/dockerfile:experiment
+FROM golang:1.20-alpine AS builder
+WORKDIR /app
+ADD . .
+#ADD main.go main.go
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    go build -ldflags="-w" -o ./hello hello.go
+
+FROM debian:buster
+#FROM alpine:latest
+WORKDIR /app
+#ADD . .
+COPY --link --from=builder /app/hello .
+CMD ["./hello"]
+```
