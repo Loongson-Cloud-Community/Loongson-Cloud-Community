@@ -209,11 +209,11 @@ x86架构
 ```
 docker run --privileged --rm tonistiigi/binfmt --install all
 ```
-旧世界
+abi 1.0 (linux kernel < 5.10)
 ```
 docker run --privileged --rm cr.loongnix.cn/library/tonistiigi/binfmt:latest --install all
 ```
-新世界
+abi 2.0 (linux kernel >= 5.10)
 ```
 docker run --privileged --rm lcr.loongnix.cn/library/tonistiigi/binfmt:latest --install all
 ```
