@@ -217,6 +217,14 @@ abi 2.0 (linux kernel >= 5.10)
 ```
 docker run --privileged --rm lcr.loongnix.cn/library/tonistiigi/binfmt:latest --install all
 ```
+注册完毕后查看目录binfmt_misc 确认对应的模拟器是否被注册，例 在x86架构
+```
+ls /proc/sys/fs/binfmt_misc
+llvm-14-runtime.binfmt	qemu-arm	  qemu-mips64el  qemu-s390x
+python3.11		qemu-loongarch64  qemu-ppc64le	 register
+qemu-aarch64		qemu-mips64	  qemu-riscv64	 status
+```
+确认对应loongarch的emulator已经被注册
 
 ###### 使用默认构建器
 一次只能构建一个架构的镜像，无法将多个架构镜像同时存储在同一个manifest中
