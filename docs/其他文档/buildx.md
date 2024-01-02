@@ -204,6 +204,20 @@ target "webapp-dev" {
 ## 4. 跨平台镜像批量构建功能
 #### 选用平台
 ##### x86/loongarch64 (使用的镜像不同)
+##### 注册多架构qemu到内存中
+x86架构
+```
+docker run --privileged --rm tonistiigi/binfmt --install all
+```
+旧世界
+```
+docker run --privileged --rm cr.loongnix.cn/library/tonistiigi/binfmt:latest --install all
+```
+新世界
+```
+docker run --privileged --rm lcr.loongnix.cn/library/tonistiigi/binfmt:latest --install all
+```
+
 ###### 使用默认构建器
 一次只能构建一个架构的镜像，无法将多个架构镜像同时存储在同一个manifest中
 ```
