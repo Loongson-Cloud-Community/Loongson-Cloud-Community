@@ -390,7 +390,7 @@ logger对象配置完成后，可以使用下面的方法来创建日志记录�
 | logging.handlers.SMTPHandler | 将日志消息发送给一个指定的email地址 |
 | logging.NullHandler | 该Handler实例会忽略error messages，通常被想使用logging的library开发者使用来避免'No handlers could be found for logger XXX'信息的出现。 |
 
-#### 3.4 Formater 组件说明
+### 3.4 Formater 组件说明
 
 Formater对象用于配置日志信息的最终顺序、结构和内容。与logging.Handler基类不同的是，应用代码可以直接实例化Formatter类。另外，如果你的应用程序需要一些特殊的处理行为，也可以实现一个Formatter的子类来完成。
 
