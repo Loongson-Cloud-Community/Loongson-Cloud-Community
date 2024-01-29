@@ -13,7 +13,7 @@ Nacos 帮助您更敏捷和容易地构建、交付和管理微服务平台。 N
 
 ```shell
 # 系统信息
-root@nacos_server /w/d/nacos# cat /etc/os-release 
+root@nacos_server /w/d/nacos# cat /etc/os-release
 NAME="Loongnix-Server Linux"
 VERSION="8"
 ID="loongnix-server"
@@ -33,7 +33,7 @@ root@nacos_server /w/d/nacos# uname -r
 4.19.190-2.1.lns8.loongarch64
 ```
 
-## 03 依赖分析
+<!-- ## 03 依赖分析
 
 对于官方的“nacos-server.jar”的架构相关扫描结果如下：
 ```
@@ -83,12 +83,12 @@ nacos-2.1.0/
 │   └── netty-tcnative-parent-2.0.36.Final
 └── rocksdbjni-5.18.4
 ```
-
+-->
 ## 04 构建过程
 
 1. [protoc-la64](https://github.com/Loongson-Cloud-Community/protobuf/releases/download/v3.20.1/protoc_loong64)
 2. [protoc-gen-grpc-java-la64-server](https://github.com/Loongson-Cloud-Community/grpc-java/releases/download/loong64-v1.26.0/protoc-gen-grpc-java-la64-server)
-3. [nacos架构相关依赖的jar文件](https://github.com/Loongson-Cloud-Community/nacos/releases/download/2.1.0/nacos_m2.tar.gz)
+<!-- 3. [nacos架构相关依赖的jar文件](https://github.com/Loongson-Cloud-Community/nacos/releases/download/2.1.0/nacos_m2.tar.gz) -->
 
 构建命令：`mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U`
 
@@ -98,7 +98,7 @@ nacos-2.1.0/
 
 启动命令： `./startup.sh -m standalone`
 
-- 检查架构相关的jar包
+- 检查架构相关的jar包确认是否包含LA架构so
 
 ```shell
 root@nacos_server2 /w/n/n/d/t/n/n/tmp (la64-Alpha-2.1.0) [SIGINT]# for file in (find ./ -name "*.jar"); jar tf $file | grep ".so\$" && echo $file; end
@@ -137,7 +137,7 @@ com/sun/jna/openbsd-x86-64/libjnidispatch.so
 - rocksdbjni数据库文件
 
 ```
-root@nacos_server2 /tmp# file /tmp/librocksdbjni3982187426176383834.so 
+root@nacos_server2 /tmp# file /tmp/librocksdbjni3982187426176383834.so
 /tmp/librocksdbjni3982187426176383834.so: ELF 64-bit LSB shared object, *unknown arch 0x102* version 1 (GNU/Linux), dynamically linked, BuildID[sha1]=d7103584459702015a1fcdaaacdb2c7dd0888be4, not stripped
 ```
 
@@ -145,10 +145,10 @@ root@nacos_server2 /tmp# file /tmp/librocksdbjni3982187426176383834.so
 
 ```shell
 root@nacos_server2 /w/n/n/d/t/n/n/bin (la64-Alpha-2.1.0) [SIGINT]# ss -ntlp
-State              Recv-Q             Send-Q                         Local Address:Port                         Peer Address:Port             Process                                         
-LISTEN             0                  128                                  0.0.0.0:9848                              0.0.0.0:*                 users:(("java",pid=108239,fd=464))             
-LISTEN             0                  128                                  0.0.0.0:9849                              0.0.0.0:*                 users:(("java",pid=108239,fd=465))             
-LISTEN             0                  128                                  0.0.0.0:7848                              0.0.0.0:*                 users:(("java",pid=108239,fd=466))             
+State              Recv-Q             Send-Q                         Local Address:Port                         Peer Address:Port             Process
+LISTEN             0                  128                                  0.0.0.0:9848                              0.0.0.0:*                 users:(("java",pid=108239,fd=464))
+LISTEN             0                  128                                  0.0.0.0:9849                              0.0.0.0:*                 users:(("java",pid=108239,fd=465))
+LISTEN             0                  128                                  0.0.0.0:7848                              0.0.0.0:*                 users:(("java",pid=108239,fd=466))
 LISTEN             0                  100                                  0.0.0.0:8848                              0.0.0.0:*                 users:(("java",pid=108239,fd=601))
 ```
 
