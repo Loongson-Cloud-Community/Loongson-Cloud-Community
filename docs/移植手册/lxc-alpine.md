@@ -354,3 +354,14 @@ num   pkts bytes target     prot opt in     out     source               destina
 1        0     0 SNAT       0    --  *      *       192.168.200.12       0.0.0.0/0            to:10.130.0.143
 /home/alpine/alpine/lxc-templates-legacy # iptables -t nat -D POSTROUTING 1  //这里的1指向的是上面的num 1
 ```
+
+## 7. 从源码构建lxc & lxc-templates
+### 7.1 lxc-templates
+源码修改：参考https://github.com/Loongson-Cloud-Community/lxc-templates/commits/loongarch64-lxc-templates-3.0.4/的git log信息“Modify alpine to support loongarch64”
+构建命令：
+```
+./configure --build=loongarch64-alpine-linux-musl  --host=loongarch64-alpine-linux-musl --prefix=/usr --sysconfdir=/etc --mandir=/usr/share/man --localstatedir=/var
+make
+make install
+```
+
