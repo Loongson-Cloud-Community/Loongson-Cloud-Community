@@ -356,7 +356,22 @@ num   pkts bytes target     prot opt in     out     source               destina
 ```
 
 ## 7. 从源码构建lxc & lxc-templates
-### 7.1 lxc-templates
+### 7.1 lxc
+源码修改：参考https://github.com/Loongson-Cloud-Community/lxc/tree/loongarch64-lxc-5.0.2的补丁
+依赖包安装：
+```
+apk add build-base docbook2x libapparmor-dev libcap-dev libcap-static libseccomp-dev linux-headers linux-pam-dev meson
+apk add automake autoconf libmagic file  libstdc++-dev musl-dev g++ fortify-headers build-base linux-headers  binutils
+```
+构建命令
+```
+abuild-meson -Db_lto= -Ddistrosysconfdir=/etc/default -Dpam-cgroup=true -Dtests=true -Dinit-script=[]  . output   //在构建时会在当前目录创建一个output目录，用来存储构建结果
+meson compile -C output
+meson install --no-rebuild -C output  //若这里没有-C output则默认安装在/usr/local/bin或者/usr/bin目录下
+```
+备注: abuild-meson命令也可以替换为meson命令
+
+### 7.2 lxc-templates
 源码修改：参考https://github.com/Loongson-Cloud-Community/lxc-templates/commits/loongarch64-lxc-templates-3.0.4/的git log信息“Modify alpine to support loongarch64”
 构建命令：
 ```
