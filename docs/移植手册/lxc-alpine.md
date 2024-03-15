@@ -24,7 +24,7 @@
 apk add lxc-templates
 apk add lxc-templates-legacy
 apk add lxc-templates-legacy-alpine
-apk lxc
+apk add lxc
 ```
 
 ## 4. 环境准备
