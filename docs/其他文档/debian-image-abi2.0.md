@@ -19,7 +19,7 @@
 |	15	|	library/ruby/2.5.5/Dockerfile	|
 |	16	|	library/elasticsearch/8.7.0/Dockerfile	|
 |	17	|	library/logstash/8.7.0/Dockerfile	|
-|	18	|	library/python/3.7.10/Dockerfile	|
+|	18	|	library/python/3.7.10/Dockerfile	| 是 |
 |	19	|	library/python/3.9/debian/Dockerfile	|
 |	20	|	library/python/3.12/debian/Dockerfile	|
 |	21	|	library/python/3.10/debian/Dockerfile	| 是 |
