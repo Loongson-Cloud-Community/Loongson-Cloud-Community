@@ -20,10 +20,10 @@
 |	16	|	library/elasticsearch/8.7.0/Dockerfile	|
 |	17	|	library/logstash/8.7.0/Dockerfile	|
 |	18	|	library/python/3.7.10/Dockerfile	| 是 |
-|	19	|	library/python/3.9/debian/Dockerfile	|
-|	20	|	library/python/3.12/debian/Dockerfile	|
+|	19	|	library/python/3.9/debian/Dockerfile	| 是 |
+|	20	|	library/python/3.12/debian/Dockerfile	| 是 |
 |	21	|	library/python/3.10/debian/Dockerfile	| 是 |
-|	22	|	library/python/3.11/debian/Dockerfile	| 
+|	22	|	library/python/3.11/debian/Dockerfile	|  是 |
 |	23	|	library/php/7.4.30-apache/Dockerfile	|
 |	24	|	library/mariadb/10.6/Dockerfile	|
 |	25	|	library/mariadb/10.5.18/Dockerfile	|
