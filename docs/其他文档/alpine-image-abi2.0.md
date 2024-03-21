@@ -96,4 +96,3 @@
 |	92	|	zabbix/zabbix-server-mysql/alpine-3.4.15/Dockerfile	|		|		|
 |	93	|	zabbix/zabbix-web-apache-mysql/alpine-3.4.15/Dockerfile	|		|		|
 |	94	|	zabbix/zabbix-web-apache-mysql/alpine-5.0.2/Dockerfile	|		|		|
-![image](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/assets/67671683/7092ceaf-1f1e-4b9a-9d84-d7248ad84fd1)
