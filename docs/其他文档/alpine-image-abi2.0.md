@@ -2,9 +2,9 @@
 
 |序号|项目     	|是否移植   	|阻塞项|
 |--  |--        |--           |--|
-|	1	|	apache/httpd/2.4.38-alpine/Dockerfile	|	正在进行	|		|
-|	2	|	apache/httpd/2.4.39-alpine/Dockerfile	|		|		|
-|	3	|	apache/httpd/2.4.46-alpine/Dockerfile	|		|		|
+|	1	|	apache/httpd/2.4.38-alpine/Dockerfile	|	是	|		|
+|	2	|	apache/httpd/2.4.39-alpine/Dockerfile	|	正在进行	|		|
+|	3	|	apache/httpd/2.4.46-alpine/Dockerfile	|	是(并完成2.4.58版本制作)	|		|
 |	4	|	calico/calico/3.26.1/0001-support-loong64.patch	|		|		|
 |	5	|	curlimages/curl/latest/Dockerfile	|		|		|
 |	6	|	deepflowio/deepflow/6.1.4-alpine-server/Dockerfile	|		|		|
