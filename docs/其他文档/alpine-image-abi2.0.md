@@ -67,7 +67,7 @@
 |	63	|	library/php/7.4.30-cli-alpine/Dockerfile	|		|		|
 |	64	|	library/php/7.4.30-fpm-alpine/Dockerfile	|		|		|
 |	65	|	library/postgres/13-alpine/Dockerfile	|	正在进行	|		|
-|	66	|	library/postgres/9.6.24-alpine/Dockerfile	|		|		|
+|	66	|	library/postgres/9.6.24-alpine/Dockerfile	|	正在进行	|		|
 |	67	|	library/python/3.8.0-alpine/Dockerfile	|		|		|
 |	68	|	library/rabbitmq/3.8.18/Dockerfile	|		|		|
 |	69	|	library/rabbitmq/3.8.2/Dockerfile	|		|		|
