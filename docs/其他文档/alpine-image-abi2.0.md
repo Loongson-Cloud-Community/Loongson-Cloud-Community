@@ -7,7 +7,7 @@
 |	3	|	apache/httpd/2.4.46-alpine/Dockerfile	|	是(并完成2.4.58版本制作)	|		|
 |	4	|	calico/calico/3.26.1/0001-support-loong64.patch	|		|		|
 |	5	|	curlimages/curl/latest/Dockerfile	|		|		|
-|	6	|	deepflowio/deepflow/6.1.4-alpine-server/Dockerfile	|	正在进行	|		|
+|	6	|	deepflowio/deepflow/6.1.4-alpine-server/Dockerfile	|	是	|		|
 |	7	|	dragonflyoss/dfclient/1.0.6/0001-port-to-loong64.patch	|		|		|
 |	8	|	dragonflyoss/nginx/alpine/Dockerfile	|	正在进行	|		|
 |	9	|	dragonflyoss/supernode/1.0.6/0001-port-to-loong64.patch	|		|		|
