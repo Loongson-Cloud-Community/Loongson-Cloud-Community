@@ -56,7 +56,7 @@
 |	52	|	library/eclipse-mosquitto/2.0.15/Dockerfile	|		|		|
 |	53	|	library/golang/1.15-alpine/Dockerfile	|		|		|
 |	54	|	library/golang/1.19-alpine/Dockerfile	|		|		|
-|	55	|	library/golang/1.20-alpine/Dockerfile	|		|		|
+|	55	|	library/golang/1.20-alpine/Dockerfile	|	正在进行	|		|
 |	56	|	library/golang/1.21-alpine/Dockerfile	|		|		|
 |	57	|	library/golang/1.22-alpine/Dockerfile	|		|		|
 |	58	|	library/haproxy/2.3-alpine/Dockerfile	|		|		|
