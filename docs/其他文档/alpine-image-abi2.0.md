@@ -8,8 +8,8 @@
 |	4	|	calico/calico/3.26.1/0001-support-loong64.patch	|		|		|
 |	5	|	curlimages/curl/latest/Dockerfile	|	是（完成8.7.1版本制作）	|		|
 |	6	|	deepflowio/deepflow/6.1.4-alpine-server/Dockerfile	|	是	|		|
-|	7	|	dragonflyoss/dfclient/1.0.6/0001-port-to-loong64.patch	|	正在进行	|		|
-|	8	|	dragonflyoss/nginx/alpine/Dockerfile	|	正在进行	|		|
+|	7	|	dragonflyoss/dfclient/1.0.6/0001-port-to-loong64.patch	|		|		|
+|	8	|	dragonflyoss/nginx/alpine/Dockerfile	|		|		|
 |	9	|	dragonflyoss/supernode/1.0.6/0001-port-to-loong64.patch	|		|		|
 |	10	|	edgexfoundry/app-service-configurable/2.3.0/0001-port-to-loong64.patch	|		|		|
 |	11	|	edgexfoundry/app-service-configurable/3.0.0/0001-port-to-loong64.patch	|		|		|
@@ -29,8 +29,8 @@
 |	25	|	flannel-io/flannel/0.24.2/0001-support-loong64.patch	|		|		|
 |	26	|	flannel-io/flannel/0.24.3/0001-support-loong64.patch	|		|		|
 |	27	|	fluent/fluentd/13.3.3-alpine/Dockerfile	|		|		|
-|	28	|	gitlab/gitlab-runner-helper/13.11/Dockerfile	|		|		|
-|	29	|	gitlab/gitlab-runner/13.11-alpine/Dockerfile	|		|		|
+|	28	|	gitlab/gitlab-runner-helper/13.11/Dockerfile	|正在进行		|		|
+|	29	|	gitlab/gitlab-runner/13.11-alpine/Dockerfile	|	正在进行	|		|
 |	30	|	grafana/loki/2.8.5/0001-support-loong64.patch	|		|		|
 |	31	|	jenkins/jenkins/2.270/Dockerfile	|		|		|
 |	32	|	justwatchcom/elasticsearch_exporter/1.1.0/0001-add-loong64-support.patch	|		|		|
