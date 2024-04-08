@@ -18,8 +18,8 @@
 |	14	|	edgexfoundry/core-metadata/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
 |	15	|	edgexfoundry/device-rest/0001-loong64-support-for-device-rest.patch	|		|		|
 |	16	|	edgexfoundry/device-virtual/0001-add-loong64-support-device-virtual.patch	|		|		|
-|	17	|	edgexfoundry/edgex-go/2.3.0/0001-port-to-loong64.patch	|		|		|
-|	18	|	edgexfoundry/edgex-ui/3.0.0/0001-port-to-loong64.patch	|		|		|
+|	17	|	edgexfoundry/edgex-go/2.3.0/0001-port-to-loong64.patch	|	正在进行	|		|
+|	18	|	edgexfoundry/edgex-ui/3.0.0/0001-port-to-loong64.patch	|	正在进行	|		|
 |	19	|	edgexfoundry/support-notifications/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
 |	20	|	edgexfoundry/support-scheduler/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
 |	21	|	edgexfoundry/sys-mgmt-agent/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
