@@ -55,7 +55,7 @@
 |	51	|	library/dockerfile/1.5.0/0001-add-loongarch64-support.patch	|		|		|
 |	52	|	library/eclipse-mosquitto/2.0.15/Dockerfile	|		|		|
 |	53	|	library/golang/1.15-alpine/Dockerfile	|		|		|
-|	54	|	library/golang/1.19-alpine/Dockerfile	|		|		|
+|	54	|	library/golang/1.19-alpine/Dockerfile	|	正在进行	|		|
 |	55	|	library/golang/1.20-alpine/Dockerfile	|	是	|		|
 |	56	|	library/golang/1.21-alpine/Dockerfile	|		|		|
 |	57	|	library/golang/1.22-alpine/Dockerfile	|		|		|
