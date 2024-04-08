@@ -29,8 +29,8 @@
 |	25	|	flannel-io/flannel/0.24.2/0001-support-loong64.patch	|		|		|
 |	26	|	flannel-io/flannel/0.24.3/0001-support-loong64.patch	|		|		|
 |	27	|	fluent/fluentd/13.3.3-alpine/Dockerfile	|		|		|
-|	28	|	gitlab/gitlab-runner-helper/13.11/Dockerfile	|正在进行		|		|
-|	29	|	gitlab/gitlab-runner/13.11-alpine/Dockerfile	|	正在进行	|		|
+|	28	|	gitlab/gitlab-runner-helper/13.11/Dockerfile	|是		|		|
+|	29	|	gitlab/gitlab-runner/13.11-alpine/Dockerfile	|	是	|		|
 |	30	|	grafana/loki/2.8.5/0001-support-loong64.patch	|		|		|
 |	31	|	jenkins/jenkins/2.270/Dockerfile	|		|		|
 |	32	|	justwatchcom/elasticsearch_exporter/1.1.0/0001-add-loong64-support.patch	|		|		|
@@ -56,7 +56,7 @@
 |	52	|	library/eclipse-mosquitto/2.0.15/Dockerfile	|		|		|
 |	53	|	library/golang/1.15-alpine/Dockerfile	|		|		|
 |	54	|	library/golang/1.19-alpine/Dockerfile	|		|		|
-|	55	|	library/golang/1.20-alpine/Dockerfile	|	正在进行	|		|
+|	55	|	library/golang/1.20-alpine/Dockerfile	|	是	|		|
 |	56	|	library/golang/1.21-alpine/Dockerfile	|		|		|
 |	57	|	library/golang/1.22-alpine/Dockerfile	|		|		|
 |	58	|	library/haproxy/2.3-alpine/Dockerfile	|		|		|
