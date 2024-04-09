@@ -11,18 +11,18 @@
 |	7	|	dragonflyoss/dfclient/1.0.6/0001-port-to-loong64.patch	|		|		|
 |	8	|	dragonflyoss/nginx/alpine/Dockerfile	|		|		|
 |	9	|	dragonflyoss/supernode/1.0.6/0001-port-to-loong64.patch	|		|		|
-|	10	|	edgexfoundry/app-service-configurable/2.3.0/0001-port-to-loong64.patch	|		|		|
-|	11	|	edgexfoundry/app-service-configurable/3.0.0/0001-port-to-loong64.patch	|		|		|
-|	12	|	edgexfoundry/core-command/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
-|	13	|	edgexfoundry/core-data/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
-|	14	|	edgexfoundry/core-metadata/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
-|	15	|	edgexfoundry/device-rest/0001-loong64-support-for-device-rest.patch	|		|		|
-|	16	|	edgexfoundry/device-virtual/0001-add-loong64-support-device-virtual.patch	|		|		|
+|	10	|	edgexfoundry/app-service-configurable/2.3.0/0001-port-to-loong64.patch	|	正在进行	|		|
+|	11	|	edgexfoundry/app-service-configurable/3.0.0/0001-port-to-loong64.patch	|	正在进行	|		|
+|	12	|	edgexfoundry/core-command/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
+|	13	|	edgexfoundry/core-data/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
+|	14	|	edgexfoundry/core-metadata/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
+|	15	|	edgexfoundry/device-rest/0001-loong64-support-for-device-rest.patch	|	正在进行	|		|
+|	16	|	edgexfoundry/device-virtual/0001-add-loong64-support-device-virtual.patch	|	正在进行	|		|
 |	17	|	edgexfoundry/edgex-go/2.3.0/0001-port-to-loong64.patch	|	正在进行	|		|
 |	18	|	edgexfoundry/edgex-ui/3.0.0/0001-port-to-loong64.patch	|	正在进行	|		|
-|	19	|	edgexfoundry/support-notifications/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
-|	20	|	edgexfoundry/support-scheduler/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
-|	21	|	edgexfoundry/sys-mgmt-agent/3.0.0/0001-fix-add-loong64-support.patch	|		|		|
+|	19	|	edgexfoundry/support-notifications/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
+|	20	|	edgexfoundry/support-scheduler/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
+|	21	|	edgexfoundry/sys-mgmt-agent/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
 |	22	|	flannel-io/cni-plugin/1.2.0/0001-add-dockerfile-loong64.patch	|		|		|
 |	23	|	flannel-io/cni-plugin/1.4.0-flannel1/0001-support-loong64.patch	|		|		|
 |	24	|	flannel-io/flannel/0.22.1/0001-support-loong64-in-v0.22.1.patch	|		|		|
@@ -55,7 +55,7 @@
 |	51	|	library/dockerfile/1.5.0/0001-add-loongarch64-support.patch	|		|		|
 |	52	|	library/eclipse-mosquitto/2.0.15/Dockerfile	|		|		|
 |	53	|	library/golang/1.15-alpine/Dockerfile	|		|		|
-|	54	|	library/golang/1.19-alpine/Dockerfile	|	正在进行	|		|
+|	54	|	library/golang/1.19-alpine/Dockerfile	|	是	|		|
 |	55	|	library/golang/1.20-alpine/Dockerfile	|	是	|		|
 |	56	|	library/golang/1.21-alpine/Dockerfile	|		|		|
 |	57	|	library/golang/1.22-alpine/Dockerfile	|		|		|
