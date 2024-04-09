@@ -43,13 +43,17 @@ apk add lxc
 ```
 ### 4.2 开启ip转发功能
 只有保证ip转发功能开启，才可以保证配置的路由可以生效
+```
 /home/alpine # sysctl net.ipv4.ip_forward
 net.ipv4.ip_forward = 0
+```
 0表示未开启ip转发功能，或者也可以直接查看文件/proc/sys/net/ipv4/ip_forward，使用下命令开启ip转发功能
+```
 sudo sysctl -w net.ipv4.ip_forward=1
    以上只是临时设置，若要长久设置，可在文件/etc/sysctl.conf中写入：
 vim /etc/sysctl.conf
 net.ipv4.ip_forward=1
+```
 
 ## 5.使用lxc-alpine模板创建容器与启动
 ### 5.1 容器创建
