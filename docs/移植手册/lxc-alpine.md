@@ -336,8 +336,6 @@ iptables -t nat -A POSTROUTING -s 192.168.200.12 -j SNAT --to-source 10.130.0.14
 这条规则的作用是将容器192.168.200.12发送的包中的ip地址全部改成ip 10.130.0.143，故对于其他机器而言识别到的是主机10.130.0.143发送的包（实际是容器192.168.200.12发送的包）。
 故此时主机所拥有的网络通信，容器192.168.200.12也全部拥有。从而实现与10.130.0.xxx网段其他ip之间的通信，以及ping通百度(前提是主机10.130.0.143可以ping通百度)。
 
-备注：
-删除nat规则：
 ```
 /home/alpine/alpine/lxc-templates-legacy # iptables -nvL -t nat --line-numbers
 Chain PREROUTING (policy ACCEPT 0 packets, 0 bytes)
@@ -352,7 +350,7 @@ num   pkts bytes target     prot opt in     out     source               destina
 Chain POSTROUTING (policy ACCEPT 1 packets, 136 bytes)
 num   pkts bytes target     prot opt in     out     source               destination         
 1        0     0 SNAT       0    --  *      *       192.168.200.12       0.0.0.0/0            to:10.130.0.143
-/home/alpine/alpine/lxc-templates-legacy # iptables -t nat -D POSTROUTING 1  //这里的1指向的是上面的num 1
+/home/alpine/alpine/lxc-templates-legacy # iptables -t nat -D POSTROUTING 1  //删除nat规则，这里的1指向的是上面的num 1
 ```
 
 ## 7. 从源码构建lxc & lxc-templates
