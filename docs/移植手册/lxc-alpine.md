@@ -41,19 +41,6 @@ apk add lxc
 /home/lxc-alpine-package/lxc-templates-legacy # cat /proc/1/cgroup 
 0::/
 ```
-### 4.2 开启ip转发功能
-只有保证ip转发功能开启，才可以保证配置的路由可以生效
-```
-/home/alpine # sysctl net.ipv4.ip_forward
-net.ipv4.ip_forward = 0
-```
-0表示未开启ip转发功能，或者也可以直接查看文件/proc/sys/net/ipv4/ip_forward，使用下命令开启ip转发功能
-```
-sudo sysctl -w net.ipv4.ip_forward=1
-   以上只是临时设置，若要长久设置，可在文件/etc/sysctl.conf中写入：
-vim /etc/sysctl.conf
-net.ipv4.ip_forward=1
-```
 
 ## 5.使用lxc-alpine模板创建容器与启动
 ### 5.1 容器创建
@@ -85,7 +72,7 @@ lxc-start: test: ../src/lxc/tools/lxc_start.c: main: 306 The container failed to
 lxc-start: test: ../src/lxc/tools/lxc_start.c: main: 309 To get more details, run the container in foreground mode
 lxc-start: test: ../src/lxc/tools/lxc_start.c: main: 311 Additional information can be obtained by setting the --logfile and --logpriority options
 /home/alpine/alpine/lxc-templates-legacy # cat aaa
-lxc-start test 20240312083640.836 ERROR    network - ../src/lxc/network.c:netdev_configure_server_veth:711 - No such file or directory - Failed to attach "veth6KwNcs" to bridge "lxcbr0", bridge interface doesn't exist
+lxc-start test 20240312083640.836 ERROR    network - ../src/lxc/network.c:netdev_configure_server_veth:711 - No such file or directory - Failed to attach "veth6KwNcs" to bridge "lxclxcbr0", bridge interface doesn't exist
 lxc-start test 20240312083640.924 ERROR    network - ../src/lxc/network.c:lxc_create_network_priv:3427 - No such file or directory - Failed to create network device
 lxc-start test 20240312083640.924 ERROR    start - ../src/lxc/start.c:lxc_spawn:1840 - Failed to create the network
 lxc-start test 20240312083640.924 ERROR    lxccontainer - ../src/lxc/lxccontainer.c:wait_on_daemonized_start:878 - Received container state "ABORTING" instead of "RUNNING"
@@ -127,39 +114,130 @@ bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbi
 ```
 
 ## 6.网络设置
-这里通过网桥和路由的方式来配置容器网络，将要创建的网络名称是br0。
-### 6.1 修改容器网络通过网桥br0进行通信
-首先将容器配置文件/var/lib/test/config中网络设置为通过br0进行通信：
+网络设置有两种方法，一种是直接使用alpine自带的软件包dnsmasq，另外一种通过手动设置。
+### 6.1 使用dnsmasq
+#### 6.1.1 安装dnsmasq
+```
+apk add dnsmasq
+ln -s /etc/init.d/dnsmasq /etc/init.d/dnsmasq.lxcbr0
+/etc/init.d/dnsmasq.lxcbr0 start
+```
+#### 6.1.2 设置容器通过网桥lxcbr0通信
+将容器配置文件/var/lib/test/config中网络设置为通过lxcbr0进行通信：
 ```
 lxc.net.0.type = veth
-lxc.net.0.link = br0
+lxc.net.0.link = lxcbr0
 lxc.net.0.flags = up
 lxc.net.0.hwaddr = 00:16:3e:e0:d6:08
 lxc.rootfs.path = dir:/var/lib/lxc/test/rootfs
 ```
 
-### 6.2 在宿主机上创建网桥br0
+#### 6.1.3 重新启动容器
 ```
-/home/alpine # brctl addbr br0
+lxc-stop -n test
+lxc-start -n test
+```
+此时进入容器可以看到，容器已经获取到了ip地址，并添加了路由，也可以ping通百度
+```
+# lxc-attach -n test
+
+/ # ip add
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: sit0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN qlen 1000
+    link/sit 0.0.0.0 brd 0.0.0.0
+3: eth0@if71: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP qlen 1000
+    link/ether 00:16:3e:13:79:4c brd ff:ff:ff:ff:ff:ff
+    inet 10.0.3.7/24 brd 10.0.3.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::216:3eff:fe13:794c/64 scope link 
+       valid_lft forever preferred_lft forever
+
+/ # route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.0.3.1        0.0.0.0         UG    203    0        0 eth0
+10.0.3.0        0.0.0.0         255.255.255.0   U     0      0        0 eth0
+```
+在容器内部ping百度：
+```
+/ # ping baidu.com -c 3
+PING baidu.com (110.242.68.66): 56 data bytes
+64 bytes from 110.242.68.66: seq=0 ttl=53 time=20.565 ms
+64 bytes from 110.242.68.66: seq=1 ttl=53 time=20.479 ms
+64 bytes from 110.242.68.66: seq=2 ttl=53 time=20.454 ms
+
+--- baidu.com ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 20.454/20.499/20.565 ms
+```
+在容器内部ping 与主机相同的同网段的其他ip地址：
+```
+/ # ping 10.130.0.184 -c 3
+PING 10.130.0.184 (10.130.0.184): 56 data bytes
+64 bytes from 10.130.0.184: seq=0 ttl=63 time=0.506 ms
+64 bytes from 10.130.0.184: seq=1 ttl=63 time=0.469 ms
+64 bytes from 10.130.0.184: seq=2 ttl=63 time=0.491 ms
+
+--- 10.130.0.184 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.469/0.488/0.506 ms
+
+```
+
+
+### 6.2 手动设置
+这里通过网桥和路由的方式来配置容器网络，将要创建的网络名称是lxcbr0。
+#### 6.2.1 开启ip转发功能
+只有保证ip转发功能开启，才可以保证配置的路由可以生效
+```
+/home/alpine # sysctl net.ipv4.ip_forward
+net.ipv4.ip_forward = 0
+```
+0表示未开启ip转发功能，或者也可以直接查看文件/proc/sys/net/ipv4/ip_forward，使用下命令开启ip转发功能
+```
+sudo sysctl -w net.ipv4.ip_forward=1
+   以上只是临时设置，若要长久设置，可在文件/etc/sysctl.conf中写入：
+vim /etc/sysctl.conf
+net.ipv4.ip_forward=1
+```
+
+#### 6.2.2 修改容器网络通过网桥lxcbr0进行通信
+首先将容器配置文件/var/lib/test/config中网络设置为通过lxcbr0进行通信：
+```
+lxc.net.0.type = veth
+lxc.net.0.link = lxcbr0
+lxc.net.0.flags = up
+lxc.net.0.hwaddr = 00:16:3e:e0:d6:08
+lxc.rootfs.path = dir:/var/lib/lxc/test/rootfs
+```
+
+#### 6.2.3 在宿主机上创建网桥lxcbr0
+```
+/home/alpine # brctl addbr lxcbr0
 /home/alpine # brctl show
 bridge name	bridge id		STP enabled	interfaces
-br0		8000.000000000000	no
+lxcbr0		8000.000000000000	no
 /home/alpine # ip add
-11: br0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
+11: lxcbr0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
     link/ether fe:c8:e8:4c:79:15 brd ff:ff:ff:ff:ff:ff
 ```
-此时可以看到网桥br0创建成功，interfaces为空是因为还没有接口连接该网桥上。当启动容器后，此时再查看网桥br0:
+此时可以看到网桥lxcbr0创建成功，interfaces为空是因为还没有接口连接该网桥上。当启动容器后，此时再查看网桥lxcbr0:
 ```
 /home/alpine # lxc-start test
 /home/alpine # brctl show
 bridge name	bridge id		STP enabled	interfaces
-br0		8000.fec8e84c7915	no		vethc7wLS1
+lxcbr0		8000.fec8e84c7915	no		vethc7wLS1
 ```
-这是因为在6.1中设置了容器通过br0通信。
+这是因为在6.1中设置了容器通过lxcbr0通信。
 
-### 6.3 给网桥br0分配ip
+#### 6.2.4 给网桥lxcbr0分配ip
 为了实现网桥所在的主机和网桥所桥接的容器进行通信，需要给网桥和容器分配同一网段的ip地址。
-主机上有两个物理网卡，eth2,eth3，网段分别为10.130.0.xxx和192.168.0.xxx，为了防止ip冲突，故给br0设置在192.168.200.xxx的网段
+主机上有两个物理网卡，eth2,eth3，网段分别为10.130.0.xxx和192.168.0.xxx，为了防止ip冲突，故给lxcbr0设置在192.168.200.xxx的网段
 ```
 5: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP qlen 1000
     link/ether 00:26:f8:90:10:4a brd ff:ff:ff:ff:ff:ff
@@ -183,34 +261,34 @@ br0		8000.fec8e84c7915	no		vethc7wLS1
        valid_lft forever preferred_lft forever
 ```
 
-给br0设置ip地址：
+给lxcbr0设置ip地址：
 ```
-/home/alpine # ip addr add 192.168.200.11/24 dev br0
+/home/alpine # ip addr add 192.168.200.11/24 dev lxcbr0
 /home/alpine # ip add
 ......
-11: br0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
+11: lxcbr0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
     link/ether fe:c8:e8:4c:79:15 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.200.11/24 scope global br0
+    inet 192.168.200.11/24 scope global lxcbr0
        valid_lft forever preferred_lft forever
 .......
 ```
-注意：br0的ip地址不能设置为物理网卡同一个网段，否则会导致路由出错，如当将br0的ip设置为10.130.0.xxx时，br0的路由会与eth2一样：
+注意：lxcbr0的ip地址不能设置为物理网卡同一个网段，否则会导致路由出错，如当将lxcbr0的ip设置为10.130.0.xxx时，lxcbr0的路由会与eth2一样：
 ```
 /home/alpine/alpine/lxc-templates-legacy # route -n
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         10.130.0.1      0.0.0.0         UG    205    0        0 eth2
 10.130.0.0      0.0.0.0         255.255.255.0   U     0      0        0 eth2
-10.130.0.0      0.0.0.0         255.255.255.0   U     0      0        0 br0
+10.130.0.0      0.0.0.0         255.255.255.0   U     0      0        0 lxcbr0
 192.168.3.0     0.0.0.0         255.255.255.0   U     0      0        0 eth3
 ```
 
-启动br0:
+启动lxcbr0:
 ```
-/home/alpine # ifconfig br0 up
+/home/alpine # ifconfig lxcbr0 up
 /home/alpine # ifconfig
 ......
-br0       Link encap:Ethernet  HWaddr FE:C8:E8:4C:79:15  
+lxcbr0       Link encap:Ethernet  HWaddr FE:C8:E8:4C:79:15  
           inet addr:192.168.200.11  Bcast:0.0.0.0  Mask:255.255.255.0
           inet6 addr: fe80::fcc8:e8ff:fe4c:7915/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
@@ -227,10 +305,10 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         10.130.0.1      0.0.0.0         UG    205    0        0 eth2
 10.130.0.0      0.0.0.0         255.255.255.0   U     0      0        0 eth2
 192.168.3.0     0.0.0.0         255.255.255.0   U     0      0        0 eth3
-192.168.200.0   0.0.0.0         255.255.255.0   U     0      0        0 br0
+192.168.200.0   0.0.0.0         255.255.255.0   U     0      0        0 lxcbr0
 ```
 
-### 6.4 给容器分配ip地址
+#### 6.2.5 给容器分配ip地址
 这里同样使用固定分配ip的方式
 查看容器内的虚拟网卡，如下，共有2个虚拟网卡。其中，lo是回环网卡通常用于测试数据包和软件配置是否正常。故这里使用eth0：
 ```
@@ -253,7 +331,7 @@ lo        Link encap:Local Loopback
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 ```
 
-给网卡eth0设置ip地址，网段需要与br0一致：
+给网卡eth0设置ip地址，网段需要与lxcbr0一致：
 ```
 / # ip addr add 192.168.200.12/24 dev eth0
 / # ip add
@@ -285,7 +363,7 @@ ping: sendto: Network unreachable
 ```
 但在主机上可以ping通192.168.200.12/11，这说明主机上从10.130.0.143到192.168.200.12/11的路由没有问题，而容器内的路由需要设置。
 
-### 6.5 在容器内添加到主机的路由
+#### 6.2.6 在容器内添加到主机的路由
 下面的命令表示容器(192.168.200.12)发送给10.130.0.0网段的包，将通过192.168.200.11转发出去。
 ```
 / # route add -net 10.130.0.0/24 gw 192.168.200.11 dev eth0 
@@ -314,7 +392,7 @@ PING 10.130.0.20 (10.130.0.20): 56 data bytes
 route add -net 192.168.200.0/24 gw 10.130.0.143 dev enp0s3f0
 ```
 
-### 6.6 添加nat规则
+#### 6.2.6 添加nat规则
 nat规则只需要在启动容器的主机上设置
 查看当前主机上的nat规则，为空：
 ```
@@ -339,7 +417,6 @@ iptables -t nat -A POSTROUTING -s 192.168.200.12 -j SNAT --to-source 10.130.0.14
 ```
 这条规则的作用是将容器192.168.200.12发送的包中的ip地址全部改成ip 10.130.0.143，故对于其他机器而言识别到的是主机10.130.0.143发送的包（实际是容器192.168.200.12发送的包）。
 故此时主机所拥有的网络通信，容器192.168.200.12也全部拥有。从而实现与10.130.0.xxx网段其他ip之间的通信，以及ping通百度(前提是主机10.130.0.143可以ping通百度)。
-
 ```
 /home/alpine/alpine/lxc-templates-legacy # iptables -nvL -t nat --line-numbers
 Chain PREROUTING (policy ACCEPT 0 packets, 0 bytes)
@@ -356,6 +433,35 @@ num   pkts bytes target     prot opt in     out     source               destina
 1        0     0 SNAT       0    --  *      *       192.168.200.12       0.0.0.0/0            to:10.130.0.143
 /home/alpine/alpine/lxc-templates-legacy # iptables -t nat -D POSTROUTING 1  //删除nat规则，这里的1指向的是上面的num 1
 ```
+#### 6.2.7 设置FORWARD 链
+容器与主机之间的通信是通过FORWARD链进行转发的，需要确认iptables中的FORWARD链是否打开，使用命令“iptables -nvL”查看FORWARD链是否打开：
+```
+alpine-3:~# iptables -nvL
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)     //ACCEPT表示打开
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination  
+```
+当FORWARD的状态是ACCEPT，则表示打开，此时所有经过防火墙的数据包将会被允许转发，容器与主机之间也可以进行通信，此时网络设置到这里已经结束了，不需要再进行额外的设置。
+
+若FORWARD的状态是DROP，则表示关闭，若不添加规则，则意味着防火墙将拒绝所有经过它的转发数据包：
+```
+alpine-3:~# iptables -nvL
+......
+Chain FORWARD (policy DROP 109 packets, 9156 bytes) //DROP表示拒绝所有包，后面的数字表示一共拒绝了109个包，一共有9156个字节
+ pkts bytes target     prot opt in     out     source               destination 
+```
+此时需要在主机上执行以下两条命令：
+```
+iptables -w -I FORWARD -o lxcbr0  -j ACCEPT
+iptables -w -I FORWARD -i lxcbr0  -j ACCEPT
+```
+
+
 
 ## 7. 从源码构建lxc & lxc-templates
 ### 7.1 lxc
