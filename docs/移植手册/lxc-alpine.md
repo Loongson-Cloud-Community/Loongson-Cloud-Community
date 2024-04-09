@@ -460,8 +460,44 @@ Chain FORWARD (policy DROP 109 packets, 9156 bytes) //DROP表示拒绝所有包�
 iptables -w -I FORWARD -o lxcbr0  -j ACCEPT
 iptables -w -I FORWARD -i lxcbr0  -j ACCEPT
 ```
+第一条命令的作用是允许所有传出到lxcbr0的数据包通过，不进行过滤或阻止；
+第二条命令的作用是允许所有传入到lxcbr0的数据包通过，不进行过滤或阻止；
+通过这两条命令来允许容器与主机的通信，此时再查看Chain FORWARD的状态：
+```
+# iptables -nvL
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
 
+Chain FORWARD (policy DROP 987 packets, 81732 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+    8   672 ACCEPT     0    --  lxcbr0 *       0.0.0.0/0            0.0.0.0/0           
+    8   672 ACCEPT     0    --  *      lxcbr0  0.0.0.0/0            0.0.0.0/0      
+```
+此时容器内部便可以ping通百度和主机同网段的ip:
+在容器内部ping百度：
+```
+/ # ping baidu.com -c 3
+PING baidu.com (110.242.68.66): 56 data bytes
+64 bytes from 110.242.68.66: seq=0 ttl=53 time=20.565 ms
+64 bytes from 110.242.68.66: seq=1 ttl=53 time=20.479 ms
+64 bytes from 110.242.68.66: seq=2 ttl=53 time=20.454 ms
 
+--- baidu.com ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 20.454/20.499/20.565 ms
+```
+在容器内部ping 与主机相同的同网段的其他ip地址：
+```
+/ # ping 10.130.0.184 -c 3
+PING 10.130.0.184 (10.130.0.184): 56 data bytes
+64 bytes from 10.130.0.184: seq=0 ttl=63 time=0.506 ms
+64 bytes from 10.130.0.184: seq=1 ttl=63 time=0.469 ms
+64 bytes from 10.130.0.184: seq=2 ttl=63 time=0.491 ms
+
+--- 10.130.0.184 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.469/0.488/0.506 ms
+```
 
 ## 7. 从源码构建lxc & lxc-templates
 ### 7.1 lxc
