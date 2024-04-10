@@ -96,3 +96,13 @@
 |	92	|	zabbix/zabbix-server-mysql/alpine-3.4.15/Dockerfile	|		|		|
 |	93	|	zabbix/zabbix-web-apache-mysql/alpine-3.4.15/Dockerfile	|		|		|
 |	94	|	zabbix/zabbix-web-apache-mysql/alpine-5.0.2/Dockerfile	|		|		|
+|	95	|	edgexfoundry/app-service-configurable/2.3.0	|	正在进行	|		|
+|	96	|	edgexfoundry/core-command/2.3.0	|	正在进行	|		|
+|	97	|	edgexfoundry/core-data/2.3.0	|	正在进行	|		|
+|	98	|	edgexfoundry/core-metadata/2.3.0	|	正在进行	|		|
+|	99	|	edgexfoundry/device-rest/2.3.0	|	正在进行	|		|
+|	100	|	edgexfoundry/device-virtual/2.3.0	|	正在进行	|		|
+|	101	|	edgexfoundry/edgex-ui/2.3.0	|	正在进行	|		|
+|	102	|	edgexfoundry/support-notifications/2.3.0	|	正在进行	|		|
+|	103	|	edgexfoundry/support-scheduler/2.3.0	|	正在进行	|		|
+|	104	|	edgexfoundry/sys-mgmt-agent/2.3.0	|	正在进行	|		|
