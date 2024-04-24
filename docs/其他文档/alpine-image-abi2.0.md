@@ -32,7 +32,7 @@
 |	28	|	gitlab/gitlab-runner-helper/13.11/Dockerfile	|是		|		|
 |	29	|	gitlab/gitlab-runner/13.11-alpine/Dockerfile	|	是	|		|
 |	30	|	grafana/loki/2.8.5/0001-support-loong64.patch	|		|		|
-|	31	|	jenkins/jenkins/2.270/Dockerfile	|		|		|
+|	31	|	jenkins/jenkins/2.270/Dockerfile	|	正在进行	|		|
 |	32	|	justwatchcom/elasticsearch_exporter/1.1.0/0001-add-loong64-support.patch	|		|		|
 |	33	|	k3s-io/klipper-lb/0.12/Dockerfile	|		|		|
 |	34	|	k8s-staging-ingress-nginx/controller/1.2.1/0001-port-to-loong64.patch	|		|		|
@@ -96,13 +96,13 @@
 |	92	|	zabbix/zabbix-server-mysql/alpine-3.4.15/Dockerfile	|		|		|
 |	93	|	zabbix/zabbix-web-apache-mysql/alpine-3.4.15/Dockerfile	|		|		|
 |	94	|	zabbix/zabbix-web-apache-mysql/alpine-5.0.2/Dockerfile	|		|		|
-|	95	|	edgexfoundry/app-service-configurable/2.3.0	|	正在进行	|		|
-|	96	|	edgexfoundry/core-command/2.3.0	|	正在进行	|		|
-|	97	|	edgexfoundry/core-data/2.3.0	|	正在进行	|		|
-|	98	|	edgexfoundry/core-metadata/2.3.0	|	正在进行	|		|
-|	99	|	edgexfoundry/device-rest/2.3.0	|	正在进行	|		|
-|	100	|	edgexfoundry/device-virtual/2.3.0	|	正在进行	|		|
-|	101	|	edgexfoundry/edgex-ui/2.3.0	|	正在进行	|		|
-|	102	|	edgexfoundry/support-notifications/2.3.0	|	正在进行	|		|
-|	103	|	edgexfoundry/support-scheduler/2.3.0	|	正在进行	|		|
-|	104	|	edgexfoundry/sys-mgmt-agent/2.3.0	|	正在进行	|		|
+|	95	|	edgexfoundry/app-service-configurable/2.3.0	|	是	|		|
+|	96	|	edgexfoundry/core-command/2.3.0	|	是	|		|
+|	97	|	edgexfoundry/core-data/2.3.0	|	是	|		|
+|	98	|	edgexfoundry/core-metadata/2.3.0	|	 是	|		|
+|	99	|	edgexfoundry/device-rest/2.3.0	| 是	|		|
+|	100	|	edgexfoundry/device-virtual/2.3.0	|	是	|		|
+|	101	|	edgexfoundry/edgex-ui/2.3.0	|	是	|		|
+|	102	|	edgexfoundry/support-notifications/2.3.0	|	是	|		|
+|	103	|	edgexfoundry/support-scheduler/2.3.0	|	是	|		|
+|	104	|	edgexfoundry/sys-mgmt-agent/2.3.0	|	是	|		|
