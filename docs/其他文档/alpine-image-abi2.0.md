@@ -11,18 +11,18 @@
 |	7	|	dragonflyoss/dfclient/1.0.6/0001-port-to-loong64.patch	|		|		|
 |	8	|	dragonflyoss/nginx/alpine/Dockerfile	|		|		|
 |	9	|	dragonflyoss/supernode/1.0.6/0001-port-to-loong64.patch	|		|		|
-|	10	|	edgexfoundry/app-service-configurable/2.3.0/0001-port-to-loong64.patch	|	正在进行	|		|
-|	11	|	edgexfoundry/app-service-configurable/3.0.0/0001-port-to-loong64.patch	|	正在进行	|		|
-|	12	|	edgexfoundry/core-command/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
-|	13	|	edgexfoundry/core-data/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
-|	14	|	edgexfoundry/core-metadata/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
-|	15	|	edgexfoundry/device-rest/0001-loong64-support-for-device-rest.patch	|	正在进行	|		|
-|	16	|	edgexfoundry/device-virtual/0001-add-loong64-support-device-virtual.patch	|	正在进行	|		|
-|	17	|	edgexfoundry/edgex-go/2.3.0/0001-port-to-loong64.patch	|	正在进行	|		|
-|	18	|	edgexfoundry/edgex-ui/3.0.0/0001-port-to-loong64.patch	|	正在进行	|		|
-|	19	|	edgexfoundry/support-notifications/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
-|	20	|	edgexfoundry/support-scheduler/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
-|	21	|	edgexfoundry/sys-mgmt-agent/3.0.0/0001-fix-add-loong64-support.patch	|	正在进行	|		|
+|	10	|	edgexfoundry/app-service-configurable/2.3.0/0001-port-to-loong64.patch	|	是	|		|
+|	11	|	edgexfoundry/app-service-configurable/3.0.0/0001-port-to-loong64.patch	|	是	|		|
+|	12	|	edgexfoundry/core-command/3.0.0/0001-fix-add-loong64-support.patch	|	是	|		|
+|	13	|	edgexfoundry/core-data/3.0.0/0001-fix-add-loong64-support.patch	|	是	|		|
+|	14	|	edgexfoundry/core-metadata/3.0.0/0001-fix-add-loong64-support.patch	|	是	|		|
+|	15	|	edgexfoundry/device-rest/0001-loong64-support-for-device-rest.patch	|	是	|		|
+|	16	|	edgexfoundry/device-virtual/0001-add-loong64-support-device-virtual.patch	|	是	|		|
+|	17	|	edgexfoundry/edgex-go/2.3.0/0001-port-to-loong64.patch	|	是	|		|
+|	18	|	edgexfoundry/edgex-ui/3.0.0/0001-port-to-loong64.patch	|	是	|		|
+|	19	|	edgexfoundry/support-notifications/3.0.0/0001-fix-add-loong64-support.patch	|	是	|		|
+|	20	|	edgexfoundry/support-scheduler/3.0.0/0001-fix-add-loong64-support.patch	| 是	|		|
+|	21	|	edgexfoundry/sys-mgmt-agent/3.0.0/0001-fix-add-loong64-support.patch	|	是	|		|
 |	22	|	flannel-io/cni-plugin/1.2.0/0001-add-dockerfile-loong64.patch	|		|		|
 |	23	|	flannel-io/cni-plugin/1.4.0-flannel1/0001-support-loong64.patch	|		|		|
 |	24	|	flannel-io/flannel/0.22.1/0001-support-loong64-in-v0.22.1.patch	|		|		|
@@ -32,7 +32,7 @@
 |	28	|	gitlab/gitlab-runner-helper/13.11/Dockerfile	|是		|		|
 |	29	|	gitlab/gitlab-runner/13.11-alpine/Dockerfile	|	是	|		|
 |	30	|	grafana/loki/2.8.5/0001-support-loong64.patch	|		|		|
-|	31	|	jenkins/jenkins/2.270/Dockerfile	|	正在进行	|		|
+|	31	|	jenkins/jenkins/2.270/Dockerfile	|	是	|		|
 |	32	|	justwatchcom/elasticsearch_exporter/1.1.0/0001-add-loong64-support.patch	|		|		|
 |	33	|	k3s-io/klipper-lb/0.12/Dockerfile	|		|		|
 |	34	|	k8s-staging-ingress-nginx/controller/1.2.1/0001-port-to-loong64.patch	|		|		|
