@@ -34,7 +34,7 @@
 |	30	|	grafana/loki/2.8.5/0001-support-loong64.patch	|		|		|
 |	31	|	jenkins/jenkins/2.270/Dockerfile	|	是	|		|
 |	32	|	justwatchcom/elasticsearch_exporter/1.1.0/0001-add-loong64-support.patch	|		|		|
-|	33	|	k3s-io/klipper-lb/0.12/Dockerfile	|		|		|
+|	33	|	k3s-io/klipper-lb/0.12/Dockerfile	|	正在制作	|		|
 |	34	|	k8s-staging-ingress-nginx/controller/1.2.1/0001-port-to-loong64.patch	|		|		|
 |	35	|	k8s-staging-ingress-nginx/nginx/1.2.1/0001-port-to-loong64.patch	|		|		|
 |	36	|	kbudde/rabbitmq_exporter/1.0.0/Dockerfile	|		|		|
