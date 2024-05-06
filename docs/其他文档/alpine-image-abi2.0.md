@@ -23,9 +23,9 @@
 |	19	|	edgexfoundry/support-notifications/3.0.0/0001-fix-add-loong64-support.patch	|	是	|		|
 |	20	|	edgexfoundry/support-scheduler/3.0.0/0001-fix-add-loong64-support.patch	| 是	|		|
 |	21	|	edgexfoundry/sys-mgmt-agent/3.0.0/0001-fix-add-loong64-support.patch	|	是	|		|
-|	22	|	flannel-io/cni-plugin/1.2.0/0001-add-dockerfile-loong64.patch	|	正在制作	|		|
-|	23	|	flannel-io/cni-plugin/1.4.0-flannel1/0001-support-loong64.patch	|		|		|
-|	24	|	flannel-io/flannel/0.22.1/0001-support-loong64-in-v0.22.1.patch	|		|		|
+|	22	|	flannel-io/cni-plugin/1.2.0/0001-add-dockerfile-loong64.patch	|	是	|		|
+|	23	|	flannel-io/cni-plugin/1.4.0-flannel1/0001-support-loong64.patch	|	是	|		|
+|	24	|	flannel-io/flannel/0.22.1/0001-support-loong64-in-v0.22.1.patch	|	正在制作	|		|
 |	25	|	flannel-io/flannel/0.24.2/0001-support-loong64.patch	|		|		|
 |	26	|	flannel-io/flannel/0.24.3/0001-support-loong64.patch	|		|		|
 |	27	|	fluent/fluentd/13.3.3-alpine/Dockerfile	|		|		|
