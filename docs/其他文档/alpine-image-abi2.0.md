@@ -106,3 +106,7 @@
 |	102	|	edgexfoundry/support-notifications/2.3.0	|	是	|		|
 |	103	|	edgexfoundry/support-scheduler/2.3.0	|	是	|		|
 |	104	|	edgexfoundry/sys-mgmt-agent/2.3.0	|	是	|		|
+|	105	|	calico/go-build/0.73	|	是（以及0.85）	|		|
+|	106	|	calico/bpftool/5.19	|	是	|		|
+|	107	|	calico/node/3.24.1	|	是	|		|
+|	108	|	calico/operator/3.24.1	|	是	|		|
