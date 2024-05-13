@@ -49,9 +49,9 @@
 |	45	|	kubesphere/kube-events-ruler/0.3.0/0001-port-to-loong64.patch	|		|		|
 |	46	|	kubesphere/log-sidecar-injector/1.1/0001-port-to-loong64.patch	|		|		|
 |	47	|	kubesphere/openpitrix-jobs/3.2.1/Dockerfile	|		|		|
-|	48	|	lfedge/ekuiper/1.6-alpine/Dockerfile	|		|		|
-|	49	|	library/bash/5.2/Dockerfile	|		|		|
-|	50	|	library/consul/1.15.2/Dockerfile	|		|		|
+|	48	|	lfedge/ekuiper/1.6-alpine/Dockerfile	|	正在制作	|		|
+|	49	|	library/bash/5.2/Dockerfile	|	正在制作	|		|
+|	50	|	library/consul/1.15.2/Dockerfile	|	正在制作	|		|
 |	51	|	library/dockerfile/1.5.0/0001-add-loongarch64-support.patch	|		|		|
 |	52	|	library/eclipse-mosquitto/2.0.15/Dockerfile	|		|		|
 |	53	|	library/golang/1.15-alpine/Dockerfile	|		|		|
