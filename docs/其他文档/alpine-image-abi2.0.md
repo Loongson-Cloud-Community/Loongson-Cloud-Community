@@ -28,10 +28,10 @@
 |	24	|	flannel-io/flannel/0.22.1/0001-support-loong64-in-v0.22.1.patch	| 是	|		|
 |	25	|	flannel-io/flannel/0.24.2/0001-support-loong64.patch	|	是	|		|
 |	26	|	flannel-io/flannel/0.24.3/0001-support-loong64.patch	|	是	|		|
-|	27	|	fluent/fluentd/13.3.3-alpine/Dockerfile	|		|		|
+|	27	|	fluent/fluentd/13.3.3-alpine/Dockerfile	|	否	|	ruby版本过高，改为移植1.16.5版本	|
 |	28	|	gitlab/gitlab-runner-helper/13.11/Dockerfile	|是		|		|
 |	29	|	gitlab/gitlab-runner/13.11-alpine/Dockerfile	|	是	|		|
-|	30	|	grafana/loki/2.8.5/0001-support-loong64.patch	|	正在制作	|		|
+|	30	|	grafana/loki/2.8.5/0001-support-loong64.patch	|	是	|		|
 |	31	|	jenkins/jenkins/2.270/Dockerfile	|	是	|		|
 |	32	|	justwatchcom/elasticsearch_exporter/1.1.0/0001-add-loong64-support.patch	|		|		|
 |	33	|	k3s-io/klipper-lb/0.12/Dockerfile	|	正在制作	|		|
