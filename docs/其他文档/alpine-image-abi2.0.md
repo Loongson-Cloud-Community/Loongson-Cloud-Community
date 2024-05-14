@@ -75,10 +75,10 @@
 |	71	|	library/rabbitmq/3.9.22/Dockerfile	|	正在进行	|		|
 |	72	|	library/rabbitmq/3.9.22/management/Dockerfile	|		|		|
 |	73	|	library/rabbitmq/3.9.4/Dockerfile	|		|		|
-|	74	|	library/redis/7.0-alpine/Dockerfile	|		|		|
-|	75	|	library/ruby/2.5.9-alpine/Dockerfile	|		|		|
-|	76	|	library/spiped/1.6-alpine/Dockerfile	|		|		|
-|	77	|	library/sqlite/3.35.5-alpine/Dockerfile	|		|		|
+|	74	|	library/redis/7.0-alpine/Dockerfile	|	正在进行	|		|
+|	75	|	library/ruby/2.5.9-alpine/Dockerfile	|	正在进行	|		|
+|	76	|	library/spiped/1.6-alpine/Dockerfile	|	正在进行	|		|
+|	77	|	library/sqlite/3.35.5-alpine/Dockerfile	|	正在进行	|		|
 |	78	|	minio/mc/RELEASE.2019-08-07T23-14-43Z/Dockerfile	|		|		|
 |	79	|	minio/minio/RELEASE.2019-08-07T01-59-21Z/0001-port-to-loong64.patch	|		|		|
 |	80	|	nicolaka/netshoot/0.0.6/Dockerfile	|		|		|
