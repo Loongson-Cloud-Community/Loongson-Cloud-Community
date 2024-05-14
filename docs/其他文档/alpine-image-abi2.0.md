@@ -93,9 +93,9 @@
 |	89	|	rancher/local-path-provisioner/v0.0.19/0001-add-loong64-support.patch	|		|		|
 |	90	|	spotahome/redis-operator/v1.1.1/0001-add-loong64-support.patch	|		|		|
 |	91	|	vectordotdev/vector/0.26.0/Dockerfile.alpine	|		|		|
-|	92	|	zabbix/zabbix-server-mysql/alpine-3.4.15/Dockerfile	|正在进行|		|
-|	93	|	zabbix/zabbix-web-apache-mysql/alpine-3.4.15/Dockerfile	|		|		|
-|	94	|	zabbix/zabbix-web-apache-mysql/alpine-5.0.2/Dockerfile	|		|		|
+|	92	|	zabbix/zabbix-server-mysql/alpine-3.4.15/Dockerfile	|是|		|
+|	93	|	zabbix/zabbix-web-apache-mysql/alpine-3.4.15/Dockerfile	|	是 |		|
+|	94	|	zabbix/zabbix-web-apache-mysql/alpine-5.0.2/Dockerfile	|	该版本暂时不制作，后面考虑制作高版本|		|
 |	95	|	edgexfoundry/app-service-configurable/2.3.0	|	是	|		|
 |	96	|	edgexfoundry/core-command/2.3.0	|	是	|		|
 |	97	|	edgexfoundry/core-data/2.3.0	|	是	|		|
