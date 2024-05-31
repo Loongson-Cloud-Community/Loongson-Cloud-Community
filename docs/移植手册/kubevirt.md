@@ -124,5 +124,28 @@ index fbd30ac25..d6043a0b5 100644
 ```
 GOPROXY=off GOFLAGS=-mod=vendor CGO_ENABLED=0 go build
 ```
+
+## 镜像制作
+参考：https://github.com/Loongson-Cloud-Community/dockerfiles/tree/main/kubevirt           
+其中在制作virt-launcher镜像时依赖到了libvirt rpm包，需要的版本在kubevirt/WORKSPACE：
+```
+    name = "libvirt-client-0__8.0.0-2.module_el8.6.0__plus__1087__plus__b42c8331.x86_64",
+    sha256 = "722f30f8e4a8240662ec03c4bfc1320de88908738ca77fa4fa05e87627821bb1",
+    urls = [
+        "http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/libvirt-client-8.0.0-2.module_el8.6.0+1087+b42c8331.x86_64.rpm",
+        "https://storage.googleapis.com/builddeps/722f30f8e4a8240662ec03c4bfc1320de88908738ca77fa4fa05e87627821bb1",
+    ],
+)
+
+rpm(
+    name = "libvirt-daemon-0__8.0.0-2.module_el8.6.0__plus__1087__plus__b42c8331.x86_64",
+    sha256 = "0429a9e9d8eb98c5ebd689993a3ca8f14949ae45be5a290fce8bbe9c4ad68850",
+    urls = [
+        "http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/libvirt-daemon-8.0.0-2.module_el8.6.0+1087+b42c8331.x86_64.rpm",
+        "https://storage.googleapis.com/builddeps/0429a9e9d8eb98c5ebd689993a3ca8f14949ae45be5a290fce8bbe9c4ad68850",
+    ],
+)
+```
+
 ## 部署
 [kubevirt单节点部署文档](https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/kubevirt.md)
