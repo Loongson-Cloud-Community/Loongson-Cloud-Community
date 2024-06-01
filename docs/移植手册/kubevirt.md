@@ -127,24 +127,52 @@ GOPROXY=off GOFLAGS=-mod=vendor CGO_ENABLED=0 go build
 
 ## 镜像制作
 参考：https://github.com/Loongson-Cloud-Community/dockerfiles/tree/main/kubevirt           
-其中在制作virt-launcher镜像时依赖到了libvirt rpm包，需要的版本在kubevirt/WORKSPACE：
+其中在制作virt-launcher镜像时依赖到了libvirt rpm包，具体查看方法如下：
+cmd/virt-launcher/BUILD.bazel(用来制作镜像):
 ```
-    name = "libvirt-client-0__8.0.0-2.module_el8.6.0__plus__1087__plus__b42c8331.x86_64",
-    sha256 = "722f30f8e4a8240662ec03c4bfc1320de88908738ca77fa4fa05e87627821bb1",
-    urls = [
-        "http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/libvirt-client-8.0.0-2.module_el8.6.0+1087+b42c8331.x86_64.rpm",
-        "https://storage.googleapis.com/builddeps/722f30f8e4a8240662ec03c4bfc1320de88908738ca77fa4fa05e87627821bb1",
-    ],
+container_image(
+    name = "version-container",
+    directory = "/",
+    files = ["//:get-version"],
+    tars = select({
+        "@io_bazel_rules_go//go/platform:linux_arm64": [
+            ":libvirt-config",
+            ":passwd-tar",
+            ":nsswitch-tar",
+            ":qemu-kvm-modules-dir-tar",
+            "//rpm:launcherbase_aarch64",       # 指定依赖到了rpm中launcherbase_aarch64,在rpm/BUILD.bazel文件中有定义
+        ],
+  .......
+    }),
 )
 
-rpm(
-    name = "libvirt-daemon-0__8.0.0-2.module_el8.6.0__plus__1087__plus__b42c8331.x86_64",
-    sha256 = "0429a9e9d8eb98c5ebd689993a3ca8f14949ae45be5a290fce8bbe9c4ad68850",
-    urls = [
-        "http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/libvirt-daemon-8.0.0-2.module_el8.6.0+1087+b42c8331.x86_64.rpm",
-        "https://storage.googleapis.com/builddeps/0429a9e9d8eb98c5ebd689993a3ca8f14949ae45be5a290fce8bbe9c4ad68850",
-    ],
+container_image(
+    name = "virt-launcher-image",
+    architecture = select({
+        "@io_bazel_rules_go//go/platform:linux_arm64": "arm64",
+        "//conditions:default": "amd64",
+    }),
+    base = ":version-container",
+    entrypoint = ["/usr/bin/virt-launcher"],
+    tars = [":setcaps"],
+    visibility = ["//visibility:public"],
 )
+```
+
+rpm/BUILD.bazel：       
+```
+rpmtree(
+    name = "launcherbase_aarch64",
+    capabilities = {
+        "/usr/libexec/qemu-kvm": [
+            "cap_net_bind_service",
+        ],
+    },
+.......
+        "@libvirt-client-0__8.0.0-2.module_el8.6.0__plus__1087__plus__b42c8331.aarch64//rpm",
+        "@libvirt-daemon-0__8.0.0-2.module_el8.6.0__plus__1087__plus__b42c8331.aarch64//rpm",
+        "@libvirt-daemon-driver-qemu-0__8.0.0-2.module_el8.6.0__plus__1087__plus__b42c8331.aarch64//rpm",
+        "@libvirt-libs-0__8.0.0-2.module_el8.6.0__plus__1087__plus__b42c8331.aarch64//rpm",
 ```
 
 ## 部署
