@@ -28,17 +28,17 @@ apt-get install \
 # 因为系统差异，额外创建一个 python 软链接
 ln -sf /usr/bin/python3 /usr/bin/python3
 
-# 下载并安装 jdk for loongarch64
+# 下载并安装 jdk for loongarch64 （abi2.0下载可以直接在debian下使用apt安装）
 curl -OL http://ftp.loongnix.cn/Java/openjdk11/loongson11.4.0-fx-jdk11.0.18_10-linux-loongarch64.tar.gz
 export JAVA_HOME=/usr/local/jdk
 export PATH=$JAVA_HOME/bin:$PATH
 
-# 下载并安装 golang for loongarch64
+# 下载并安装 golang for loongarch64（abi2.0可以通过http://ftp.loongnix.cn/toolchain/golang安装）
 curl -OL http://ftp.loongnix.cn/toolchain/golang/go-1.19/go1.19.linux-loong64.tar.gz
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
 
-# 下载并安装 bazel for loongarch64
+# 下载并安装 bazel for loongarch64（cloud.loongnix.cn下拉取）
 curl -o /usr/bin/bazel -L https://github.com/Loongson-Cloud-Community/bazel/releases/download/3.1.0/bazel-3.1.0-linux-loongarch64
 chmod +x /usr/bin/bazel
 
@@ -49,7 +49,7 @@ chmod +x /usr/bin/bazel
 -   下载源码并获取依赖关系
 
 ```bash
-# 下载源码
+# 下载源码（如果编译的是1.23版本可以从lcr上拉取镜像 build_envoy 直接编译，需要修改也可参考，修改内容包括cache的python、golang、v8部分，源码的luajit下载链接部分）
 git clone -b v1.15.0 --depth=1 https://github.com/envoyproxy/envoy.git
 
 # 解析并获取依赖项
@@ -242,4 +242,7 @@ index 6c9d125..8be256a 100644
 ```bash
 bazel build -c opt //source/exe:envoy-static
 
+新版本bazel的fission特性需要调用gcc的--gdb-index命令，la架构不支持，需要禁用
+tcmalloc可能导致报错，也禁用
+bazel build  --fission=no --compilation_mode=opt --verbose_failures -s envoy --define tcmalloc=disabled
 ```
