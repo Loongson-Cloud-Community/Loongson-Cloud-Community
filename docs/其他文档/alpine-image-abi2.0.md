@@ -49,9 +49,9 @@
 |	45	|	kubesphere/kube-events-ruler/0.3.0/0001-port-to-loong64.patch	|		|		|
 |	46	|	kubesphere/log-sidecar-injector/1.1/0001-port-to-loong64.patch	|		|		|
 |	47	|	kubesphere/openpitrix-jobs/3.2.1/Dockerfile	|		|		|
-|	48	|	lfedge/ekuiper/1.6-alpine/Dockerfile	|	正在制作	|		|
-|	49	|	library/bash/5.2/Dockerfile	|	正在制作	|		|
-|	50	|	library/consul/1.15.2/Dockerfile	|	正在制作	|		|
+|	48	|	lfedge/ekuiper/1.6-alpine/Dockerfile	|	是	|		|
+|	49	|	library/bash/5.2/Dockerfile	|	是	|		|
+|	50	|	library/consul/1.15.2/Dockerfile	|	是	|		|
 |	51	|	library/dockerfile/1.5.0/0001-add-loongarch64-support.patch	|		|		|
 |	52	|	library/eclipse-mosquitto/2.0.15/Dockerfile	|		|		|
 |	53	|	library/golang/1.15-alpine/Dockerfile	|		|		|
@@ -75,10 +75,10 @@
 |	71	|	library/rabbitmq/3.9.22/Dockerfile	|	正在进行	|		|
 |	72	|	library/rabbitmq/3.9.22/management/Dockerfile	|		|		|
 |	73	|	library/rabbitmq/3.9.4/Dockerfile	|		|		|
-|	74	|	library/redis/7.0-alpine/Dockerfile	|	正在进行	|		|
-|	75	|	library/ruby/2.5.9-alpine/Dockerfile	|	正在进行	|		|
-|	76	|	library/spiped/1.6-alpine/Dockerfile	|	正在进行	|		|
-|	77	|	library/sqlite/3.35.5-alpine/Dockerfile	|	正在进行	|		|
+|	74	|	library/redis/7.0-alpine/Dockerfile	|	是	|		|
+|	75	|	library/ruby/2.5.9-alpine/Dockerfile	|	是	|		|
+|	76	|	library/spiped/1.6-alpine/Dockerfile	|	 是	|		|
+|	77	|	library/sqlite/3.35.5-alpine/Dockerfile	|	是	|		|
 |	78	|	minio/mc/RELEASE.2019-08-07T23-14-43Z/Dockerfile	|		|		|
 |	79	|	minio/minio/RELEASE.2019-08-07T01-59-21Z/0001-port-to-loong64.patch	|		|		|
 |	80	|	nicolaka/netshoot/0.0.6/Dockerfile	|		|		|
