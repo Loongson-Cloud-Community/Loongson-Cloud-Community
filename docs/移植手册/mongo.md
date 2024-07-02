@@ -49,7 +49,7 @@ src/third_party/gperftools-2.7/dist/config.sub
 需要创建目录：`src/third_party/gperftools-2.7/platform/linux_loongarch64`
 生成目录的方式：执行`./src/third_party/gperftools-2.7/scripts/host_config.sh`
 
-### mozjs-60
+#### mozjs-60
 需要修改/添加的文件如下：
 ```
 src/third_party/mozjs-60/extract/js/src/jit/AtomicOperations.h
@@ -78,7 +78,7 @@ toolkit/crashreporter/google-breakpad/autotools/config.sub
 修改后在`src/third_party/mozjs-60/`目录下执行`./gen-config.sh`生成上述目录
 *注：由于mozilla-release代码依赖python2，所以生成目录这部分是在abi1.0 debian10镜像中执行的*
 
-### wiredtiger
+#### wiredtiger
 需要修改的文件如下：
 ```
 src/third_party/wiredtiger/SConscript
@@ -97,7 +97,7 @@ src/third_party/wiredtiger/src/checksum/loongarch64
 ```
 创建该目录后，在该目录下创建`crc32-loongarch64.c`文件，具体请参考补丁内容
 
-### mongo
+#### mongo
 需要修改的文件如下：
 ```
 SConstruct
