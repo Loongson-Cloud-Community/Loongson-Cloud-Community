@@ -12,4 +12,5 @@ hide:
 
 ## 源码
 - [Loongson Cloud Community](https://github.com/Loongson-Cloud-Community/) 源码仓库
-- [Loongson Cloud Dockerfiles](https://github.com/Loongson-Cloud-Community/dockerfiles) 容器镜像源码
+- [Loongson Cloud Dockerfiles](https://github.com/Loongson-Cloud-Community/dockerfiles) cr.loongnix.cn容器镜像源码
+-  [Loongson Cloud Dockerfiles](https://github.com/Loongson-Cloud-Community/docker-library) lcr.loongnix.cn容器镜像源码
