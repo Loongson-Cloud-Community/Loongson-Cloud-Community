@@ -64,8 +64,8 @@
 |	60	|	library/kong/2.5.0-centos/0002-port-to-loong64.patch	|		|		|
 |	61	|	library/nextcloud/17-fpm-alpine/Dockerfile	|		|		|
 |	62	|	library/nginx/1.23.1-alpine/Dockerfile	|	是	|		|
-|	63	|	library/php/7.4.30-cli-alpine/Dockerfile	|		|		|
-|	64	|	library/php/7.4.30-fpm-alpine/Dockerfile	|		|		|
+|	63	|	library/php/7.4.30-cli-alpine/Dockerfile	|	是	|		|
+|	64	|	library/php/7.4.30-fpm-alpine/Dockerfile	|	是	|		|
 |	65	|	library/postgres/13-alpine/Dockerfile	|	是	|		|
 |	66	|	library/postgres/9.6.24-alpine/Dockerfile	|	是	|		|
 |	67	|	library/python/3.8.0-alpine/Dockerfile	|		|		|
