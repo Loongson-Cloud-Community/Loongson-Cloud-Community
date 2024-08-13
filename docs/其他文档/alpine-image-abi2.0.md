@@ -41,8 +41,8 @@
 |	37	|	kubernetes-sigs/cluster-proportional-autoscaler/1.8.4/0001-port-to-loong64.patch	|		|		|
 |	38	|	kubernetes-sigs/metrics-server/0.4.2/Dockerfile	|		|		|
 |	39	|	kubernetes-sigs/metrics-server/0.5.0/0001-init-vendor.patch	|		|		|
-|	40	|	kubernetes/etcd/3.3.12/Dockerfile	|		|		|
-|	41	|	kubesphere/fluentbit-operator/0.13.0/Dockerfile	|		|		|
+|	40	|	kubernetes/etcd/3.5.12/Dockerfile	|	是（3.5.4）	|		|
+|	41	|	kubesphere/fluentbit-operator/0.13.0/Dockerfile	|	是	|		|
 |	42	|	kubesphere/ks-installer/v3.2.1/Dockerfile	|		|		|
 |	43	|	kubesphere/ks-installer/v3.3.0/Dockerfile	|		|		|
 |	44	|	kubesphere/kube-events-exporter/0.3.0/0001-port-to-loong64.patch	|		|		|
