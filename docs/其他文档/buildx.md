@@ -60,8 +60,10 @@ systemctl restart docker
 #### 创建实例命令及对应参数  此处及之后的命令均使用builder 使用buildx效果相同
 ```
 docker builder create [参数] [内容|]
-docker builder create --name loongson　--driver=docker --driver-opt=moby/buildkit:v0.11.3 
+docker builder create --name loongson --driver=docker-container --driver-opt=image=moby/buildkit:latest 
 //创建名字为loongson的实例,指定构建器驱动程序为docker,指定驱动程序为buildkit，版本可选
+docker buildx inspect --bootstrap loongson && docker buildx use loongson
+//初始化并使用
 构建器类型
 ++++++++++++++++++++++++++++++++++++++++
 docker           + default buildkit    +
