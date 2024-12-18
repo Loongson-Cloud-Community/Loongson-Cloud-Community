@@ -33,8 +33,14 @@ systemctl stop firewalld
 6. 修改hosts文件
 
 ```sh
-10.130.0.193 lab1
+机器ip lab1
 ```
+
+7. 修改hostname
+```
+hostname lab1
+```
+   
 
 ## 安装runc
 
