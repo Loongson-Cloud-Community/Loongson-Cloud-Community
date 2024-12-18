@@ -121,3 +121,29 @@ kubeadm init \
 --pod-network-cidr=10.244.0.0/16 -v=5
 ```
 
+出现类似如下日志，代表启动成功
+
+```
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.130.0.193:6443 --token dpl4ij.njlpwjg3bzg8up0k \
+	--discovery-token-ca-cert-hash sha256:7990c6a4850f6c4e1f1a45855e76fb0852e8113f63ff0b8ddfa252f3da2d5d10 
+```
+
+
