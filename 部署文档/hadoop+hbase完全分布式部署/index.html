@@ -1,0 +1,4673 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../hadoop%2Bhbase%E4%BC%AA%E5%88%86%E5%B8%83%E9%83%A8%E7%BD%B2/">
+      
+      
+        <link rel="next" href="../harbor_deploy/">
+      
+      
+      <link rel="icon" href="../../images/favicon.svg">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.2.0-b0">
+    
+    
+      
+        <title>Hadoop+hbase完全分布式部署 - 龙芯云</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0c456da8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="龙芯云" class="md-header__button md-logo" aria-label="龙芯云" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            龙芯云
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hadoop+hbase完全分布式部署
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Loongson-Cloud-Community
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/alpine-image-abi2.0/" class="md-tabs__link">
+          
+  
+    
+  
+  其他文档
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%AC%A7%E6%8B%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/faq/" class="md-tabs__link">
+          
+  
+    
+  
+  操作系统
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/" class="md-tabs__link">
+          
+  
+    
+  
+  移植手册
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../hadoop%2Bhbase%E4%BC%AA%E5%88%86%E5%B8%83%E9%83%A8%E7%BD%B2/" class="md-tabs__link">
+          
+  
+    
+  
+  部署文档
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="龙芯云" class="md-nav__button md-logo" aria-label="龙芯云" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    龙芯云
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Loongson-Cloud-Community
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    其他文档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            其他文档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/alpine-image-abi2.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alpine image abi2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Assembly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/buildx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    buildx使用手册
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/debian-image-abi2.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debian image abi2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/flink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flink
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/go-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    go 项目通用移植参考
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/jar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kubevirt单节点部署参考文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/modify-container-image-metadata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    修改容器镜像元数据的方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/python_logging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python日志处理(logging模块介绍)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨平台编译运行
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    欧拉操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            欧拉操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%AC%A7%E6%8B%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉操作系统FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    龙蜥操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            龙蜥操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%BE%99%E8%9C%A5%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    龙蜥操作系统FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    移植手册
+  </span>
+  
+
+            </a>
+            
+              <label class="md-nav__link " for="__nav_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            移植手册
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/alluxio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alluxio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/ambari/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ambari
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/bazel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bazel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/bind9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bind9
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/binfmt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    binfmt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/bitshuffle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kiyo-masui/bitshuffle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/bookkeeper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bookkeeper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/brpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    brpc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/buildah/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    buildah
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/calico-node/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    calico-node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/cilium-envoy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cilium-envoy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/conscrypt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    conscrypt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/containerd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    containerd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/cri-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cri-tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/deepflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    deepflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/druid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    druid
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/ebpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cilium-ebpf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/elasticsearch-analysis-ansj/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch-analysis-ansj
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/elasticsearch-analysis-ik/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch-analysis-ik
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/elasticsearch-analysis-pinyin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch-analysis-pinyin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/elasticsearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/envoy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    envoy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/etcd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    etcd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/flink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flink
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/flume/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flume
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/flux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/grafana/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grafana
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/grpc-java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grpc-java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/grpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grpc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/hadoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hadoop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/harbor-operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    harbor-operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/hbase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hbase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/hive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/incus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    incus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/jansi-native/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jansi-native
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/jffi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jffi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/jna/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jna
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kapacitor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kapacitor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kiali/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kiali
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kibana/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kibana移植文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kubernetes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kubevirt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/logstash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    logstash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/loki/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    loki
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxc-alpine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc & lxc-templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxc-loongnixdebian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc & lxc-templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxc-loongnixserver/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc & lxc-templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc 指导手册
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxcfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxcfs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lz4-java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lz4-java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/mahout/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mahout
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/metrics-server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    metrics-server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/migrate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    migrate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/minio-mc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minio-mc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/minio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/ml-cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ml-cpp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/moby/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    moby
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/mongo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mongo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/nacos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nacos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/nerdctl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nerdctl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/netty-tcnative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    netty-tcnative
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/netty/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    netty
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/node-re2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    node-re2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/onlyoffice/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    onlyoffice-documentserver
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/openresty/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openresty
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/pdns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    powerdns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/portainer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    portainer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/protobuf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    protobuf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/protoc-java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    protoc-java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/pulsar-manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pulsar-manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/pulsar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pulsar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/runc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    runc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/seaweedfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    seaweedfs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/sigar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sigar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/sofa-pbrpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    baidu/sofa-pbrpc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/spark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/telegraf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    telegraf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/telepresence/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    telepresence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/tikv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tikv
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/weaveworks-scope/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    weaveworks-scope
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/weaveworks-weave/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    weaveworks-weave
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/wildfly-openssl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    wildfly-openssl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/xtrabackup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    xtrabackup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/xx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    xx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/zookeeper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zookeeper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/zstd-jni/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zdtd-jni
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    部署文档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            部署文档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hadoop%2Bhbase%E4%BC%AA%E5%88%86%E5%B8%83%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hadoop+hbase伪分布部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Hadoop+hbase完全分布式部署
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Hadoop+hbase完全分布式部署
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 环境准备
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-hadoop" class="md-nav__link">
+    2. hadoop完全分布式部署
+  </a>
+  
+    <nav class="md-nav" aria-label="2. hadoop完全分布式部署">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-hadoop" class="md-nav__link">
+    2.1 创建hadoop用户
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-openjdk" class="md-nav__link">
+    2.2 安装openjdk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    2.3 设置机器名称
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-ssh" class="md-nav__link">
+    2.4 ssh无密码登录
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 ssh无密码登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-node01" class="md-nav__link">
+    2.4.1 node01节点无密码登录本机
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-node01node02" class="md-nav__link">
+    2.4.2 node01节点无密码登录node02:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-hadoop-334" class="md-nav__link">
+    2.5 安装hadoop-3.3.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    2.6 配置集群/分布式环境
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 配置集群/分布式环境">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-node01" class="md-nav__link">
+    2.6.1 主(node01)节点操作
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6.1 主(node01)节点操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workers" class="md-nav__link">
+    workers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hadoop-envsh" class="md-nav__link">
+    hadoop-env.sh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-sitexml" class="md-nav__link">
+    core-site.xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hdfs-sitexml" class="md-nav__link">
+    hdfs-site.xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapred-sitexml" class="md-nav__link">
+    mapred-site.xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yarn-sitexml" class="md-nav__link">
+    yarn-site.xml
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-node02" class="md-nav__link">
+    2.6.2 从（node02）节点操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    2.7 集群启动
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7 集群启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271-node01" class="md-nav__link">
+    2.7.1 主(node01)节点操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272-node02" class="md-nav__link">
+    2.7.2 从(node02)节点操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-uihadoop" class="md-nav__link">
+    2.7.3 通过UI界面查看hadoop运行状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    2.8 集群测试
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8 集群测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281-node01" class="md-nav__link">
+    2.8.1 命令行操作（主节点node01）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282" class="md-nav__link">
+    2.8.2 网页端上传文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283" class="md-nav__link">
+    2.8.3 网页端查看文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3hbase" class="md-nav__link">
+    3.hbase完全分布式部署
+  </a>
+  
+    <nav class="md-nav" aria-label="3.hbase完全分布式部署">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-hbase-2416" class="md-nav__link">
+    3.1 安装hbase-2.4.16
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 修改配置文件
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 修改配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-node01" class="md-nav__link">
+    3.2.1 主节点（node01）操作
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.1 主节点（node01）操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3211-hbase-envsh" class="md-nav__link">
+    3.2.1.1 hbase-env.sh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3212-hbase-sitexml" class="md-nav__link">
+    3.2.1.2 hbase-site.xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3213-regionserver" class="md-nav__link">
+    3.2.1.3 regionserver
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-node02" class="md-nav__link">
+    3.2.2 从节点(node02)操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 集群启动
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 集群启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-node01" class="md-nav__link">
+    3.3.1 主节点(node01)操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-node02" class="md-nav__link">
+    3.3.2 从节点(node02)操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-uihbase" class="md-nav__link">
+    3.3.3 通过UI界面查看hbase运行状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4 集群测试
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-terasort" class="md-nav__link">
+    3.5 Terasort测试
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 Terasort测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351-teragen" class="md-nav__link">
+    3.5.1 teragen产生随机数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#352-terasort" class="md-nav__link">
+    3.5.2 terasort对产生的数据随机数据进行排序
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#353" class="md-nav__link">
+    3.5.3  数据校验
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 集群关闭
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 问题记录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 参考
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 附录
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../harbor_deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Harbor deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s-1.29.0%E9%83%A8%E7%BD%B2%E5%8F%82%E8%80%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s-1.29.0部署参考
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s1.20.0%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s1.20.0 部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s%E5%8D%95%E8%8A%82%E7%82%B9%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s单节点部署.md
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openstack-Wallby-%E5%A4%9A%E8%8A%82%E7%82%B9%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openstack-Wallby 多节点部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openstack-Wallby%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8%E6%8C%87%E5%AF%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openstack-Wallby常用功能使用指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8D%95%E8%8A%82%E7%82%B9%E7%8B%AC%E7%AB%8B%E5%90%AF%E5%8A%A8hbase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    单节点独立启动hbase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 环境准备
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-hadoop" class="md-nav__link">
+    2. hadoop完全分布式部署
+  </a>
+  
+    <nav class="md-nav" aria-label="2. hadoop完全分布式部署">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-hadoop" class="md-nav__link">
+    2.1 创建hadoop用户
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-openjdk" class="md-nav__link">
+    2.2 安装openjdk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    2.3 设置机器名称
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-ssh" class="md-nav__link">
+    2.4 ssh无密码登录
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 ssh无密码登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-node01" class="md-nav__link">
+    2.4.1 node01节点无密码登录本机
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-node01node02" class="md-nav__link">
+    2.4.2 node01节点无密码登录node02:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-hadoop-334" class="md-nav__link">
+    2.5 安装hadoop-3.3.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    2.6 配置集群/分布式环境
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 配置集群/分布式环境">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-node01" class="md-nav__link">
+    2.6.1 主(node01)节点操作
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6.1 主(node01)节点操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workers" class="md-nav__link">
+    workers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hadoop-envsh" class="md-nav__link">
+    hadoop-env.sh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-sitexml" class="md-nav__link">
+    core-site.xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hdfs-sitexml" class="md-nav__link">
+    hdfs-site.xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapred-sitexml" class="md-nav__link">
+    mapred-site.xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yarn-sitexml" class="md-nav__link">
+    yarn-site.xml
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-node02" class="md-nav__link">
+    2.6.2 从（node02）节点操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    2.7 集群启动
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7 集群启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271-node01" class="md-nav__link">
+    2.7.1 主(node01)节点操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272-node02" class="md-nav__link">
+    2.7.2 从(node02)节点操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-uihadoop" class="md-nav__link">
+    2.7.3 通过UI界面查看hadoop运行状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    2.8 集群测试
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8 集群测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281-node01" class="md-nav__link">
+    2.8.1 命令行操作（主节点node01）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282" class="md-nav__link">
+    2.8.2 网页端上传文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283" class="md-nav__link">
+    2.8.3 网页端查看文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3hbase" class="md-nav__link">
+    3.hbase完全分布式部署
+  </a>
+  
+    <nav class="md-nav" aria-label="3.hbase完全分布式部署">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-hbase-2416" class="md-nav__link">
+    3.1 安装hbase-2.4.16
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 修改配置文件
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 修改配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-node01" class="md-nav__link">
+    3.2.1 主节点（node01）操作
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.1 主节点（node01）操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3211-hbase-envsh" class="md-nav__link">
+    3.2.1.1 hbase-env.sh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3212-hbase-sitexml" class="md-nav__link">
+    3.2.1.2 hbase-site.xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3213-regionserver" class="md-nav__link">
+    3.2.1.3 regionserver
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-node02" class="md-nav__link">
+    3.2.2 从节点(node02)操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 集群启动
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 集群启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-node01" class="md-nav__link">
+    3.3.1 主节点(node01)操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-node02" class="md-nav__link">
+    3.3.2 从节点(node02)操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-uihbase" class="md-nav__link">
+    3.3.3 通过UI界面查看hbase运行状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4 集群测试
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-terasort" class="md-nav__link">
+    3.5 Terasort测试
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 Terasort测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351-teragen" class="md-nav__link">
+    3.5.1 teragen产生随机数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#352-terasort" class="md-nav__link">
+    3.5.2 terasort对产生的数据随机数据进行排序
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#353" class="md-nav__link">
+    3.5.3  数据校验
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 集群关闭
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 问题记录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 参考
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 附录
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/edit/main/docs/部署文档/hadoop+hbase完全分布式部署.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/raw/main/docs/部署文档/hadoop+hbase完全分布式部署.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+  <h1>Hadoop+hbase完全分布式部署</h1>
+
+<p><img alt="teravalidate2" src="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/assets/67671683/59490525-da33-4575-8808-15543a51e2a8" /># hadoop+hbase 完全分布式部署</p>
+<h2 id="1">1. 环境准备</h2>
+<p>这里部署使用两台机器：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>10.130.0.80 node01 (作为master节点)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>10.130.0.91 nodeo2（作为slave节点）
+</span></code></pre></div>
+注意：由于这里是测试，使用两台机器，在实际应用中当部署hbase，由于涉及到zookeeper，所以在进行完全分布式部署时最好使用奇数台机器。</p>
+<h2 id="2-hadoop">2. hadoop完全分布式部署</h2>
+<h3 id="21-hadoop">2.1 创建hadoop用户</h3>
+<p>在两台机器上都执行以下操作：    <br />
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo useradd -m hadoop -s /bin/bash  //创建hadoop用户，并用/bin/bash作为shell
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo passwd hadoop //添加密码
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sudo adduser hadoop sudo  //为hadoop用户增加管理员权限，方便部署
+</span></code></pre></div>
+退出机器，使用hadoop用户进行登录</p>
+<h3 id="22-openjdk">2.2 安装openjdk</h3>
+<p>在两台机器上都执行以下操作：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>apt install -y openjdk-8-jdk
+</span></code></pre></div></p>
+<p>在～/.bashrc中添加以下内容：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-loongarch64
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>export JRE_HOME=/usr/lib/jvm/java-1.8.0-openjdk-loongarch64/jre
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>export PATH=${JAVA_HOME}/bin:$PATH
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>source ~/.bashrc
+</span></code></pre></div>
+java --version  //查看是否安装成功，出现以下内容则表示安装成功
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>hadoop@node02:/usr/local/hadoop$ java -version
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>openjdk version &quot;1.8.0_352&quot;
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>OpenJDK Runtime Environment (Loongson 8.1.12-loongarch64-Loongnix) (build 1.8.0_352-b08)
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>OpenJDK 64-Bit Server VM (build 25.352-b08, mixed mode)
+</span></code></pre></div></p>
+<h3 id="23">2.3 设置机器名称</h3>
+<p>10.130.0.80机器：执行命令“sudo vim /etc/hostname”写入node01(作为master节点)   <br />
+10.130.0.91机器：执行命令“sudo vim /etc/hostname”写入node02   <br />
+在两个机器的/etc/hosts文件中写入：    <br />
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>10.130.0.80 node01
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>10.130.0.91 node02
+</span></code></pre></div>
+分别重启两台机器，并使用hadoop用户登录    <br />
+在两个机器上都执行以下的命令，测试是否相互能ping通：   <br />
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ping node01 -c 3  //ping 3次自动停止
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ping node02 -c 3 
+</span></code></pre></div></p>
+<h3 id="24-ssh">2.4 ssh无密码登录</h3>
+<p>部署hadoop必须要让master节点(node01)无密码登录到各个节点上。  <br />
+首先，生成node01的公匙，因为对主机名进行了修改，所以之前若生成过，必须删除重新生成。具体命令如下：   <br />
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>cd ~/.ssh  //若没有该目录，先执行一次ssh localhost
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>rm ./id_rsa* //删除之前生成的公匙（若存在）
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>ssh-keygen -t rsa  //执行该命令后，遇到提示信息，一直按回车即可
+</span></code></pre></div></p>
+<h4 id="241-node01">2.4.1 node01节点无密码登录本机</h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cat ./id_rsa.pub  &gt;&gt; ./authorized_keys
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ssh node01 //可能会遇到提示信息，输入yes即可
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>exit  // ssh无密码登录测试成功后，退回原来的终端
+</span></code></pre></div>
+<h4 id="242-node01node02">2.4.2 node01节点无密码登录node02:</h4>
+<p>将node01的密钥传到node02上:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>scp ~/.ssh/id_rsa.pub hadoop@node02:/home/hadoop/
+</span></code></pre></div>
+在node02执行以下操作：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>mkdir ~/.ssh //若已经存在，则忽略该命令
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>rm ~/id_rsa.pub 
+</span></code></pre></div></p>
+<h3 id="25-hadoop-334">2.5 安装hadoop-3.3.4</h3>
+<p>在master节点（node01）上执行：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo tar -zxf hadoop-3.3.4.tar.gz -C /usr/local  
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>cd /usr/local/
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>sudo mv ./hadoop-3.3.4 ./hadoop  //修改文件名
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>sudo chown -R hadoop ./hadoop  //修改文件权限
+</span></code></pre></div>
+在～/.bashrc中加入以下内容：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>export PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>source ~/.bashrc
+</span></code></pre></div></p>
+<p>输入以下命令检查hadoop是否可用，成功会显示hadoop版本信息:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>hadoop@node01:/usr/local/hadoop$ hadoop version
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>Hadoop 3.3.4
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Source code repository https://github.com/apache/hadoop.git -r a585a73c3e02ac62350c136643a5e7f6095a3dbb
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>Compiled by root on 2023-02-07T03:38Z
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>Compiled with protoc 3.7.1
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>From source with checksum fb9dd8918a7b8a5b430d61af858f6ec
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>This command was run using /usr/local/hadoop/share/hadoop/common/hadoop-common-3.3.4.jar
+</span></code></pre></div></p>
+<h3 id="26">2.6 配置集群/分布式环境</h3>
+<p>在进行分布式部署时，需要修改/usr/local/hadoop/etc/hadoop目录下的配置文件，这里仅仅配置了正常启动所必须的设置项：workres, core-site.xml, hdfs-site.xml, mapred-site.xml, yarm-site.xml, hadoop-env.sh 6个文件。
+详细的配置文件内容，可以通过官方https://hadoop.apache.org/docs/stable/index.html 最底部的Configuration部分进行学习和查看。</p>
+<h4 id="261-node01">2.6.1 主(node01)节点操作</h4>
+<h5 id="workers">workers</h5>
+<p>该文件中记录了所有作为数据节点的主机名称，默认为localhost(即把本机作为数据节点)，此时表示本机即作为名称节点也作为数据节点。在本次部署中让master(node01)充当名称节点和数据节点，node02作为数据节点，故写入的内容如下：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>node01
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>node02
+</span></code></pre></div></p>
+<h5 id="hadoop-envsh">hadoop-env.sh</h5>
+<p>在该文件中设置JAVA_HOME参数：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-loongarch64
+</span></code></pre></div></p>
+<h5 id="core-sitexml">core-site.xml</h5>
+<p>该文件是hadoop的核心全局配置文件，可在其他配置文件中引用该文件   <br />
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>core-site.xml
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>&lt;configuration&gt;
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>        &lt;property&gt;
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>&lt;!--指定文件系统(namenode)的地址是node01，端口号 是9000--&gt;
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>                &lt;name&gt;fs.defaultFS&lt;/name&gt;
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>                &lt;value&gt;hdfs://node01:9000&lt;/value&gt;
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>        &lt;/property&gt;
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>        &lt;property&gt;
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>&lt;!--  配置hadoop的临时目录 --&gt;
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>                &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>                &lt;value&gt;file:/usr/local/hadoop/tmp&lt;/value&gt; 
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>                &lt;description&gt;A base for other temporary directories.&lt;/description&gt;
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>        &lt;/property&gt;
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>&lt;/configuration&gt;
+</span></code></pre></div>
+备注：
+fs.defaultFS: 用来配置HDFS的主进程NameNode的运行主机（也就是hadoop集群的主节点位置）
+hadoop.tmp.dir ：设置临时文件的路径</p>
+<h5 id="hdfs-sitexml">hdfs-site.xml</h5>
+<p>该文件用于设置HDFS的NameNode和DataNode
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>&lt;configuration&gt;
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>&lt;!-- 指定secondary namenode的http服务器的地址和端口--&gt;
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>        &lt;property&gt;
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>                &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>                &lt;value&gt;node01:50090&lt;/value&gt;
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        &lt;/property&gt;
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>&lt;!-- 指定HDFS副本的数量--&gt;
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>        &lt;property&gt;
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>                &lt;name&gt;dfs.replication&lt;/name&gt;
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>                &lt;value&gt;2&lt;/value&gt;
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>        &lt;/property&gt;
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>&lt;!-- 指定DFS名称表（名称节点）的存储位置--&gt;
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>        &lt;property&gt;
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>                &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>                &lt;value&gt;file:/usr/local/hadoop/tmp/dfs/name&lt;/value&gt;
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>        &lt;/property&gt;
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>&lt;!-- 指定DFS数据表（数据节点）的存储位置--&gt;
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>        &lt;property&gt;
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>                &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>                &lt;value&gt;file:/usr/local/hadoop/tmp/dfs/data&lt;/value&gt;
+</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>        &lt;/property&gt;
+</span><span id="__span-19-22"><a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a>&lt;/configuration&gt;
+</span></code></pre></div>
+备注：
+dfs: 确定DFS名称节点应在本地文件系统上的哪个位置存储名称表。如果是以逗号分隔的目录列表，则名称表将复制到所有目录中，以实现副本。</p>
+<h5 id="mapred-sitexml">mapred-site.xml</h5>
+<p>该文件是MapReduce的核心配置文件，用于指定MapReduce运行时框架
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>&lt;configuration&gt;
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>&lt;!-- 指定MapReduce的运行时框架--&gt;
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>        &lt;property&gt;
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>                &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>                &lt;value&gt;yarn&lt;/value&gt;
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>        &lt;/property&gt;
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>&lt;!-- 指定服务器IPC的主机：端口号--&gt;
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>        &lt;property&gt;
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>                &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>                &lt;value&gt;node01:10020&lt;/value&gt;
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>        &lt;/property&gt;
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>&lt;!-- 指定服务器Web UI的主机：端口号--&gt;
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>        &lt;property&gt;
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>                &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>                &lt;value&gt;node01:19888&lt;/value&gt;
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>        &lt;/property&gt;
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>        &lt;property&gt;
+</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>                &lt;name&gt;yarn.app.mapreduce.am.env&lt;/name&gt;
+</span><span id="__span-20-19"><a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>                &lt;value&gt;HADOOP_MAPRED_HOME=/usr/local/hadoop&lt;/value&gt;
+</span><span id="__span-20-20"><a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a>        &lt;/property&gt;
+</span><span id="__span-20-21"><a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a>        &lt;property&gt;
+</span><span id="__span-20-22"><a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a>                &lt;name&gt;mapreduce.map.env&lt;/name&gt;
+</span><span id="__span-20-23"><a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a>                &lt;value&gt;HADOOP_MAPRED_HOME=/usr/local/hadoop&lt;/value&gt;
+</span><span id="__span-20-24"><a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a>        &lt;/property&gt;
+</span><span id="__span-20-25"><a id="__codelineno-20-25" name="__codelineno-20-25" href="#__codelineno-20-25"></a>        &lt;property&gt;
+</span><span id="__span-20-26"><a id="__codelineno-20-26" name="__codelineno-20-26" href="#__codelineno-20-26"></a>                &lt;name&gt;mapreduce.reduce.env&lt;/name&gt;
+</span><span id="__span-20-27"><a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a>                &lt;value&gt;HADOOP_MAPRED_HOME=/usr/local/hadoop&lt;/value&gt;
+</span><span id="__span-20-28"><a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a>        &lt;/property&gt; 
+</span><span id="__span-20-29"><a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a>&lt;/configuration&gt;
+</span></code></pre></div>
+备注：
+mapreduce.framework.name：用来指定MapReduce的运行时框架，有local,yarn和classic三种模式。
+yarn.app.mapreduce.am.env: 用户为MapReduce APP master进程添加的环境变量</p>
+<h5 id="yarn-sitexml">yarn-site.xml</h5>
+<p>本文件是yarn框架的核心配置文件，需要指定yarn集群的管理者
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>&lt;configuration&gt;
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>&lt;!-- 指定yarn集群管理者的地址--&gt;
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>        &lt;property&gt;
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>                &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>                &lt;value&gt;node01&lt;/value&gt;
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>        &lt;/property&gt;
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>        &lt;property&gt;
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>                &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>                &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>        &lt;/property&gt;
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>&lt;/configuration&gt;
+</span></code></pre></div>
+备注：上述配置文件中，配置了yarn的主进程ResourceManager运行主机为node01，同时配置了NodeManager运行时的附属服务，需要配置为mapreduce_shuffle才能正常运行MapReduce的默认程序。</p>
+<h4 id="262-node02">2.6.2 从（node02）节点操作</h4>
+<p>上面6个配置文件完成后，需要把主节点上的/usr/local/hadoop文件夹复制到各个节点上。在node02上执行以下操作：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>sudo chown -R hadoop /usr/local/hadoop
+</span></code></pre></div></p>
+<h3 id="27">2.7 集群启动</h3>
+<h4 id="271-node01">2.7.1 主(node01)节点操作</h4>
+<p>(1)在主节点上执行执行名称节点的格式化，只需要执行一次，后面再启动hadoop时，不需要再次格式化名称节点（若需要重新进行格式化，则删除tmp和log目录）。
+执行命令：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>hdfs namenode -format
+</span></code></pre></div>
+当出现以下内容时表示格式化成功：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>2023-02-09 11:45:44,384 INFO namenode.FSImage: Allocated new BlockPoolId: BP-2007561254-10.130.0.80-1675914344373
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>2023-02-09 11:45:44,400 INFO common.Storage: Storage directory /usr/local/hadoop/tmp/dfs/name has been successfully formatted.
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>2023-02-09 11:45:44,436 INFO namenode.FSImageFormatProtobuf: Saving image file /usr/local/hadoop/tmp/dfs/name/current/fsimage.ckpt_0000000000000000000 using no compression
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>2023-02-09 11:45:44,592 INFO namenode.FSImageFormatProtobuf: Image file /usr/local/hadoop/tmp/dfs/name/current/fsimage.ckpt_0000000000000000000 of size 401 bytes saved in 0 seconds .
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>2023-02-09 11:45:44,611 INFO namenode.NNStorageRetentionManager: Going to retain 1 images with txid &gt;= 0
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>2023-02-09 11:45:44,647 INFO namenode.FSNamesystem: Stopping services started for active state
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>2023-02-09 11:45:44,648 INFO namenode.FSNamesystem: Stopping services started for standby state
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>2023-02-09 11:45:44,652 INFO namenode.FSImage: FSImageSaver clean checkpoint: txid=0 when meet shutdown.
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>2023-02-09 11:45:44,652 INFO namenode.NameNode: SHUTDOWN_MSG:
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>/************************************************************
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>SHUTDOWN_MSG: Shutting down NameNode at node01/10.130.0.80
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>************************************************************/
+</span></code></pre></div></p>
+<p>(2)启动hadoop
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>start-dfs.sh   //   启动HDFS集群
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>start-yarn.sh  //启动yarn集群
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>mr-jobhistory-daemon.sh start historyserver
+</span></code></pre></div></p>
+<p>(3)查看启动的进程
+若正确启动，在主节点上可以看到以下几个进程：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>hadoop@node01:/usr/local/hadoop$ jps
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>18449 ResourceManager
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>19723 JobHistoryServer
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>19803 Jps
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>18061 DataNode
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>18541 NodeManager
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>18238 SecondaryNameNode
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>17967 NameNode
+</span></code></pre></div></p>
+<p>(4)查看启动的数据节点
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>hadoop@node01:/usr/local/hadoop$ hdfs dfsadmin -report
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>......
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>Live datanodes (2):
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>Name: 10.130.0.80:9866 (node01)
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>Hostname: node01
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>Decommission Status : Normal
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>Configured Capacity: 44310081536 (41.27 GB)
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>DFS Used: 8192 (8 KB)
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>Non DFS Used: 12885385216 (12.00 GB)
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>DFS Remaining: 31424688128 (29.27 GB)
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>DFS Used%: 0.00%
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>DFS Remaining%: 70.92%
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>Configured Cache Capacity: 0 (0 B)
+</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>Cache Used: 0 (0 B)
+</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>Cache Remaining: 0 (0 B)
+</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>Cache Used%: 100.00%
+</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>Cache Remaining%: 0.00%
+</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>Xceivers: 0
+</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a>Last contact: Thu Feb 09 20:22:37 CST 2023
+</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>Last Block Report: Thu Feb 09 18:49:10 CST 2023
+</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a>Num of Blocks: 0
+</span><span id="__span-27-23"><a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a>
+</span><span id="__span-27-24"><a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a>
+</span><span id="__span-27-25"><a id="__codelineno-27-25" name="__codelineno-27-25" href="#__codelineno-27-25"></a>Name: 10.130.0.91:9866 (node02)
+</span><span id="__span-27-26"><a id="__codelineno-27-26" name="__codelineno-27-26" href="#__codelineno-27-26"></a>Hostname: node02
+</span><span id="__span-27-27"><a id="__codelineno-27-27" name="__codelineno-27-27" href="#__codelineno-27-27"></a>Decommission Status : Normal
+</span><span id="__span-27-28"><a id="__codelineno-27-28" name="__codelineno-27-28" href="#__codelineno-27-28"></a>Configured Capacity: 44310081536 (41.27 GB)
+</span><span id="__span-27-29"><a id="__codelineno-27-29" name="__codelineno-27-29" href="#__codelineno-27-29"></a>DFS Used: 8192 (8 KB)
+</span><span id="__span-27-30"><a id="__codelineno-27-30" name="__codelineno-27-30" href="#__codelineno-27-30"></a>Non DFS Used: 10843045888 (10.10 GB)
+</span><span id="__span-27-31"><a id="__codelineno-27-31" name="__codelineno-27-31" href="#__codelineno-27-31"></a>DFS Remaining: 33467027456 (31.17 GB)
+</span><span id="__span-27-32"><a id="__codelineno-27-32" name="__codelineno-27-32" href="#__codelineno-27-32"></a>DFS Used%: 0.00%
+</span><span id="__span-27-33"><a id="__codelineno-27-33" name="__codelineno-27-33" href="#__codelineno-27-33"></a>DFS Remaining%: 75.53%
+</span><span id="__span-27-34"><a id="__codelineno-27-34" name="__codelineno-27-34" href="#__codelineno-27-34"></a>Configured Cache Capacity: 0 (0 B)
+</span><span id="__span-27-35"><a id="__codelineno-27-35" name="__codelineno-27-35" href="#__codelineno-27-35"></a>Cache Used: 0 (0 B)
+</span><span id="__span-27-36"><a id="__codelineno-27-36" name="__codelineno-27-36" href="#__codelineno-27-36"></a>Cache Remaining: 0 (0 B)
+</span><span id="__span-27-37"><a id="__codelineno-27-37" name="__codelineno-27-37" href="#__codelineno-27-37"></a>Cache Used%: 100.00%
+</span><span id="__span-27-38"><a id="__codelineno-27-38" name="__codelineno-27-38" href="#__codelineno-27-38"></a>Cache Remaining%: 0.00%
+</span><span id="__span-27-39"><a id="__codelineno-27-39" name="__codelineno-27-39" href="#__codelineno-27-39"></a>Xceivers: 0
+</span></code></pre></div>
+可以看到启动的数据节点有2个，node01和node02，与前面在配置文件hdfs-site.xml中的设置一致。</p>
+<h4 id="272-node02">2.7.2 从(node02)节点操作</h4>
+<p>在主节点启动服务后，在从节点上可以看到启动了两个进程DataNode和NodeManager。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>hadoop@node02:/usr/local/hadoop$ jps
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>11349 DataNode
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>11467 NodeManager
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>11819 Jps
+</span></code></pre></div></p>
+<h4 id="273-uihadoop">2.7.3 通过UI界面查看hadoop运行状态</h4>
+<p>在浏览器中输入http://10.130.0.80:9870 查看HDFS集群状态。
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220589853-836bb0e3-2f96-46e6-94f9-fae97e2a9b06.png" /></p>
+<p>在浏览器中输入http://10.130.0.80:8088，查看yarn集群状态：
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220589919-5463d403-23ea-496d-a955-f119e5cd0ab4.png" /></p>
+<h3 id="28">2.8 集群测试</h3>
+<h4 id="281-node01">2.8.1 命令行操作（主节点node01）</h4>
+<p>（1）创建HDFS用户实例
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>hdfs dfs -mkdir -p /user/hadoop
+</span></code></pre></div>
+此时在Browse the file system中可以看到创建的用户目录：</p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/67671683/220593396-d315d372-636e-4258-af74-67fb5e3bdc05.png" />
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220593453-d8c4253a-37c7-4a54-b6c1-ae5cd832597d.png" />
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220593475-6f4135fa-368f-4af8-9618-2b92db2a1f05.png" /></p>
+<p>通过hdfs dfs -ls / 可以查看到hdfs的根目录下存储的文件：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>hadoop@node01:/usr/local/hadoop$ hdfs dfs -ls /
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>Found 2 items
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>drwxrwx---   - hadoop supergroup          0 2023-02-20 09:31 /tmp
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>drwxr-xr-x   - hadoop supergroup          0 2023-02-20 09:35 /user
+</span></code></pre></div></p>
+<p>（2）在HDFS中创建input目录，将要操作的文件保存在该目录下
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>hdfs dfs -mkdir input
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>hdfs dfs -put /usr/local/hadoop/etc/hadoop/*.xml input
+</span></code></pre></div>
+（3）运行MapReduce作业
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>cd  /usr/local/hadoop/share/hadoop/mapreduce
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>hadoop@node01:/usr/local/hadoop/share/hadoop/mapreduce$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar grep input output &#39;dfs[a-z.]+&#39;
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>2023-02-09 20:42:05,830 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at node01/10.130.0.80:8032
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>2023-02-09 20:42:06,461 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/hadoop/.staging/job_1675933900726_0001
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>2023-02-09 20:42:07,603 INFO input.FileInputFormat: Total input files to process : 0
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>2023-02-09 20:42:07,671 INFO mapreduce.JobSubmitter: number of splits:0
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>2023-02-09 20:42:07,845 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1675933900726_0001
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>2023-02-09 20:42:07,845 INFO mapreduce.JobSubmitter: Executing with tokens: []
+</span></code></pre></div>
+备注：
+hadoop jar xxx表示执行一个hadoop的jar包程序，grep表示执行jar包程序中的搜索功能呢个，input表示搜索的HDFS文件路径，out表示搜索完成后输出HDFS的结果路径。</p>
+<p>在【Utilities】→【Browse the file system】→【usr】→【hadoop】下可以看到生成了output目录：
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220593750-a04602c9-4d8f-453e-b28b-866a4989df25.png" />
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220593792-5d55bf92-82b3-4a5e-a512-49ee000edf4f.png" /></p>
+<p>在【output】下可以看到有两个文件，_SUCCESS表示此次任务执行成功，part-r-0000中存储了grep的结果。单击part-r-0000可以将文件下载到本地，查看其中的内容如下：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>1   dfsadmin
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>1   dfs.replication
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>1   dfs.namenode.secondary.http
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>1   dfs.namenode.name.dir
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>1   dfs.datanode.data.dir
+</span></code></pre></div></p>
+<h4 id="282">2.8.2 网页端上传文件</h4>
+<p>点击下图中的上传按钮，上传文件：</p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/67671683/220593934-b370e76c-30a7-4601-9415-769c552c8245.png" /></p>
+<p>注意：
+打开浏览器的机器上需要添加以下配置：
+/etc/hosts:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>10.130.0.80 node01
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>10.130.0.91 node02
+</span></code></pre></div>
+备注：要关闭代理服务器，否则会导致访问失败。</p>
+<h4 id="283">2.8.3 网页端查看文件</h4>
+<p><img alt="image" src="https://user-images.githubusercontent.com/67671683/220595335-dc0249b3-6ba0-4347-b66a-88f9491dda4c.png" /></p>
+<p>点击下图中的Download便可以下载文件，Head/Tail the file可以查看文件:
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220595394-251c3c9d-8b10-4ff5-a98a-b94f5c6822a7.png" /></p>
+<p>备注：
+1）hdfs存放文件的位置位于节点的datanode路径下，本次部署存放文件的具体目录是：  <br />
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>“/usr/local/hadoop/tmp/dfs/data/current/BP-1730813420-10.130.0.137-1676856486892/current/finalized/subdir0/subdir0”。
+</span></code></pre></div>
+因为hdfs存放文件是按照块存储的，所以存储文件的名称与实际文件的名称并不一致，如上图中上传的文件“解决冲突”，实际文件名称是：blk_1073741826, vim该文件可以查看到具体的存储内容。     <br />
+2）因为本次部署使用了2个数据备份，所以在node01和node02上都存在块文件blk_1073741826。    </p>
+<h2 id="3hbase">3.hbase完全分布式部署</h2>
+<h3 id="31-hbase-2416">3.1 安装hbase-2.4.16</h3>
+<p>在master(node01)节点上执行:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>sudo tar -xf hbase-2.4.16-bin.tar.gz
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>sudo mv hbase-2.4.16 hbase
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>sudo chown -R hadoop  ./hbase
+</span></code></pre></div>
+在～/.bashrc中添加：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>export HBASE_HOME=/usr/local/hbase
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>export PATH=$PATH:$HBASE_HOME/bin
+</span></code></pre></div></p>
+<h3 id="32">3.2 修改配置文件</h3>
+<h4 id="321-node01">3.2.1 主节点（node01）操作</h4>
+<h5 id="3211-hbase-envsh">3.2.1.1 hbase-env.sh</h5>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-loongarch64
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>export HBASE_MANAGES_ZK=true   #表示使用hbase自带的zookeeper,若要使用自己单独部署的zookeeper集群，则将true设置为false
+</span></code></pre></div>
+<h5 id="3212-hbase-sitexml">3.2.1.2 hbase-site.xml</h5>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>&lt;configuration&gt;
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a> &lt;!-- 指定hbase在hdfs上存储数据的文件夹，端口要和hadoop的core-site.xml文件中设置的端口号一致--&gt;
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>  &lt;property&gt;
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>    &lt;name&gt;hbase.rootdir&lt;/name&gt;
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>    &lt;value&gt;hdfs://node01:9000/hbase&lt;/value&gt;
+</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>  &lt;/property&gt;
+</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a>&lt;!-- 指定hbase的master主机名和端口 --&gt;
+</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>  &lt;property&gt;
+</span><span id="__span-39-9"><a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a>    &lt;name&gt;hbase.master&lt;/name&gt;
+</span><span id="__span-39-10"><a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a>    &lt;value&gt;node01:60000&lt;/value&gt;
+</span><span id="__span-39-11"><a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a>  &lt;/property&gt;
+</span><span id="__span-39-12"><a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a>  &lt;!-- 指定hbase的部署方式 --&gt;
+</span><span id="__span-39-13"><a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a>  &lt;property&gt;
+</span><span id="__span-39-14"><a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a>    &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;
+</span><span id="__span-39-15"><a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a>    &lt;value&gt;true&lt;/value&gt;
+</span><span id="__span-39-16"><a id="__codelineno-39-16" name="__codelineno-39-16" href="#__codelineno-39-16"></a>  &lt;/property&gt;
+</span><span id="__span-39-17"><a id="__codelineno-39-17" name="__codelineno-39-17" href="#__codelineno-39-17"></a> &lt;!-- 指定hbase的临时目录 --&gt;
+</span><span id="__span-39-18"><a id="__codelineno-39-18" name="__codelineno-39-18" href="#__codelineno-39-18"></a>  &lt;property&gt;
+</span><span id="__span-39-19"><a id="__codelineno-39-19" name="__codelineno-39-19" href="#__codelineno-39-19"></a>    &lt;name&gt;hbase.tmp.dir&lt;/name&gt;
+</span><span id="__span-39-20"><a id="__codelineno-39-20" name="__codelineno-39-20" href="#__codelineno-39-20"></a>    &lt;value&gt;/usr/local/hbase/tmp&lt;/value&gt;
+</span><span id="__span-39-21"><a id="__codelineno-39-21" name="__codelineno-39-21" href="#__codelineno-39-21"></a>  &lt;/property&gt;
+</span><span id="__span-39-22"><a id="__codelineno-39-22" name="__codelineno-39-22" href="#__codelineno-39-22"></a>  &lt;property&gt;
+</span><span id="__span-39-23"><a id="__codelineno-39-23" name="__codelineno-39-23" href="#__codelineno-39-23"></a>    &lt;name&gt;hbase.unsafe.stream.capability.enforce&lt;/name&gt;
+</span><span id="__span-39-24"><a id="__codelineno-39-24" name="__codelineno-39-24" href="#__codelineno-39-24"></a>    &lt;value&gt;false&lt;/value&gt;
+</span><span id="__span-39-25"><a id="__codelineno-39-25" name="__codelineno-39-25" href="#__codelineno-39-25"></a>  &lt;/property&gt;
+</span><span id="__span-39-26"><a id="__codelineno-39-26" name="__codelineno-39-26" href="#__codelineno-39-26"></a>  &lt;!-- 指定zookeeper集群的主机名 --&gt;
+</span><span id="__span-39-27"><a id="__codelineno-39-27" name="__codelineno-39-27" href="#__codelineno-39-27"></a>  &lt;property&gt;
+</span><span id="__span-39-28"><a id="__codelineno-39-28" name="__codelineno-39-28" href="#__codelineno-39-28"></a>    &lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;
+</span><span id="__span-39-29"><a id="__codelineno-39-29" name="__codelineno-39-29" href="#__codelineno-39-29"></a>    &lt;value&gt;node01,node02&lt;/value&gt;
+</span><span id="__span-39-30"><a id="__codelineno-39-30" name="__codelineno-39-30" href="#__codelineno-39-30"></a>  &lt;/property&gt;
+</span><span id="__span-39-31"><a id="__codelineno-39-31" name="__codelineno-39-31" href="#__codelineno-39-31"></a>&lt;/configuration&gt;
+</span></code></pre></div>
+<h5 id="3213-regionserver">3.2.1.3 regionserver</h5>
+<p>配置所有作为数据节点的主机名，在本次部署中主节点也作为数据节点，所以配置如下：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>node01
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>node02
+</span></code></pre></div></p>
+<h4 id="322-node02">3.2.2 从节点(node02)操作</h4>
+<p>将主节点上配置好的hbase传到从节点上：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>scp -r hbase hadoop@node01:/usr/local
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>sudo chown -R hadoop ./hbase
+</span></code></pre></div></p>
+<p>在～/.bashrc中设置：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>export HBASE_HOME=/usr/local/hbase
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>export PATH=$PATH:$HBASE_HOME/bin
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>source ~/.bashrc
+</span></code></pre></div></p>
+<h3 id="33">3.3 集群启动</h3>
+<h4 id="331-node01">3.3.1 主节点(node01)操作</h4>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>hadoop@node01:/usr/local/hbase$ bin/start-hbase.sh 
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>SLF4J: Class path contains multiple SLF4J bindings.
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>SLF4J: Found binding in [jar:file:/usr/local/hadoop/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>SLF4J: Found binding in [jar:file:/usr/local/hbase/lib/client-facing-thirdparty/slf4j-reload4j-1.7.33.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>SLF4J: Actual binding is of type [org.slf4j.impl.Reload4jLoggerFactory]
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>SLF4J: Class path contains multiple SLF4J bindings.
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>SLF4J: Found binding in [jar:file:/usr/local/hadoop/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>SLF4J: Found binding in [jar:file:/usr/local/hbase/lib/client-facing-thirdparty/slf4j-reload4j-1.7.33.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+</span><span id="__span-44-10"><a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a>SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+</span><span id="__span-44-11"><a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a>SLF4J: Actual binding is of type [org.slf4j.impl.Reload4jLoggerFactory]
+</span><span id="__span-44-12"><a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a>node02: running zookeeper, logging to /usr/local/hbase/bin/../logs/hbase-hadoop-zookeeper-node02.out
+</span><span id="__span-44-13"><a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a>node01: running zookeeper, logging to /usr/local/hbase/bin/../logs/hbase-hadoop-zookeeper-node01.out
+</span><span id="__span-44-14"><a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a>running master, logging to /usr/local/hbase/logs/hbase-hadoop-master-node01.out
+</span><span id="__span-44-15"><a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a>node01: running regionserver, logging to /usr/local/hbase/bin/../logs/hbase-hadoop-regionserver-node01.out
+</span><span id="__span-44-16"><a id="__codelineno-44-16" name="__codelineno-44-16" href="#__codelineno-44-16"></a>node02: running regionserver, logging to /usr/local/hbase/bin/../logs/hbase-hadoop-regionserver-node02.out
+</span></code></pre></div>
+通过jps查看启动的进程:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>hadoop@node01:/usr/local/hbase$ jps
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>10034 HMaster
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>26565 NodeManager
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>25975 NameNode
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>26072 DataNode
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>9928 HQuorumPeer
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>26473 ResourceManager
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>27001 JobHistoryServer
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>26252 SecondaryNameNode
+</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>10590 Jps
+</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>10239 HRegionServer
+</span></code></pre></div>
+若成功启动此时可以发现新增加了3个进程：HMaster(hbase master进程), HQuorumPeer（zookeeper进程）, HRegionServer（hbase region server进程）。</p>
+<p>同时，可以看到hbase目录已经挂载到hdfs的根目录下:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>hadoop@node01:/usr/local/hbase$ hdfs dfs -ls /
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>Found 5 items
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>drwxr-xr-x   - hadoop supergroup          0 2023-02-22 14:28 /hbase
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>drwxrwx---   - hadoop supergroup          0 2023-02-20 09:31 /tmp
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a>drwxr-xr-x   - hadoop supergroup          0 2023-02-20 09:35 /user
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>-rw-r--r--   2 dr.who supergroup       3441 2023-02-20 09:40 /解决冲突
+</span></code></pre></div>
+此时，在hadoop的集群中也能看到hbase文件夹。</p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/67671683/220596088-19fa056f-c4e8-4ce6-b16f-72e82b9294e9.png" /></p>
+<h4 id="332-node02">3.3.2 从节点(node02)操作</h4>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>hadoop@node02:/usr/local/hbase$ jps
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>15457 NodeManager
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>20930 HQuorumPeer
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>21063 HRegionServer
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>15785 DataNode
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a>21593 Jps
+</span></code></pre></div>
+可以发现新增加了2个进程：HQuorumPeer和HRegionServer</p>
+<h4 id="333-uihbase">3.3.3 通过UI界面查看hbase运行状态</h4>
+<p>在浏览器中输入http://10.130.0.80:16010 或者输入 http://node01:16010 可以进行查看。
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220596234-a42bc628-958f-4a5f-9c87-d30d6504732e.png" /></p>
+<h3 id="34">3.4 集群测试</h3>
+<p>进入shell: <br />
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>hadoop@node1:/usr/local/hbase$ hbase shell
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>创建table；test123
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>hbase:055:0&gt; create &#39;test123&#39;, &#39;cf&#39;
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>Created table test123
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>Took 1.1293 seconds                                                                                                         
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>=&gt; Hbase::Table - test123
+</span></code></pre></div></p>
+<p>插入数据
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>hbase:056:0&gt; put &#39;test123&#39;, &#39;row1&#39;, &#39;cf:a&#39;, &#39;value100&#39;
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>Took 0.0209 seconds                                                                                                         
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>hbase:057:0&gt;  put &#39;test123&#39;, &#39;row2&#39;, &#39;cf:b&#39;, &#39;value200&#39;
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>Took 0.0125 seconds  
+</span></code></pre></div>
+此时可以看到/usr/local/hadoop/tmp/dfs/data/current/BP-1581270469-10.130.0.62-1676893644213/current/rbw目录下生成了文件了blk_xxxxxxxxxx，其中文件的内容便是put写入的内容。   <br />
+hadoop@node02:/usr/local/hadoop/tmp/dfs/data/current/BP-1730813420-10.130.0.137-1676856486892$ grep -rn value200     <br />
+匹配到二进制文件 current/rbw/blk_1073741851     </p>
+<h3 id="35-terasort">3.5 Terasort测试</h3>
+<p>Terasort是测试hadoop的一个有效的排序程序，通过hadoop自带的Terasort排序程序进行测试，一个Terasort测试分为以下三个步骤：</p>
+<h4 id="351-teragen">3.5.1 teragen产生随机数据</h4>
+<p>执行命令：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar teragen -Dmapred.map.tasks=128 10000000 /terasort/terasort-input
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>2023-11-13 11:37:27,450 INFO impl.MetricsConfig: Loaded properties from hadoop-metrics2.properties
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>2023-11-13 11:37:27,675 INFO impl.MetricsSystemImpl: Scheduled Metric snapshot period at 10 second(s).
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>2023-11-13 11:37:27,675 INFO impl.MetricsSystemImpl: JobTracker metrics system started
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>2023-11-13 11:37:27,935 INFO terasort.TeraGen: Generating 10000000 using 1
+</span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>2023-11-13 11:37:27,955 INFO mapreduce.JobSubmitter: number of splits:1
+</span><span id="__span-50-7"><a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>2023-11-13 11:37:27,995 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+</span><span id="__span-50-8"><a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a>......
+</span><span id="__span-50-9"><a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a>2023-11-13 11:37:50,359 INFO mapreduce.Job:  map 100% reduce 0%
+</span><span id="__span-50-10"><a id="__codelineno-50-10" name="__codelineno-50-10" href="#__codelineno-50-10"></a>2023-11-13 11:37:50,360 INFO mapreduce.Job: Job job_local242609962_0001 completed successfully
+</span><span id="__span-50-11"><a id="__codelineno-50-11" name="__codelineno-50-11" href="#__codelineno-50-11"></a>2023-11-13 11:37:50,370 INFO mapreduce.Job: Counters: 22
+</span><span id="__span-50-12"><a id="__codelineno-50-12" name="__codelineno-50-12" href="#__codelineno-50-12"></a>    File System Counters
+</span><span id="__span-50-13"><a id="__codelineno-50-13" name="__codelineno-50-13" href="#__codelineno-50-13"></a>        FILE: Number of bytes read=281117
+</span><span id="__span-50-14"><a id="__codelineno-50-14" name="__codelineno-50-14" href="#__codelineno-50-14"></a>        FILE: Number of bytes written=918485
+</span><span id="__span-50-15"><a id="__codelineno-50-15" name="__codelineno-50-15" href="#__codelineno-50-15"></a>        FILE: Number of read operations=0
+</span><span id="__span-50-16"><a id="__codelineno-50-16" name="__codelineno-50-16" href="#__codelineno-50-16"></a>        FILE: Number of large read operations=0
+</span><span id="__span-50-17"><a id="__codelineno-50-17" name="__codelineno-50-17" href="#__codelineno-50-17"></a>        FILE: Number of write operations=0
+</span><span id="__span-50-18"><a id="__codelineno-50-18" name="__codelineno-50-18" href="#__codelineno-50-18"></a>        HDFS: Number of bytes read=0
+</span><span id="__span-50-19"><a id="__codelineno-50-19" name="__codelineno-50-19" href="#__codelineno-50-19"></a>        HDFS: Number of bytes written=1000000000
+</span><span id="__span-50-20"><a id="__codelineno-50-20" name="__codelineno-50-20" href="#__codelineno-50-20"></a>        HDFS: Number of read operations=5
+</span><span id="__span-50-21"><a id="__codelineno-50-21" name="__codelineno-50-21" href="#__codelineno-50-21"></a>        HDFS: Number of large read operations=0
+</span><span id="__span-50-22"><a id="__codelineno-50-22" name="__codelineno-50-22" href="#__codelineno-50-22"></a>        HDFS: Number of write operations=3
+</span><span id="__span-50-23"><a id="__codelineno-50-23" name="__codelineno-50-23" href="#__codelineno-50-23"></a>        HDFS: Number of bytes read erasure-coded=0
+</span><span id="__span-50-24"><a id="__codelineno-50-24" name="__codelineno-50-24" href="#__codelineno-50-24"></a>    Map-Reduce Framework
+</span><span id="__span-50-25"><a id="__codelineno-50-25" name="__codelineno-50-25" href="#__codelineno-50-25"></a>        Map input records=10000000
+</span><span id="__span-50-26"><a id="__codelineno-50-26" name="__codelineno-50-26" href="#__codelineno-50-26"></a>        Map output records=10000000
+</span><span id="__span-50-27"><a id="__codelineno-50-27" name="__codelineno-50-27" href="#__codelineno-50-27"></a>        Input split bytes=82
+</span><span id="__span-50-28"><a id="__codelineno-50-28" name="__codelineno-50-28" href="#__codelineno-50-28"></a>        Spilled Records=0
+</span><span id="__span-50-29"><a id="__codelineno-50-29" name="__codelineno-50-29" href="#__codelineno-50-29"></a>        Failed Shuffles=0
+</span><span id="__span-50-30"><a id="__codelineno-50-30" name="__codelineno-50-30" href="#__codelineno-50-30"></a>        Merged Map outputs=0
+</span><span id="__span-50-31"><a id="__codelineno-50-31" name="__codelineno-50-31" href="#__codelineno-50-31"></a>        GC time elapsed (ms)=113
+</span><span id="__span-50-32"><a id="__codelineno-50-32" name="__codelineno-50-32" href="#__codelineno-50-32"></a>        Total committed heap usage (bytes)=1166540800
+</span><span id="__span-50-33"><a id="__codelineno-50-33" name="__codelineno-50-33" href="#__codelineno-50-33"></a>    org.apache.hadoop.examples.terasort.TeraGen$Counters
+</span><span id="__span-50-34"><a id="__codelineno-50-34" name="__codelineno-50-34" href="#__codelineno-50-34"></a>        CHECKSUM=21472776955442690
+</span><span id="__span-50-35"><a id="__codelineno-50-35" name="__codelineno-50-35" href="#__codelineno-50-35"></a>    File Input Format Counters 
+</span><span id="__span-50-36"><a id="__codelineno-50-36" name="__codelineno-50-36" href="#__codelineno-50-36"></a>        Bytes Read=0
+</span><span id="__span-50-37"><a id="__codelineno-50-37" name="__codelineno-50-37" href="#__codelineno-50-37"></a>    File Output Format Counters 
+</span><span id="__span-50-38"><a id="__codelineno-50-38" name="__codelineno-50-38" href="#__codelineno-50-38"></a>        Bytes Written=1000000000
+</span></code></pre></div>
+在执行完上面的命令后会产生随机数据文件part-m-xxx：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs  -ls /terasort
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>Found 1 items
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>drwxr-xr-x   - hadoop supergroup          0 2023-11-13 11:37 /terasort/terasort-input
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a>hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs  -ls /terasort/terasort-input
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>Found 2 items
+</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>-rw-r--r--   1 hadoop supergroup          0 2023-11-13 11:37 /terasort/terasort-input/_SUCCESS
+</span><span id="__span-51-7"><a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a>-rw-r--r--   1 hadoop supergroup 1000000000 2023-11-13 11:37 /terasort/terasort-input/part-m-00000
+</span></code></pre></div></p>
+<p>在网页上可以看到：
+<img alt="teragen" src="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/assets/67671683/03cc79f5-b730-4714-a1ef-ea6262811085" /></p>
+<h4 id="352-terasort">3.5.2 terasort对产生的数据随机数据进行排序</h4>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar terasort /terasort/terasort-input /terasort/terasort-output
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>2023-11-14 09:31:40,955 INFO terasort.TeraSort: starting
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>2023-11-14 09:31:42,493 INFO input.FileInputFormat: Total input files to process : 1
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>Spent 301ms computing base-splits.
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>Spent 3ms computing TeraScheduler splits.
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>Computing input splits took 305ms
+</span><span id="__span-52-7"><a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>Sampling 8 splits of 8
+</span><span id="__span-52-8"><a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>Making 1 from 100000 sampled records
+</span><span id="__span-52-9"><a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a>Computing parititions took 582ms
+</span><span id="__span-52-10"><a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a>Spent 892ms computing partitions.
+</span><span id="__span-52-11"><a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a>......
+</span><span id="__span-52-12"><a id="__codelineno-52-12" name="__codelineno-52-12" href="#__codelineno-52-12"></a>    Shuffle Errors
+</span><span id="__span-52-13"><a id="__codelineno-52-13" name="__codelineno-52-13" href="#__codelineno-52-13"></a>        BAD_ID=0
+</span><span id="__span-52-14"><a id="__codelineno-52-14" name="__codelineno-52-14" href="#__codelineno-52-14"></a>        CONNECTION=0
+</span><span id="__span-52-15"><a id="__codelineno-52-15" name="__codelineno-52-15" href="#__codelineno-52-15"></a>        IO_ERROR=0
+</span><span id="__span-52-16"><a id="__codelineno-52-16" name="__codelineno-52-16" href="#__codelineno-52-16"></a>        WRONG_LENGTH=0
+</span><span id="__span-52-17"><a id="__codelineno-52-17" name="__codelineno-52-17" href="#__codelineno-52-17"></a>        WRONG_MAP=0
+</span><span id="__span-52-18"><a id="__codelineno-52-18" name="__codelineno-52-18" href="#__codelineno-52-18"></a>        WRONG_REDUCE=0
+</span><span id="__span-52-19"><a id="__codelineno-52-19" name="__codelineno-52-19" href="#__codelineno-52-19"></a>    File Input Format Counters 
+</span><span id="__span-52-20"><a id="__codelineno-52-20" name="__codelineno-52-20" href="#__codelineno-52-20"></a>        Bytes Read=1000000000
+</span><span id="__span-52-21"><a id="__codelineno-52-21" name="__codelineno-52-21" href="#__codelineno-52-21"></a>    File Output Format Counters 
+</span><span id="__span-52-22"><a id="__codelineno-52-22" name="__codelineno-52-22" href="#__codelineno-52-22"></a>        Bytes Written=1000000000
+</span><span id="__span-52-23"><a id="__codelineno-52-23" name="__codelineno-52-23" href="#__codelineno-52-23"></a>2023-11-14 09:33:18,090 INFO terasort.TeraSort: done
+</span></code></pre></div>
+在执行完上面的命令后，可以看到产生了目录terasort-output和排序后的文件part-r-00000:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs -ls /terasort/terasort-output
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>Found 3 items
+</span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>-rw-r--r--   1 hadoop supergroup          0 2023-11-14 09:33 /terasort/terasort-output/_SUCCESS
+</span><span id="__span-53-4"><a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a>-rw-r--r--  10 hadoop supergroup          0 2023-11-14 09:31 /terasort/terasort-output/_partition.lst
+</span><span id="__span-53-5"><a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>-rw-r--r--   1 hadoop supergroup 1000000000 2023-11-14 09:33 /terasort/terasort-output/part-r-00000
+</span></code></pre></div>
+在网页上可以看到：
+<img alt="terasort" src="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/assets/67671683/1d772af9-95d6-4b8b-a9ec-c4e73b3e062c" /></p>
+<h4 id="353">3.5.3  数据校验</h4>
+<p>teravalidate来验证terasort输出的数据是否有序，如果检查到问题，则会将乱序的key输出到目录
+<div class="language-text highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar teravalidate /terasort/terasort-output /terasort/terasort-validate |&amp;tee sort1G-3.log
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>2023-11-14 09:43:16,470 INFO impl.MetricsConfig: Loaded properties from hadoop-metrics2.properties
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>2023-11-14 09:43:16,700 INFO impl.MetricsSystemImpl: Scheduled Metric snapshot period at 10 second(s).
+</span><span id="__span-54-4"><a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>2023-11-14 09:43:16,700 INFO impl.MetricsSystemImpl: JobTracker metrics system started
+</span><span id="__span-54-5"><a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a>2023-11-14 09:43:17,114 INFO input.FileInputFormat: Total input files to process : 1
+</span><span id="__span-54-6"><a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>Spent 164ms computing base-splits.
+</span><span id="__span-54-7"><a id="__codelineno-54-7" name="__codelineno-54-7" href="#__codelineno-54-7"></a>Spent 5ms computing TeraScheduler splits.
+</span><span id="__span-54-8"><a id="__codelineno-54-8" name="__codelineno-54-8" href="#__codelineno-54-8"></a>......
+</span><span id="__span-54-9"><a id="__codelineno-54-9" name="__codelineno-54-9" href="#__codelineno-54-9"></a>    Shuffle Errors
+</span><span id="__span-54-10"><a id="__codelineno-54-10" name="__codelineno-54-10" href="#__codelineno-54-10"></a>        BAD_ID=0
+</span><span id="__span-54-11"><a id="__codelineno-54-11" name="__codelineno-54-11" href="#__codelineno-54-11"></a>        CONNECTION=0
+</span><span id="__span-54-12"><a id="__codelineno-54-12" name="__codelineno-54-12" href="#__codelineno-54-12"></a>        IO_ERROR=0
+</span><span id="__span-54-13"><a id="__codelineno-54-13" name="__codelineno-54-13" href="#__codelineno-54-13"></a>        WRONG_LENGTH=0
+</span><span id="__span-54-14"><a id="__codelineno-54-14" name="__codelineno-54-14" href="#__codelineno-54-14"></a>        WRONG_MAP=0
+</span><span id="__span-54-15"><a id="__codelineno-54-15" name="__codelineno-54-15" href="#__codelineno-54-15"></a>        WRONG_REDUCE=0
+</span><span id="__span-54-16"><a id="__codelineno-54-16" name="__codelineno-54-16" href="#__codelineno-54-16"></a>    File Input Format Counters 
+</span><span id="__span-54-17"><a id="__codelineno-54-17" name="__codelineno-54-17" href="#__codelineno-54-17"></a>        Bytes Read=1000000000
+</span><span id="__span-54-18"><a id="__codelineno-54-18" name="__codelineno-54-18" href="#__codelineno-54-18"></a>    File Output Format Counters 
+</span><span id="__span-54-19"><a id="__codelineno-54-19" name="__codelineno-54-19" href="#__codelineno-54-19"></a>        Bytes Written=24
+</span></code></pre></div>
+此时可以看到产生了目录terasort-validate和文件part-r-00000:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs -ls /terasort/
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>Found 3 items
+</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>drwxr-xr-x   - hadoop supergroup          0 2023-11-13 11:37 /terasort/terasort-input
+</span><span id="__span-55-4"><a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a>drwxr-xr-x   - hadoop supergroup          0 2023-11-14 09:33 /terasort/terasort-output
+</span><span id="__span-55-5"><a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a>drwxr-xr-x   - hadoop supergroup          0 2023-11-14 09:43 /terasort/terasort-validate
+</span><span id="__span-55-6"><a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a>hadoop@zhaixiaojuan-loongnix-01:~$ hadoop fs -ls /terasort/terasort-validate
+</span><span id="__span-55-7"><a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a>Found 2 items
+</span><span id="__span-55-8"><a id="__codelineno-55-8" name="__codelineno-55-8" href="#__codelineno-55-8"></a>-rw-r--r--   1 hadoop supergroup          0 2023-11-14 09:43 /terasort/terasort-validate/_SUCCESS
+</span><span id="__span-55-9"><a id="__codelineno-55-9" name="__codelineno-55-9" href="#__codelineno-55-9"></a>-rw-r--r--   1 hadoop supergroup         24 2023-11-14 09:43 /terasort/terasort-validate/part-r-00000
+</span></code></pre></div></p>
+<p>在网页上可以看到：
+<img alt="teravalidate2" src="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/assets/67671683/b6f5080e-54e6-4e14-b964-38f5505aa5a3" /></p>
+<p>备注：若之前创建过terasort，在重新进行测试时需要先使用“hadoop fs -rm -r /terasort”命令进行删除</p>
+<h2 id="4">4. 集群关闭</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>/usr/local/hbase/bin/stop-hbase.sh
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>/usr/local/hadoop/sbin/stop-dfs.sh
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>/usr/local/hadoop/sbin/stop-yarn.sh
+</span></code></pre></div>
+<h2 id="5">5. 问题记录</h2>
+<p>hadoop上传文件错误
+在上传文件时，出现下图中的Couldn’t upload the file xxx。
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220596595-43efdedc-7b89-4188-8d26-95120eb4282a.png" /></p>
+<p>F12, 查看浏览器错误信息，如下。通过下面的信息是访问权限的问题。
+<img alt="image" src="https://user-images.githubusercontent.com/67671683/220596645-c6c0dc08-2553-4e23-9eb8-7ead6074a1d1.png" /></p>
+<p>解决方法：
+   在主节点node01执行命令“hdfs dfs -chmod 777 / ”，此时再重新上传便可以上传成功。
+   <img alt="image" src="https://user-images.githubusercontent.com/67671683/220596688-ed0767f6-c210-4173-ae55-ffb1ddb8e153.png" /></p>
+<h2 id="6">6. 参考</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>https://book.itheima.net/course/1269935677353533441/1269937996044476418/1269939156776165379 
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>https://dblab.xmu.edu.cn/blog/2775/ 
+</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>https://dblab.xmu.edu.cn/blog/2441/ 
+</span><span id="__span-57-4"><a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a>https://blog.csdn.net/qq_42886289/article/details/90682592 
+</span></code></pre></div>
+<h2 id="7">7. 附录</h2>
+<p>HDFS体系主要由namenode和datanode组成。
+namenode: 整个文件系统的管理节点，它维护着整个文件系统的文件目录树，文件/目录的元信息和每个文件对应的数据块列表，接收用户的操作请求。
+namenode包含的文件有：
+1）fsimage文件：元数据镜像。存储某一个时间namenode内存元数据信息，记录文件分块存储在哪几个数据节点上。
+2）edits文件：操作日志文件。
+3）fstime文件：保存最近一次checkpoint的时间</p>
+<p>secondarynamenode: 
+1）是HA的一个解决方案。但不支持热备份，配置即可。
+2）执行过程：从namenode上下载元数据信息(fsimage,edits)，然后把二者合并，生成新的fsimage，在本地保存，并将其推送到namenode，同时重置namenode的edits。
+3）默认安装在namenode节点上。</p>
+<p>datanode提供真实文件数据的存储服务，主要包括：
+1）文件块：最基本的存储单元。对于文件内容而言，一个文件的长度大小是size,则从文件的0偏移开始，按照固定的大小，顺序对文件进行划分并编号，划分好的每一个块称一个block;
+2）不同于普通文件系统的是，hdfs中，如果一个文件小于一个数据块的大小，并不占用整个数据块的存储空间，而是占用实际大小的存储空间。
+3）Replication:多副本，默认是3个。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.indexes", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.780af0f4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f11ae8b1.min.js"></script>
+      
+    
+  </body>
+</html>
