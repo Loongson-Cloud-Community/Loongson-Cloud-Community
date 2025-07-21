@@ -1,0 +1,204 @@
+---
+
+# BuildKit 配置文件详解
+
+本文件为 BuildKit 的完整配置文件示例，涵盖日志、GRPC、OCI worker、Containerd worker、垃圾回收策略、注册表镜像、OpenTelemetry 等模块。建议根据实际部署需求有选择地开启或修改各部分配置。
+
+---
+
+## 全局配置项
+
+```toml
+debug = true        # 启用调试日志 （建议生产阶段关闭）
+trace = true        # 启用追踪日志（非常详细，可能影响性能，建议生产阶段关闭）
+root = "/var/lib/buildkit"  # BuildKit 状态和缓存数据存储路径
+insecure-entitlements = [ "network.host", "security.insecure" ]  # 允许使用不安全的构建权限
+```
+
+---
+
+## 日志设置 `[log]`
+
+```toml
+[log]
+format = "text"     # 日志格式，可选 "json" 或 "text"
+```
+
+---
+
+## DNS 配置 `[dns]`
+
+```toml
+[dns]
+nameservers = ["1.1.1.1", "8.8.8.8"]       # 使用的 DNS 服务器地址
+options = ["edns0"]                        # DNS 查询选项
+searchDomains = ["example.com"]           # DNS 搜索域名
+```
+
+---
+
+## GRPC 服务配置 `[grpc]`
+
+```toml
+[grpc]
+address = ["tcp://0.0.0.0:1234"]           # gRPC 服务监听地址
+debugAddress = "0.0.0.0:6060"              # Go 调试接口监听地址
+uid = 0                                    # gRPC 服务运行的用户 ID
+gid = 0                                    # gRPC 服务运行的组 ID
+
+  [grpc.tls]
+  cert = "/etc/buildkit/tls.crt"           # TLS 证书路径
+  key = "/etc/buildkit/tls.key"            # TLS 私钥路径
+  ca = "/etc/buildkit/tlsca.crt"           # TLS CA 根证书路径
+```
+
+---
+
+## OpenTelemetry 跟踪配置 `[otel]`
+
+```toml
+[otel]
+socketPath = "/run/buildkit/otel-grpc.sock"  # OTEL Trace Socket 路径
+```
+
+---
+
+## CDI 配置 `[cdi]`
+
+```toml
+[cdi]
+disabled = true    # 禁用容器设备接口（CDI）
+specDirs = ["/etc/cdi", "/var/run/cdi", "/etc/buildkit/cdi"]  # CDI 规范文件路径
+```
+
+---
+
+## 构建历史记录 `[history]`
+
+```toml
+[history]
+maxAge = 172800        # 最大保留时间（秒），此处为 2 天
+maxEntries = 50        # 最多保留构建记录条数
+```
+
+---
+
+## OCI Worker 配置 `[worker.oci]`
+
+```toml
+[worker.oci]
+enabled = true                             # 启用 OCI worker
+platforms = ["linux/amd64", "linux/loong64" ...] # 支持的平台架构
+snapshotter = "auto"                       # 使用的快照器（overlayfs、native、auto）
+rootless = false                           # 是否启用 Rootless 模式
+noProcessSandbox = false                   # 是否禁用进程沙箱
+gc = true                                  # 启用构建缓存垃圾回收
+reservedSpace = "30%"                      # 保留磁盘空间（百分比或字节）
+maxUsedSpace = "60%"                       # 最大磁盘使用率
+minFreeSpace = "20GB"                      # 确保最小可用磁盘空间
+binary = ""                                # 可自定义 OCI runtime 二进制路径
+apparmor-profile = ""                      # 可选 AppArmor profile
+max-parallelism = 4                        # 最大并发构建数
+cniPoolSize = 16                           # 可重用的 CNI 网络命名空间池大小
+
+  [worker.oci.labels]
+  "foo" = "bar"                            # 可定义标签元信息
+
+  # 垃圾回收策略列表
+  [[worker.oci.gcpolicy]]
+  reservedSpace = "512MB"
+  maxUsedSpace = "1GB"
+  minFreeSpace = "10GB"
+  keepDuration = "48h"
+  filters = ["type==source.local", "type==exec.cachemount", "type==source.git.checkout"]
+
+  [[worker.oci.gcpolicy]]
+  all = true
+  reservedSpace = 1024000000               # 通用策略，保留约 1GB 空间
+```
+
+---
+
+## Containerd Worker 配置 `[worker.containerd]`
+
+```toml
+[worker.containerd]
+enabled = true
+address = "/run/containerd/containerd.sock"
+platforms = ["linux/amd64", "linux/arm64"]
+namespace = "buildkit"
+gc = true
+reservedSpace = "30%"
+maxUsedSpace = "60%"
+minFreeSpace = "20GB"
+cniPoolSize = 16
+defaultCgroupParent = "buildkit"
+
+  [worker.containerd.labels]
+  "foo" = "bar"
+
+  [worker.containerd.runtime]
+  name = "io.containerd.runc.v2"
+  path = "/path/to/containerd/runc/shim"
+  options = { BinaryName = "runc" }
+
+  [[worker.containerd.gcpolicy]]
+  reservedSpace = 512000000
+  keepDuration = 172800
+  filters = ["type==source.local", "type==exec.cachemount", "type==source.git.checkout"]
+
+  [[worker.containerd.gcpolicy]]
+  all = true
+  reservedSpace = 1024000000
+```
+
+---
+
+## 注册表镜像加速配置 `[registry."docker.io"]` 使用cr/lcr仓库时 http选择否，选择是会导致image的commit不一致
+
+```toml
+[registry."docker.io"]
+mirrors = ["yourmirror.local:5000", "core.harbor.domain/proxy.docker.io"] # 镜像地址
+http = true            # 使用 HTTP 协议连接镜像仓库
+insecure = true        # 允许不安全（自签名）连接
+ca = ["/etc/config/myca.pem"]           # 自定义 CA 根证书
+  [[registry."docker.io".keypair]]
+  key = "/etc/config/key.pem"           # 客户端私钥
+  cert = "/etc/config/cert.pem"         # 客户端证书
+
+[registry."yourmirror.local:5000"]
+http = true           # 额外注册表设置
+```
+
+---
+
+## 前端设置 `[frontend]`
+
+```toml
+[frontend."dockerfile.v0"]
+enabled = true      # 启用 Dockerfile 构建前端
+
+[frontend."gateway.v0"]
+enabled = true
+allowedRepositories = []  # 若不为空，仅允许指定的远程仓库作为 gateway 源
+```
+
+---
+
+## 系统设置 `[system]`
+
+```toml
+[system]
+platformsCacheMaxAge = "1h"   # emulated 平台缓存有效时间，默认 1 小时扫描一次
+```
+
+---
+
+如需将此配置用于生产，请确保以下几点：
+
+* 明确启用了哪些 worker（OCI vs Containerd），避免冲突。
+* 配置了合适的垃圾回收策略防止磁盘占满。
+* 明确平台和网络权限需求（如 `insecure-entitlements` 与 `network.host`）。
+* 若启用 TLS，证书路径需真实有效。
+
+需要我将这个导出为 `.md` 文件或转为表格结构的介绍手册也可以告诉我。
