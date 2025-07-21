@@ -1,0 +1,4131 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../jna/">
+      
+      
+        <link rel="next" href="../kiali/">
+      
+      
+      <link rel="icon" href="../../images/favicon.svg">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.2.0-b0">
+    
+    
+      
+        <title>kapacitor - 龙芯云</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0c456da8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kapacitor" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="龙芯云" class="md-header__button md-logo" aria-label="龙芯云" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            龙芯云
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              kapacitor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Loongson-Cloud-Community
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/alpine-image-abi2.0/" class="md-tabs__link">
+          
+  
+    
+  
+  其他文档
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%AC%A7%E6%8B%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/faq/" class="md-tabs__link">
+          
+  
+    
+  
+  操作系统
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  移植手册
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/hadoop%2Bhbase%E4%BC%AA%E5%88%86%E5%B8%83%E9%83%A8%E7%BD%B2/" class="md-tabs__link">
+          
+  
+    
+  
+  部署文档
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="龙芯云" class="md-nav__button md-logo" aria-label="龙芯云" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    龙芯云
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Loongson-Cloud-Community
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    其他文档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            其他文档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/alpine-image-abi2.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alpine image abi2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Assembly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/buildx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    buildx使用手册
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/debian-image-abi2.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debian image abi2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/flink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flink
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/go-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    go 项目通用移植参考
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/jar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kubevirt单节点部署参考文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/modify-container-image-metadata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    修改容器镜像元数据的方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/python_logging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python日志处理(logging模块介绍)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨平台编译运行
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    欧拉操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            欧拉操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%AC%A7%E6%8B%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉操作系统FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    龙蜥操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            龙蜥操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%BE%99%E8%9C%A5%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    龙蜥操作系统FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    移植手册
+  </span>
+  
+
+            </a>
+            
+              <label class="md-nav__link " for="__nav_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            移植手册
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alluxio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alluxio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ambari/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ambari
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bazel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bazel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bind9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bind9
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binfmt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    binfmt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bitshuffle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kiyo-masui/bitshuffle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bookkeeper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bookkeeper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../brpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    brpc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../buildah/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    buildah
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../calico-node/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    calico-node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cilium-envoy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cilium-envoy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conscrypt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    conscrypt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../containerd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    containerd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cri-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cri-tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deepflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    deepflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../druid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    druid
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ebpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cilium-ebpf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elasticsearch-analysis-ansj/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch-analysis-ansj
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elasticsearch-analysis-ik/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch-analysis-ik
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elasticsearch-analysis-pinyin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch-analysis-pinyin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elasticsearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../envoy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    envoy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../etcd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    etcd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flink
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flume/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flume
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../grafana/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grafana
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../grpc-java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grpc-java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../grpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grpc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hadoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hadoop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../harbor-operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    harbor-operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hbase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hbase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../incus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    incus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jansi-native/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jansi-native
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jffi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jffi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jna/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jna
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    kapacitor
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    kapacitor
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    项目信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    环境信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    移植说明
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    移植步骤
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kiali/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kiali
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kibana/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kibana移植文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kubevirt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logstash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    logstash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loki/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    loki
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lxc-alpine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc & lxc-templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lxc-loongnixdebian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc & lxc-templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lxc-loongnixserver/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc & lxc-templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lxc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc 指导手册
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lxcfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxcfs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lz4-java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lz4-java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mahout/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mahout
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics-server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    metrics-server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    migrate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minio-mc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minio-mc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ml-cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ml-cpp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../moby/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    moby
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mongo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mongo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nacos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nacos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nerdctl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nerdctl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../netty-tcnative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    netty-tcnative
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../netty/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    netty
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node-re2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    node-re2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../onlyoffice/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    onlyoffice-documentserver
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openresty/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openresty
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    powerdns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../portainer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    portainer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protobuf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    protobuf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protoc-java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    protoc-java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pulsar-manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pulsar-manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pulsar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pulsar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    runc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seaweedfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    seaweedfs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sigar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sigar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sofa-pbrpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    baidu/sofa-pbrpc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../telegraf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    telegraf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../telepresence/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    telepresence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tikv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tikv
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weaveworks-scope/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    weaveworks-scope
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weaveworks-weave/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    weaveworks-weave
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wildfly-openssl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    wildfly-openssl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xtrabackup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    xtrabackup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    xx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zookeeper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zookeeper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zstd-jni/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zdtd-jni
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    部署文档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            部署文档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/hadoop%2Bhbase%E4%BC%AA%E5%88%86%E5%B8%83%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hadoop+hbase伪分布部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/hadoop%2Bhbase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hadoop+hbase完全分布式部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/harbor_deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Harbor deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/k8s-1.29.0%E9%83%A8%E7%BD%B2%E5%8F%82%E8%80%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s-1.29.0部署参考
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/k8s1.20.0%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s1.20.0 部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/k8s%E5%8D%95%E8%8A%82%E7%82%B9%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s单节点部署.md
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/openstack-Wallby-%E5%A4%9A%E8%8A%82%E7%82%B9%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openstack-Wallby 多节点部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/openstack-Wallby%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8%E6%8C%87%E5%AF%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openstack-Wallby常用功能使用指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/%E5%8D%95%E8%8A%82%E7%82%B9%E7%8B%AC%E7%AB%8B%E5%90%AF%E5%8A%A8hbase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    单节点独立启动hbase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    项目信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    环境信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    移植说明
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    移植步骤
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/edit/main/docs/移植手册/kapacitor.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/raw/main/docs/移植手册/kapacitor.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="kapacitor">kapacitor</h1>
+<!-- note -->
+<details class="note" open="open">
+<summary>Note</summary>
+<ul>
+<li>本文假设网络通畅，如遇网络问题请自行解决</li>
+</ul>
+</details>
+<!-- note end -->
+
+<h2 id="_1">项目信息</h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>名称</td>
+<td>kapacitor</td>
+</tr>
+<tr>
+<td>版本</td>
+<td>1.6.6</td>
+</tr>
+<tr>
+<td>项目地址</td>
+<td><a href="hhttps://github.com/influxdata/kapacitor">https://github.com/influxdata/kapacitor</a></td>
+</tr>
+<tr>
+<td>官方指导</td>
+<td><a href="https://github.com/influxdata/kapacitor/blob/v1.6.6/README.md">https://github.com/influxdata/kapacitor/blob/v1.6.6/README.md</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">环境信息</h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>3A5000</td>
+</tr>
+<tr>
+<td>系统</td>
+<td>Loongnix-Server Linux 8</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">移植说明</h2>
+<p>kapacitor作为influx项目下
+移植1.6.6对应flux版本为0.171
+修改flux中的libflux/flux-core/Cargo.toml文件要和rust1.58版本对应
+bumpalo = "=3.12.0"
+log = "=0.4.8"
+libflate = "=1.2.0"
+csv = "=1.1.0"
+tempfile = "=3.1.0"</p>
+<h2 id="_4">移植步骤</h2>
+<p><strong>编译环境和依赖</strong>
+- 需要的软件：<code>golang-1.19 make rust cmake clang catgo git</code>
+- 需要的lib库(yum源中没有的) <code>libflux</code> </p>
+<p><strong>下载源码</strong>
+- 下载flux源码 <a href="https://github.com/influxdata/flux">https://github.com/influxdata/flux</a>
+<code>git clone --depth=1 --branch v0.171.0 https://github.com/influxdata/flux.git</code>
+- 下载kapacitor源码
+<code>git clone --depth=1 --branch v1.6.6 https://github.com/influxdata/kapacitor.git</code></p>
+<p><strong>安装golang二进制依赖并配置</strong>
+<code>go install github.com/influxdata/pkg-config@latest</code></p>
+<h1 id="gopathbin">安装完成后将GOPATH/bin加入环境变量</h1>
+<p><code>export PATH=${GOPATH}/bin:${PATH}</code></p>
+<p>查看pkg-config
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>yzw@kube /# which -a pkg-config 
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/root/go/bin/pkg-config
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/usr/bin/pkg-config
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/bin/pkg-config
+</span></code></pre></div>
+<strong>构建libflux动态库</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cd libflux/
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># 必须配置loongsonrust源的cargo： http://docs.loongnix.cn/rust/rust.html
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a># 删除原有Cargo.lock
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>rm -rf Cargo.lock
+</span></code></pre></div></p>
+<h1 id="cargotoml">修改Cargo.toml文件</h1>
+<p>将原有libflux/flux-core/Cargo.toml备份并删除，替换为如下内容的Cargo.toml
+mv Cargo.toml Cargo.toml.bak
+vim Cargo.toml
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>version = &quot;0.154.0&quot;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>authors = [&quot;Flux Team &lt;flux-developers@influxdata.com&gt;&quot;]
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>edition = &quot;2021&quot;
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>[lib]
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>name = &quot;fluxcore&quot;
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>crate-type = [&quot;rlib&quot;]
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>[[bin]]
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>name = &quot;fluxdoc&quot;
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>test = false
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>bench = false
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>required-features = [&quot;doc&quot;]
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>[[bin]]
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>name = &quot;fluxc&quot;
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>test = false
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>bench = false
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>[features]
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>default = [&quot;strict&quot;]
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>strict = []
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>lsp = [&quot;lsp-types&quot;]
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>doc = [&quot;rayon&quot;]
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>[dependencies]
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>bumpalo = &quot;=3.12.0&quot;
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>anyhow = &quot;1&quot;
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>ena = &quot;0.14&quot;
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>env_logger = &quot;0.9&quot;
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>thiserror = &quot;1&quot;
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>codespan-reporting = &quot;0.11&quot;
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>comrak = &quot;0.10.1&quot;
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>fnv = &quot;1.0.7&quot;
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>derive_more = { version = &quot;0.99.17&quot;, default-features = false, features = [
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>    &quot;display&quot;,
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>    &quot;from&quot;
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>] }
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>pretty = &quot;0.11.2&quot;
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>rayon = { version = &quot;1&quot;, optional = true }
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>serde = { version = &quot;^1.0.59&quot;, features = [&quot;rc&quot;] }
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>serde_derive = &quot;^1.0.59&quot;
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>serde_json = &quot;1.0&quot;
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>serde-aux = &quot;0.6.1&quot;
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>wasm-bindgen = { version = &quot;=0.2.62&quot;, features = [&quot;serde-serialize&quot;] }
+</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>chrono = { version = &quot;0.4&quot;, features = [&quot;serde&quot;] }
+</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>regex = &quot;1&quot;
+</span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>maplit = &quot;1.0.2&quot;
+</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>flatbuffers = &quot;2.0.0&quot;
+</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>derivative = &quot;2.1.1&quot;
+</span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>walkdir = &quot;2.2.9&quot;
+</span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>log = &quot;=0.4.8&quot;
+</span><span id="__span-2-53"><a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>lsp-types = { version = &quot;0.92&quot;, optional = true }
+</span><span id="__span-2-54"><a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>pulldown-cmark = { version = &quot;0.8&quot;, default-features = false }
+</span><span id="__span-2-55"><a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>structopt = &quot;0.3&quot;
+</span><span id="__span-2-56"><a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>libflate = &quot;=1.2.0&quot;
+</span><span id="__span-2-57"><a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a>once_cell = &quot;1&quot;
+</span><span id="__span-2-58"><a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a>csv = &quot;=1.1.0&quot;
+</span><span id="__span-2-59"><a id="__codelineno-2-59" name="__codelineno-2-59" href="#__codelineno-2-59"></a>pad = &quot;0.1.6&quot;
+</span><span id="__span-2-60"><a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a>tempfile = &quot;=3.1.0&quot;
+</span><span id="__span-2-61"><a id="__codelineno-2-61" name="__codelineno-2-61" href="#__codelineno-2-61"></a>
+</span><span id="__span-2-62"><a id="__codelineno-2-62" name="__codelineno-2-62" href="#__codelineno-2-62"></a>[dev-dependencies]
+</span><span id="__span-2-63"><a id="__codelineno-2-63" name="__codelineno-2-63" href="#__codelineno-2-63"></a>env_logger = &quot;0.9&quot;
+</span><span id="__span-2-64"><a id="__codelineno-2-64" name="__codelineno-2-64" href="#__codelineno-2-64"></a>colored = &quot;1.8&quot;
+</span><span id="__span-2-65"><a id="__codelineno-2-65" name="__codelineno-2-65" href="#__codelineno-2-65"></a>pretty_assertions = &quot;1&quot;
+</span><span id="__span-2-66"><a id="__codelineno-2-66" name="__codelineno-2-66" href="#__codelineno-2-66"></a>criterion = &quot;0.3.3&quot;
+</span><span id="__span-2-67"><a id="__codelineno-2-67" name="__codelineno-2-67" href="#__codelineno-2-67"></a>expect-test = &quot;1.1.0&quot;
+</span><span id="__span-2-68"><a id="__codelineno-2-68" name="__codelineno-2-68" href="#__codelineno-2-68"></a>
+</span><span id="__span-2-69"><a id="__codelineno-2-69" name="__codelineno-2-69" href="#__codelineno-2-69"></a>[[bench]]
+</span><span id="__span-2-70"><a id="__codelineno-2-70" name="__codelineno-2-70" href="#__codelineno-2-70"></a>name = &quot;scanner&quot;
+</span><span id="__span-2-71"><a id="__codelineno-2-71" name="__codelineno-2-71" href="#__codelineno-2-71"></a>harness = false
+</span></code></pre></div></p>
+<h1 id="build">执行build命令</h1>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>make libflux
+</span></code></pre></div>
+<h1 id="flux">生成对应的二进制flux</h1>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>make
+</span></code></pre></div>
+<h1 id="fluxlibfluxsousr">配置对应flux可执行文件和libflux.so配置到/usr目录下</h1>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>配置export LD_LIBRARY_PATH=/usr/local/lib
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>cp flux /usr/local/bin
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>cp libflux.so /usr/local/lib/
+</span></code></pre></div>
+- 可能报错1：
+[yzw@kubernetes-master-1 flux]$ sudo go build ./cmd/flux/
+pkg-config --cflags -- flux
+Package flux was not found in the pkg-config search path.
+Perhaps you should add the directory containing `flux.pc'
+to the PKG_CONFIG_PATH environment variable
+Package 'flux', required by 'virtual:world', not found
+pkg-config: exit status 1
+按照如下步骤解决
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>export PKG_CONFIG_PATH=&quot;/usr/local/lib/pkgconfig/&quot;
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>查看当前pkg-config
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>[yzw@kubernetes-master-1 kapacitor]$ pkg-config --variable pc_path pkg-config
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/usr/lib64/pkgconfig:/usr/share/pkgconfig```
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a># 手动创建flux.pc
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>sudo vim /usrlib/pkgconfig/flux.pc
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>prefix=/usr/local/
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>exec_prefix=${prefix}
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>libdir=${prefix}/lib
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>includedir=${prefix}/include
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>Name: flux
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>Description: A description of flux
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>Version: 0.171.0
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>Libs: -L${libdir} -lflux
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>Cflags: -I${includedir}
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>:wq保存退出
+</span></code></pre></div>
+- 可能报错2：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>找不到flux.h头文件
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>cd ~/flux/
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>find -name flux.h
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>export CGO_CFLAGS=&quot;-I/path/flux/libflux/include&quot;
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>export CGO_LDFLAGS=&quot;-L/usr/local/lib/libflux.so&quot;
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>export LD_LIBRARY_PATH=&quot;/usr/local/lib/&quot;
+</span></code></pre></div></p>
+<p><strong>编译</strong>
+进入kapacitor目录
+依次执行
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>cd kapacitor
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>go build ./cmd/kapacitor/main.go
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>mv main kapacitor
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>go build ./cmd/kapacitord/main.go
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>mv main kapacitord
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>go build ./tick/cmd/tickfmt/main.go
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>mv main tickfmt
+</span></code></pre></div></p>
+<p><strong>测试</strong>
+./kapacirtord &amp;
+[yzw@kubernetes-master-1 kapacitor]$ ./kapacitord  | head -n 20</p>
+<p>2023/08/04 16:10:34 No configuration provided, using default settings
+'##:::'##::::'###::::'########:::::'###:::::'######::'####:'########::'#######::'########::
+ ##::'##::::'## ##::: ##.... ##:::'## ##:::'##... ##:. ##::... ##..::'##.... ##: ##.... ##:
+ ##:'##::::'##:. ##:: ##:::: ##::'##:. ##:: ##:::..::: ##::::: ##:::: ##:::: ##: ##:::: ##:
+ #####::::'##:::. ##: ########::'##:::. ##: ##:::::::: ##::::: ##:::: ##:::: ##: ########::
+ ##. ##::: #########: ##.....::: #########: ##:::::::: ##::::: ##:::: ##:::: ##: ##.. ##:::
+ ##:. ##:: ##.... ##: ##:::::::: ##.... ##: ##::: ##:: ##::::: ##:::: ##:::: ##: ##::. ##::
+ ##::. ##: ##:::: ##: ##:::::::: ##:::: ##:. ######::'####:::: ##::::. #######:: ##:::. ##:
+..::::..::..:::::..::..:::::::::..:::::..:::......:::....:::::..::::::.......:::..:::::..::</p>
+<p>ts=2023-08-04T16:10:34.384+08:00 lvl=info msg="kapacitor starting" service=run version= branch=unknown commit=unknown
+ts=2023-08-04T16:10:34.384+08:00 lvl=info msg="go version" service=run version=go1.19.7
+ts=2023-08-04T16:10:34.418+08:00 lvl=info msg="listing Kapacitor hostname" source=srv hostname=localhost
+ts=2023-08-04T16:10:34.418+08:00 lvl=info msg="listing ClusterID and ServerID" source=srv cluster_id=3c588d2e-8e42-493b-8f35-8080e8fb6c53 server_id=b37b6d2b-9cdb-43f6-8087-309104bb848b
+ts=2023-08-04T16:10:34.418+08:00 lvl=info msg="opened task master" service=kapacitor task_master=main</p>
+<p><strong>打rpm包以及制作镜像</strong>
+- 主要关注kapacitor/Dockerfile_build_ubuntu64、build.py、build.sh以及scripts文件夹下的post-install.sh文件
+- 源基础镜像来自https://quay.io/repository/influxdb/cross-builder?tab=tags
+- 参考https://quay.io/repository/influxdb/cross-builder/manifest/sha256:0c8131d50d527501580ae1e1c22f80f7645dd29bc444b34f6346ed7392b97b1c制作
+- 根据对应的镜像可知制作该基础镜像的步骤，成功构建的龙芯cross-build镜像和源镜像区别：未配置mingw64 musl osxcross gotestsum
+（没有影响）
+- 安装protoc-python 
+  protobuf需要整体打包为protobuf-3.  .tar.gz  并且在打包前需要构建与镜像同版本的protoc，必须是动态编译 默认
+  ./autogen.sh 
+  ./configure
+  make 
+  make install得到so库文件
+  打包到git后在kapacitor文件夹的Docker文件中进行修改
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>diff --git a/Dockerfile_build_ubuntu64 b/Dockerfile_build_ubuntu64
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>index 35eba67..30868a6 100644
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>--- a/Dockerfile_build_ubuntu64
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>+++ b/Dockerfile_build_ubuntu64
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>@@ -1,9 +1,10 @@
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>-FROM quay.io/influxdb/cross-builder:go1.19.4-cb1343dd74ecba8ec07fe810195530a0b9055aa9
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>-
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>+#FROM quay.io/influxdb/cross-builder:go1.19.4-cb1343dd74ecba8ec07fe810195530a0b9055aa9
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>+FROM cr.loongnix.cn/influxdb/cross-builder:go1.19.7-main
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>+#FROM cr.loongnix.cn/library/golang
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a> # This dockerfile is capabable of performing all
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a> # build/test/package/deploy actions needed for Kapacitor.
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>-MAINTAINER support@influxdb.com
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>+MAINTAINER yangzewei@loongson.cn
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a> RUN apt-get -qq update &amp;&amp; apt-get -qq install -y \
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>     software-properties-common \
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>@@ -24,25 +25,56 @@ RUN apt-get -qq update &amp;&amp; apt-get -qq install -y \
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>     libtool
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a> RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>-
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>+#RUN apt-get install golang-1.19
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a> RUN gem install fpm
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>+ENV GOPROXY=&quot;https://goproxy.cn,direct&quot;
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>+ENV GOPATH /go
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>+#RUN go install github.com/influxdata/pkg-config@latest
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>+#RUN go install github.com/influxdata/flux@v0.171.0
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a> # Install protobuf3 python library
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a> # NOTE: PROTO_VERSION env var is inherited from the cross-builder image.
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>-RUN wget -q https://github.com/google/protobuf/releases/download/v${PROTO_VERSION}/protobuf-python-${PROTO_VERSION}.tar.gz \
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>-    &amp;&amp; tar -xf protobuf-python-${PROTO_VERSION}.tar.gz \
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>-    &amp;&amp; cd protobuf-${PROTO_VERSION}/python \
+</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>+# PROTOBUF_VERSION 3.17.3
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>+# RUN wget -q https://github.com/google/protobuf/releases/download/v${PROTO_VERSION}/protobuf-python-${PROTO_VERSION}.tar.gz \
+</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>+ENV http_proxy=http://10.130.0.20:7890
+</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>+ENV https_proxy=http://10.130.0.20:7890
+</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>+
+</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>+RUN wget -q https://github.com/yzewei/protobuf/releases/download/v3.17.3/protobuf-3.17.3.tar.gz \
+</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>+    &amp;&amp; tar -xf protobuf-3.17.3.tar.gz \
+</span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>+    &amp;&amp; cd protobuf/python \
+</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>     &amp;&amp; python2 setup.py install \
+</span><span id="__span-9-46"><a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a>     &amp;&amp; python3 setup.py install \
+</span><span id="__span-9-47"><a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>     &amp;&amp; cd ../../ \
+</span><span id="__span-9-48"><a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>-    &amp;&amp; rm -rf /protobuf-${PROTO_VERSION} protobuf-python-${PROTO_VERSION}.tar.gz
+</span><span id="__span-9-49"><a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a>+    &amp;&amp; rm -rf /protobuf protobuf-3.17.3.tar.gz
+</span><span id="__span-9-50"><a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a>+
+</span><span id="__span-9-51"><a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a>+ENV PKG_CONFIG_PATH=&quot;/usr/local/lib/pkgconfig/&quot;
+</span><span id="__span-9-52"><a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a>+ENV CGO_CFLAGS=&quot;-I/go/pkg/mod/github.com/influxdata/flux@v0.171.0/libflux/include&quot;
+</span><span id="__span-9-53"><a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a>+ENV CGO_LDFLAGS=&quot;-L/usr/local/lib/libflux.so&quot;
+</span><span id="__span-9-54"><a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a>+ENV LD_LIBRARY_PATH=&quot;/usr/local/lib/&quot;
+</span><span id="__span-9-55"><a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a>+RUN which -a pkg-config
+</span><span id="__span-9-56"><a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a>+RUN unset http_proxy
+</span><span id="__span-9-57"><a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a>+RUN unset https_proxy
+</span><span id="__span-9-58"><a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a>
+</span><span id="__span-9-59"><a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a> ENV PROJECT_DIR /kapacitor
+</span><span id="__span-9-60"><a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a> RUN mkdir -p $PROJECT_DIR
+</span><span id="__span-9-61"><a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a> WORKDIR $PROJECT_DIR
+</span><span id="__span-9-62"><a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a>
+</span><span id="__span-9-63"><a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a>+
+</span><span id="__span-9-64"><a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a> # Configure local git
+</span><span id="__span-9-65"><a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a> RUN git config --global user.email &quot;support@influxdb.com&quot;
+</span><span id="__span-9-66"><a id="__codelineno-9-66" name="__codelineno-9-66" href="#__codelineno-9-66"></a> RUN git config --global user.Name &quot;Docker Builder&quot;
+</span><span id="__span-9-67"><a id="__codelineno-9-67" name="__codelineno-9-67" href="#__codelineno-9-67"></a>-
+</span><span id="__span-9-68"><a id="__codelineno-9-68" name="__codelineno-9-68" href="#__codelineno-9-68"></a>+ENV PATH=/usr/lib/go-1.19/bin:$PATH
+</span><span id="__span-9-69"><a id="__codelineno-9-69" name="__codelineno-9-69" href="#__codelineno-9-69"></a> ENTRYPOINT [ &quot;/kapacitor/build.py&quot; ]
+</span></code></pre></div>
+其中应该注意到go的路径设置以kapacitor构建时机器的go路径为准</p>
+<ul>
+<li>接下来修改build.py、build.sh相关内容，由于需要添加依赖的so库、在post-install.sh文件中配置识别so库的环境变量</li>
+</ul>
+<p>build.py修改如下：
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>diff --git a/build.py b/build.py
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>index 50019d1..7ff3a39 100755
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>--- a/build.py
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>+++ b/build.py
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>@@ -26,6 +26,10 @@ INSTALL_ROOT_DIR = &quot;/usr/bin&quot;
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a> LOG_DIR = &quot;/var/log/kapacitor&quot;
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a> DATA_DIR = &quot;/var/lib/kapacitor&quot;
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a> SCRIPT_DIR = &quot;/usr/lib/kapacitor/scripts&quot;
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>+LIB_DIR=&quot;/usr/local/lib&quot;
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>+LIB64_DIR=&quot;/usr/local/lib64&quot;
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>+DEF_LIB_DIR=&quot;/usr/lib&quot;
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>+FLUX_DIR=&quot;/usr/local/bin&quot;
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a> INIT_SCRIPT = &quot;scripts/init.sh&quot;
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a> SYSTEMD_SCRIPT = &quot;scripts/kapacitor.service&quot;
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>@@ -78,6 +82,10 @@ fpm_common_args = &quot;-f -s dir --log error \
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>                          LOG_DIR[1:],
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>                          DATA_DIR[1:],
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>                          SCRIPT_DIR[1:],
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>+                         LIB_DIR[1:],
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>+                         LIB64_DIR[1:],
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>+                         DEF_LIB_DIR[1:],
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>+                         os.path.dirname(DEF_LIB_DIR[1:]),
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>                          os.path.dirname(SCRIPT_DIR[1:]),
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>                          os.path.dirname(DEFAULT_CONFIG),
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>                     ]),
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>@@ -93,7 +101,7 @@ targets = {
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a> supported_builds = {
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>     &#39;darwin&#39;: [ &quot;amd64&quot; ],
+</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>-    &#39;linux&#39;: [ &quot;arm64&quot;, &quot;amd64&quot; ],
+</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>+    &#39;linux&#39;: [ &quot;arm64&quot;, &quot;amd64&quot;,&quot;loongarch64&quot; ],
+</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>     &#39;windows&#39;: [ &quot;amd64&quot; ]
+</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a> }
+</span><span id="__span-10-35"><a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a>
+</span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a>@@ -132,6 +140,10 @@ def create_package_fs(build_root):
+</span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>     os.makedirs(os.path.join(build_root, LOG_DIR[1:]))
+</span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>     os.makedirs(os.path.join(build_root, DATA_DIR[1:]))
+</span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a>     os.makedirs(os.path.join(build_root, SCRIPT_DIR[1:]))
+</span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a>+    os.makedirs(os.path.join(build_root, FLUX_DIR[1:]))
+</span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a>+    #os.makedirs(os.path.join(build_root, DEF_LIB_DIR[1:]))
+</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a>+    os.makedirs(os.path.join(build_root, LIB_DIR[1:]))
+</span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a>+    os.makedirs(os.path.join(build_root, LIB64_DIR[1:]))
+</span><span id="__span-10-44"><a id="__codelineno-10-44" name="__codelineno-10-44" href="#__codelineno-10-44"></a>     os.makedirs(os.path.join(build_root, os.path.dirname(DEFAULT_CONFIG)))
+</span><span id="__span-10-45"><a id="__codelineno-10-45" name="__codelineno-10-45" href="#__codelineno-10-45"></a>     os.makedirs(os.path.join(build_root, os.path.dirname(LOGROTATE_CONFIG)))
+</span><span id="__span-10-46"><a id="__codelineno-10-46" name="__codelineno-10-46" href="#__codelineno-10-46"></a>     os.makedirs(os.path.join(build_root, os.path.dirname(BASH_COMPLETION_SH)))
+</span><span id="__span-10-47"><a id="__codelineno-10-47" name="__codelineno-10-47" href="#__codelineno-10-47"></a>@@ -377,6 +389,8 @@ def get_system_arch():
+</span><span id="__span-10-48"><a id="__codelineno-10-48" name="__codelineno-10-48" href="#__codelineno-10-48"></a>         arch = &quot;amd64&quot;
+</span><span id="__span-10-49"><a id="__codelineno-10-49" name="__codelineno-10-49" href="#__codelineno-10-49"></a>     elif arch == &quot;aarch64&quot;:
+</span><span id="__span-10-50"><a id="__codelineno-10-50" name="__codelineno-10-50" href="#__codelineno-10-50"></a>         arch = &quot;arm64&quot;
+</span><span id="__span-10-51"><a id="__codelineno-10-51" name="__codelineno-10-51" href="#__codelineno-10-51"></a>+    elif arch == &quot;loongarch64&quot;:
+</span><span id="__span-10-52"><a id="__codelineno-10-52" name="__codelineno-10-52" href="#__codelineno-10-52"></a>+        arch = &quot;loongarch64&quot;
+</span><span id="__span-10-53"><a id="__codelineno-10-53" name="__codelineno-10-53" href="#__codelineno-10-53"></a>     elif &#39;arm&#39; in arch:
+</span><span id="__span-10-54"><a id="__codelineno-10-54" name="__codelineno-10-54" href="#__codelineno-10-54"></a>         # Prevent uname from reporting full ARM arch (eg &#39;armv7l&#39;)
+</span><span id="__span-10-55"><a id="__codelineno-10-55" name="__codelineno-10-55" href="#__codelineno-10-55"></a>         arch = &quot;arm64&quot;
+</span><span id="__span-10-56"><a id="__codelineno-10-56" name="__codelineno-10-56" href="#__codelineno-10-56"></a>@@ -488,70 +502,70 @@ def build(version=None,
+</span><span id="__span-10-57"><a id="__codelineno-10-57" name="__codelineno-10-57" href="#__codelineno-10-57"></a>         logging.info(&quot;Using build tags: {}&quot;.format(&#39;,&#39;.join(tags)))
+</span><span id="__span-10-58"><a id="__codelineno-10-58" name="__codelineno-10-58" href="#__codelineno-10-58"></a>
+</span><span id="__span-10-59"><a id="__codelineno-10-59" name="__codelineno-10-59" href="#__codelineno-10-59"></a>     logging.info(&quot;Sending build output to: {}&quot;.format(outdir))
+</span><span id="__span-10-60"><a id="__codelineno-10-60" name="__codelineno-10-60" href="#__codelineno-10-60"></a>-    if not os.path.exists(outdir):
+</span><span id="__span-10-61"><a id="__codelineno-10-61" name="__codelineno-10-61" href="#__codelineno-10-61"></a>-        os.makedirs(outdir)
+</span><span id="__span-10-62"><a id="__codelineno-10-62" name="__codelineno-10-62" href="#__codelineno-10-62"></a>-    elif clean and outdir != &#39;/&#39; and outdir != &quot;.&quot;:
+</span><span id="__span-10-63"><a id="__codelineno-10-63" name="__codelineno-10-63" href="#__codelineno-10-63"></a>-        logging.info(&quot;Cleaning build directory &#39;{}&#39; before building.&quot;.format(outdir))
+</span><span id="__span-10-64"><a id="__codelineno-10-64" name="__codelineno-10-64" href="#__codelineno-10-64"></a>-        shutil.rmtree(outdir)
+</span><span id="__span-10-65"><a id="__codelineno-10-65" name="__codelineno-10-65" href="#__codelineno-10-65"></a>-        os.makedirs(outdir)
+</span><span id="__span-10-66"><a id="__codelineno-10-66" name="__codelineno-10-66" href="#__codelineno-10-66"></a>+    #if not os.path.exists(outdir):
+</span><span id="__span-10-67"><a id="__codelineno-10-67" name="__codelineno-10-67" href="#__codelineno-10-67"></a>+    #    os.makedirs(outdir)
+</span><span id="__span-10-68"><a id="__codelineno-10-68" name="__codelineno-10-68" href="#__codelineno-10-68"></a>+    #elif clean and outdir != &#39;/&#39; and outdir != &quot;.&quot;:
+</span><span id="__span-10-69"><a id="__codelineno-10-69" name="__codelineno-10-69" href="#__codelineno-10-69"></a>+    #    logging.info(&quot;Cleaning build directory &#39;{}&#39; before building.&quot;.format(outdir))
+</span><span id="__span-10-70"><a id="__codelineno-10-70" name="__codelineno-10-70" href="#__codelineno-10-70"></a>+    #    shutil.rmtree(outdir)
+</span><span id="__span-10-71"><a id="__codelineno-10-71" name="__codelineno-10-71" href="#__codelineno-10-71"></a>+    #    os.makedirs(outdir)
+</span><span id="__span-10-72"><a id="__codelineno-10-72" name="__codelineno-10-72" href="#__codelineno-10-72"></a>
+</span><span id="__span-10-73"><a id="__codelineno-10-73" name="__codelineno-10-73" href="#__codelineno-10-73"></a>     logging.info(&quot;Using version &#39;{}&#39; for build.&quot;.format(version))
+</span><span id="__span-10-74"><a id="__codelineno-10-74" name="__codelineno-10-74" href="#__codelineno-10-74"></a>
+</span><span id="__span-10-75"><a id="__codelineno-10-75" name="__codelineno-10-75" href="#__codelineno-10-75"></a>-    tmp_build_dir = create_temp_dir()
+</span><span id="__span-10-76"><a id="__codelineno-10-76" name="__codelineno-10-76" href="#__codelineno-10-76"></a>-    for target, path in targets.items():
+</span><span id="__span-10-77"><a id="__codelineno-10-77" name="__codelineno-10-77" href="#__codelineno-10-77"></a>-        logging.info(&quot;Building target: {}&quot;.format(target))
+</span><span id="__span-10-78"><a id="__codelineno-10-78" name="__codelineno-10-78" href="#__codelineno-10-78"></a>-        build_command = &quot;. /root/.cargo/env &amp;&amp; &quot;
+</span><span id="__span-10-79"><a id="__codelineno-10-79" name="__codelineno-10-79" href="#__codelineno-10-79"></a>+    #tmp_build_dir = create_temp_dir()
+</span><span id="__span-10-80"><a id="__codelineno-10-80" name="__codelineno-10-80" href="#__codelineno-10-80"></a>+    #for target, path in targets.items():
+</span><span id="__span-10-81"><a id="__codelineno-10-81" name="__codelineno-10-81" href="#__codelineno-10-81"></a>+    #logging.info(&quot;Building target: {}&quot;.format(target))
+</span><span id="__span-10-82"><a id="__codelineno-10-82" name="__codelineno-10-82" href="#__codelineno-10-82"></a>+    #    build_command = &quot;. /root/.cargo/env &amp;&amp; &quot;
+</span><span id="__span-10-83"><a id="__codelineno-10-83" name="__codelineno-10-83" href="#__codelineno-10-83"></a>
+</span><span id="__span-10-84"><a id="__codelineno-10-84" name="__codelineno-10-84" href="#__codelineno-10-84"></a>-        build_command += &quot;CGO_ENABLED=1 &quot;
+</span><span id="__span-10-85"><a id="__codelineno-10-85" name="__codelineno-10-85" href="#__codelineno-10-85"></a>+    #    build_command += &quot;CGO_ENABLED=1 &quot;
+</span><span id="__span-10-86"><a id="__codelineno-10-86" name="__codelineno-10-86" href="#__codelineno-10-86"></a>
+</span><span id="__span-10-87"><a id="__codelineno-10-87" name="__codelineno-10-87" href="#__codelineno-10-87"></a>         # Handle variations in architecture output
+</span><span id="__span-10-88"><a id="__codelineno-10-88" name="__codelineno-10-88" href="#__codelineno-10-88"></a>-        fullarch = arch
+</span><span id="__span-10-89"><a id="__codelineno-10-89" name="__codelineno-10-89" href="#__codelineno-10-89"></a>-        if  arch == &quot;aarch64&quot; or arch == &quot;arm64&quot;:
+</span><span id="__span-10-90"><a id="__codelineno-10-90" name="__codelineno-10-90" href="#__codelineno-10-90"></a>-            arch = &quot;arm64&quot;
+</span><span id="__span-10-91"><a id="__codelineno-10-91" name="__codelineno-10-91" href="#__codelineno-10-91"></a>-
+</span><span id="__span-10-92"><a id="__codelineno-10-92" name="__codelineno-10-92" href="#__codelineno-10-92"></a>-        if platform == &quot;linux&quot;:
+</span><span id="__span-10-93"><a id="__codelineno-10-93" name="__codelineno-10-93" href="#__codelineno-10-93"></a>-            if arch == &quot;amd64&quot;:
+</span><span id="__span-10-94"><a id="__codelineno-10-94" name="__codelineno-10-94" href="#__codelineno-10-94"></a>-                tags += [&quot;netgo&quot;, &quot;osusergo&quot;, &quot;static_build&quot;]
+</span><span id="__span-10-95"><a id="__codelineno-10-95" name="__codelineno-10-95" href="#__codelineno-10-95"></a>-            if arch == &quot;arm64&quot;:
+</span><span id="__span-10-96"><a id="__codelineno-10-96" name="__codelineno-10-96" href="#__codelineno-10-96"></a>-                cc = &quot;/musl/aarch64/bin/musl-gcc&quot;
+</span><span id="__span-10-97"><a id="__codelineno-10-97" name="__codelineno-10-97" href="#__codelineno-10-97"></a>-                tags += [&quot;netgo&quot;, &quot;osusergo&quot;, &quot;static_build&quot;, &quot;noasm&quot;]
+</span><span id="__span-10-98"><a id="__codelineno-10-98" name="__codelineno-10-98" href="#__codelineno-10-98"></a>-        elif platform == &quot;darwin&quot; and arch == &quot;amd64&quot;:
+</span><span id="__span-10-99"><a id="__codelineno-10-99" name="__codelineno-10-99" href="#__codelineno-10-99"></a>-            cc = &quot;x86_64-apple-darwin18-clang&quot;
+</span><span id="__span-10-100"><a id="__codelineno-10-100" name="__codelineno-10-100" href="#__codelineno-10-100"></a>-            tags += [ &quot;netgo&quot;, &quot;osusergo&quot;]
+</span><span id="__span-10-101"><a id="__codelineno-10-101" name="__codelineno-10-101" href="#__codelineno-10-101"></a>-        elif  platform == &quot;windows&quot; and arch == &quot;amd64&quot;:
+</span><span id="__span-10-102"><a id="__codelineno-10-102" name="__codelineno-10-102" href="#__codelineno-10-102"></a>-            cc = &quot;x86_64-w64-mingw32-gcc&quot;
+</span><span id="__span-10-103"><a id="__codelineno-10-103" name="__codelineno-10-103" href="#__codelineno-10-103"></a>-        build_command += &quot;CC={} GOOS={} GOARCH={} &quot;.format(cc, platform, arch)
+</span><span id="__span-10-104"><a id="__codelineno-10-104" name="__codelineno-10-104" href="#__codelineno-10-104"></a>-
+</span><span id="__span-10-105"><a id="__codelineno-10-105" name="__codelineno-10-105" href="#__codelineno-10-105"></a>-        if &quot;arm&quot; in fullarch:
+</span><span id="__span-10-106"><a id="__codelineno-10-106" name="__codelineno-10-106" href="#__codelineno-10-106"></a>-            if  fullarch != &quot;arm64&quot;:
+</span><span id="__span-10-107"><a id="__codelineno-10-107" name="__codelineno-10-107" href="#__codelineno-10-107"></a>-                logging.error(&quot;Invalid ARM architecture specified: {} only arm64 is supported&quot;.format(arch))
+</span><span id="__span-10-108"><a id="__codelineno-10-108" name="__codelineno-10-108" href="#__codelineno-10-108"></a>-                return False
+</span><span id="__span-10-109"><a id="__codelineno-10-109" name="__codelineno-10-109" href="#__codelineno-10-109"></a>-        if platform == &#39;windows&#39;:
+</span><span id="__span-10-110"><a id="__codelineno-10-110" name="__codelineno-10-110" href="#__codelineno-10-110"></a>-            target = target + &#39;.exe&#39;
+</span><span id="__span-10-111"><a id="__codelineno-10-111" name="__codelineno-10-111" href="#__codelineno-10-111"></a>-            build_command += &quot;go build -buildmode=exe -o {} &quot;.format(os.path.join(outdir, target))
+</span><span id="__span-10-112"><a id="__codelineno-10-112" name="__codelineno-10-112" href="#__codelineno-10-112"></a>-        else:
+</span><span id="__span-10-113"><a id="__codelineno-10-113" name="__codelineno-10-113" href="#__codelineno-10-113"></a>-            build_command += &quot;go build -o {} &quot;.format(os.path.join(outdir, target))
+</span><span id="__span-10-114"><a id="__codelineno-10-114" name="__codelineno-10-114" href="#__codelineno-10-114"></a>-        if race:
+</span><span id="__span-10-115"><a id="__codelineno-10-115" name="__codelineno-10-115" href="#__codelineno-10-115"></a>-            build_command += &quot;-race &quot;
+</span><span id="__span-10-116"><a id="__codelineno-10-116" name="__codelineno-10-116" href="#__codelineno-10-116"></a>-        if len(tags) &gt; 0:
+</span><span id="__span-10-117"><a id="__codelineno-10-117" name="__codelineno-10-117" href="#__codelineno-10-117"></a>-            build_command += &quot;-tags \&quot;{}\&quot; &quot;.format(&#39; &#39;.join(tags))
+</span><span id="__span-10-118"><a id="__codelineno-10-118" name="__codelineno-10-118" href="#__codelineno-10-118"></a>+    #    fullarch = arch
+</span><span id="__span-10-119"><a id="__codelineno-10-119" name="__codelineno-10-119" href="#__codelineno-10-119"></a>+    #    if  arch == &quot;aarch64&quot; or arch == &quot;arm64&quot;:
+</span><span id="__span-10-120"><a id="__codelineno-10-120" name="__codelineno-10-120" href="#__codelineno-10-120"></a>+    #        arch = &quot;arm64&quot;
+</span><span id="__span-10-121"><a id="__codelineno-10-121" name="__codelineno-10-121" href="#__codelineno-10-121"></a>+    #    elif arch == &quot;loongarch64&quot;:
+</span><span id="__span-10-122"><a id="__codelineno-10-122" name="__codelineno-10-122" href="#__codelineno-10-122"></a>+    #        arch = &quot;loong64&quot; 
+</span><span id="__span-10-123"><a id="__codelineno-10-123" name="__codelineno-10-123" href="#__codelineno-10-123"></a>+    #    if platform == &quot;linux&quot;:
+</span><span id="__span-10-124"><a id="__codelineno-10-124" name="__codelineno-10-124" href="#__codelineno-10-124"></a>+    #        if arch == &quot;amd64&quot;:
+</span><span id="__span-10-125"><a id="__codelineno-10-125" name="__codelineno-10-125" href="#__codelineno-10-125"></a>+    #            tags += [&quot;netgo&quot;, &quot;osusergo&quot;, &quot;static_build&quot;]
+</span><span id="__span-10-126"><a id="__codelineno-10-126" name="__codelineno-10-126" href="#__codelineno-10-126"></a>+    #        if arch == &quot;arm64&quot;:
+</span><span id="__span-10-127"><a id="__codelineno-10-127" name="__codelineno-10-127" href="#__codelineno-10-127"></a>+    #            cc = &quot;/musl/aarch64/bin/musl-gcc&quot;
+</span><span id="__span-10-128"><a id="__codelineno-10-128" name="__codelineno-10-128" href="#__codelineno-10-128"></a>+    #            tags += [&quot;netgo&quot;, &quot;osusergo&quot;, &quot;static_build&quot;, &quot;noasm&quot;]
+</span><span id="__span-10-129"><a id="__codelineno-10-129" name="__codelineno-10-129" href="#__codelineno-10-129"></a>+    #    elif platform == &quot;darwin&quot; and arch == &quot;amd64&quot;:
+</span><span id="__span-10-130"><a id="__codelineno-10-130" name="__codelineno-10-130" href="#__codelineno-10-130"></a>+    #        cc = &quot;x86_64-apple-darwin18-clang&quot;
+</span><span id="__span-10-131"><a id="__codelineno-10-131" name="__codelineno-10-131" href="#__codelineno-10-131"></a>+    #        tags += [ &quot;netgo&quot;, &quot;osusergo&quot;]
+</span><span id="__span-10-132"><a id="__codelineno-10-132" name="__codelineno-10-132" href="#__codelineno-10-132"></a>+    #    elif  platform == &quot;windows&quot; and arch == &quot;amd64&quot;:
+</span><span id="__span-10-133"><a id="__codelineno-10-133" name="__codelineno-10-133" href="#__codelineno-10-133"></a>+    #        cc = &quot;x86_64-w64-mingw32-gcc&quot;
+</span><span id="__span-10-134"><a id="__codelineno-10-134" name="__codelineno-10-134" href="#__codelineno-10-134"></a>+    #    build_command += &quot;CC={} GOOS={} GOARCH={} &quot;.format(cc, platform, arch)
+</span><span id="__span-10-135"><a id="__codelineno-10-135" name="__codelineno-10-135" href="#__codelineno-10-135"></a>+#
+</span><span id="__span-10-136"><a id="__codelineno-10-136" name="__codelineno-10-136" href="#__codelineno-10-136"></a>+    #    if &quot;arm&quot; in fullarch:
+</span><span id="__span-10-137"><a id="__codelineno-10-137" name="__codelineno-10-137" href="#__codelineno-10-137"></a>+    #        if  fullarch != &quot;arm64&quot;:
+</span><span id="__span-10-138"><a id="__codelineno-10-138" name="__codelineno-10-138" href="#__codelineno-10-138"></a>+    #            logging.error(&quot;Invalid ARM architecture specified: {} only arm64 is supported&quot;.format(arch))
+</span><span id="__span-10-139"><a id="__codelineno-10-139" name="__codelineno-10-139" href="#__codelineno-10-139"></a>+    #           return False
+</span><span id="__span-10-140"><a id="__codelineno-10-140" name="__codelineno-10-140" href="#__codelineno-10-140"></a>+    #   if platform == &#39;windows&#39;:
+</span><span id="__span-10-141"><a id="__codelineno-10-141" name="__codelineno-10-141" href="#__codelineno-10-141"></a>+    #        target = target + &#39;.exe&#39;
+</span><span id="__span-10-142"><a id="__codelineno-10-142" name="__codelineno-10-142" href="#__codelineno-10-142"></a>+    #       build_command += &quot;go build -buildmode=exe -o {} &quot;.format(os.path.join(outdir, target))
+</span><span id="__span-10-143"><a id="__codelineno-10-143" name="__codelineno-10-143" href="#__codelineno-10-143"></a>+    #    else:
+</span><span id="__span-10-144"><a id="__codelineno-10-144" name="__codelineno-10-144" href="#__codelineno-10-144"></a>+    #        build_command += &quot;go build -o {} &quot;.format(os.path.join(outdir, target))
+</span><span id="__span-10-145"><a id="__codelineno-10-145" name="__codelineno-10-145" href="#__codelineno-10-145"></a>+    #    if race:
+</span><span id="__span-10-146"><a id="__codelineno-10-146" name="__codelineno-10-146" href="#__codelineno-10-146"></a>+    #        build_command += &quot;-race &quot;
+</span><span id="__span-10-147"><a id="__codelineno-10-147" name="__codelineno-10-147" href="#__codelineno-10-147"></a>+    #    if len(tags) &gt; 0:
+</span><span id="__span-10-148"><a id="__codelineno-10-148" name="__codelineno-10-148" href="#__codelineno-10-148"></a>+    #        build_command += &quot;-tags \&quot;{}\&quot; &quot;.format(&#39; &#39;.join(tags))
+</span><span id="__span-10-149"><a id="__codelineno-10-149" name="__codelineno-10-149" href="#__codelineno-10-149"></a>
+</span><span id="__span-10-150"><a id="__codelineno-10-150" name="__codelineno-10-150" href="#__codelineno-10-150"></a>             # Starting with Go 1.5, the linker flag arguments changed to &#39;name=value&#39; from &#39;name value&#39;
+</span><span id="__span-10-151"><a id="__codelineno-10-151" name="__codelineno-10-151" href="#__codelineno-10-151"></a>-        build_command += &quot;-ldflags=\&quot;&quot;
+</span><span id="__span-10-152"><a id="__codelineno-10-152" name="__codelineno-10-152" href="#__codelineno-10-152"></a>-        if static:
+</span><span id="__span-10-153"><a id="__codelineno-10-153" name="__codelineno-10-153" href="#__codelineno-10-153"></a>-            build_command +=&quot;-s &quot;
+</span><span id="__span-10-154"><a id="__codelineno-10-154" name="__codelineno-10-154" href="#__codelineno-10-154"></a>-        if platform == &quot;linux&quot;:
+</span><span id="__span-10-155"><a id="__codelineno-10-155" name="__codelineno-10-155" href="#__codelineno-10-155"></a>-            build_command += r&#39;-extldflags \&quot;-fno-PIC -Wl,-z,stack-size=8388608\&quot;  &#39;
+</span><span id="__span-10-156"><a id="__codelineno-10-156" name="__codelineno-10-156" href="#__codelineno-10-156"></a>-        build_command += &#39;-X main.version={} -X main.branch={} -X main.commit={} -X main.platform=OSS&quot; &#39;.format(version,
+</span><span id="__span-10-157"><a id="__codelineno-10-157" name="__codelineno-10-157" href="#__codelineno-10-157"></a>-                                                                                                            get_current_branch(),
+</span><span id="__span-10-158"><a id="__codelineno-10-158" name="__codelineno-10-158" href="#__codelineno-10-158"></a>-                                                                                                            get_current_commit())
+</span><span id="__span-10-159"><a id="__codelineno-10-159" name="__codelineno-10-159" href="#__codelineno-10-159"></a>-        if static:
+</span><span id="__span-10-160"><a id="__codelineno-10-160" name="__codelineno-10-160" href="#__codelineno-10-160"></a>-            build_command += &quot;-a -installsuffix cgo &quot;
+</span><span id="__span-10-161"><a id="__codelineno-10-161" name="__codelineno-10-161" href="#__codelineno-10-161"></a>-        build_command += path
+</span><span id="__span-10-162"><a id="__codelineno-10-162" name="__codelineno-10-162" href="#__codelineno-10-162"></a>-        start_time = datetime.utcnow()
+</span><span id="__span-10-163"><a id="__codelineno-10-163" name="__codelineno-10-163" href="#__codelineno-10-163"></a>-        run(build_command, shell=True)
+</span><span id="__span-10-164"><a id="__codelineno-10-164" name="__codelineno-10-164" href="#__codelineno-10-164"></a>-        end_time = datetime.utcnow()
+</span><span id="__span-10-165"><a id="__codelineno-10-165" name="__codelineno-10-165" href="#__codelineno-10-165"></a>-        logging.info(&quot;Time taken: {}s&quot;.format((end_time - start_time).total_seconds()))
+</span><span id="__span-10-166"><a id="__codelineno-10-166" name="__codelineno-10-166" href="#__codelineno-10-166"></a>+    #   build_command += &quot;-ldflags=\&quot;&quot;
+</span><span id="__span-10-167"><a id="__codelineno-10-167" name="__codelineno-10-167" href="#__codelineno-10-167"></a>+    #   if static:
+</span><span id="__span-10-168"><a id="__codelineno-10-168" name="__codelineno-10-168" href="#__codelineno-10-168"></a>+    #        build_command +=&quot;-s &quot;
+</span><span id="__span-10-169"><a id="__codelineno-10-169" name="__codelineno-10-169" href="#__codelineno-10-169"></a>+    #    if platform == &quot;linux&quot;:
+</span><span id="__span-10-170"><a id="__codelineno-10-170" name="__codelineno-10-170" href="#__codelineno-10-170"></a>+    #        build_command += r&#39;-extldflags \&quot;-fno-PIC -Wl,-z,stack-size=8388608\&quot;  &#39;
+</span><span id="__span-10-171"><a id="__codelineno-10-171" name="__codelineno-10-171" href="#__codelineno-10-171"></a>+    #    build_command += &#39;-X main.version={} -X main.branch={} -X main.commit={} -X main.platform=OSS&quot; &#39;.format(version,
+</span><span id="__span-10-172"><a id="__codelineno-10-172" name="__codelineno-10-172" href="#__codelineno-10-172"></a>+    #get_current_branch(),get_current_commit())
+</span><span id="__span-10-173"><a id="__codelineno-10-173" name="__codelineno-10-173" href="#__codelineno-10-173"></a>+    #    if static:
+</span><span id="__span-10-174"><a id="__codelineno-10-174" name="__codelineno-10-174" href="#__codelineno-10-174"></a>+    #        build_command += &quot;-a -installsuffix cgo &quot;
+</span><span id="__span-10-175"><a id="__codelineno-10-175" name="__codelineno-10-175" href="#__codelineno-10-175"></a>+    #    build_command += path
+</span><span id="__span-10-176"><a id="__codelineno-10-176" name="__codelineno-10-176" href="#__codelineno-10-176"></a>+    start_time = datetime.utcnow()
+</span><span id="__span-10-177"><a id="__codelineno-10-177" name="__codelineno-10-177" href="#__codelineno-10-177"></a>+    #    run(build_command, shell=True)
+</span><span id="__span-10-178"><a id="__codelineno-10-178" name="__codelineno-10-178" href="#__codelineno-10-178"></a>+    end_time = datetime.utcnow()
+</span><span id="__span-10-179"><a id="__codelineno-10-179" name="__codelineno-10-179" href="#__codelineno-10-179"></a>+    logging.info(&quot;Time taken: {}s&quot;.format((end_time - start_time).total_seconds()))
+</span><span id="__span-10-180"><a id="__codelineno-10-180" name="__codelineno-10-180" href="#__codelineno-10-180"></a>     return True
+</span><span id="__span-10-181"><a id="__codelineno-10-181" name="__codelineno-10-181" href="#__codelineno-10-181"></a>
+</span><span id="__span-10-182"><a id="__codelineno-10-182" name="__codelineno-10-182" href="#__codelineno-10-182"></a> def generate_sha256_from_file(path):
+</span><span id="__span-10-183"><a id="__codelineno-10-183" name="__codelineno-10-183" href="#__codelineno-10-183"></a>@@ -583,23 +597,26 @@ def package(build_output, pkg_name, version, nightly=False, iteration=1, static=
+</span><span id="__span-10-184"><a id="__codelineno-10-184" name="__codelineno-10-184" href="#__codelineno-10-184"></a>     outfiles = []
+</span><span id="__span-10-185"><a id="__codelineno-10-185" name="__codelineno-10-185" href="#__codelineno-10-185"></a>     tmp_build_dir = create_temp_dir()
+</span><span id="__span-10-186"><a id="__codelineno-10-186" name="__codelineno-10-186" href="#__codelineno-10-186"></a>     logging.debug(&quot;Packaging for build output: {}&quot;.format(build_output))
+</span><span id="__span-10-187"><a id="__codelineno-10-187" name="__codelineno-10-187" href="#__codelineno-10-187"></a>     logging.info(&quot;Using temporary directory: {}&quot;.format(tmp_build_dir))
+</span><span id="__span-10-188"><a id="__codelineno-10-188" name="__codelineno-10-188" href="#__codelineno-10-188"></a>     try:
+</span><span id="__span-10-189"><a id="__codelineno-10-189" name="__codelineno-10-189" href="#__codelineno-10-189"></a>         for platform in build_output:
+</span><span id="__span-10-190"><a id="__codelineno-10-190" name="__codelineno-10-190" href="#__codelineno-10-190"></a>             # Create top-level folder displaying which platform (linux, etc)
+</span><span id="__span-10-191"><a id="__codelineno-10-191" name="__codelineno-10-191" href="#__codelineno-10-191"></a>             os.makedirs(os.path.join(tmp_build_dir, platform))
+</span><span id="__span-10-192"><a id="__codelineno-10-192" name="__codelineno-10-192" href="#__codelineno-10-192"></a>             for arch in build_output[platform]:
+</span><span id="__span-10-193"><a id="__codelineno-10-193" name="__codelineno-10-193" href="#__codelineno-10-193"></a>                 logging.info(&quot;Creating packages for {}/{}&quot;.format(platform, arch))
+</span><span id="__span-10-194"><a id="__codelineno-10-194" name="__codelineno-10-194" href="#__codelineno-10-194"></a>                 # Create second-level directory displaying the architecture (amd64, etc)
+</span><span id="__span-10-195"><a id="__codelineno-10-195" name="__codelineno-10-195" href="#__codelineno-10-195"></a>                 current_location = build_output[platform][arch]
+</span><span id="__span-10-196"><a id="__codelineno-10-196" name="__codelineno-10-196" href="#__codelineno-10-196"></a>                 # Create directory tree to mimic file system of package
+</span><span id="__span-10-197"><a id="__codelineno-10-197" name="__codelineno-10-197" href="#__codelineno-10-197"></a>                 build_root = os.path.join(tmp_build_dir,
+</span><span id="__span-10-198"><a id="__codelineno-10-198" name="__codelineno-10-198" href="#__codelineno-10-198"></a>                                           platform,
+</span><span id="__span-10-199"><a id="__codelineno-10-199" name="__codelineno-10-199" href="#__codelineno-10-199"></a>                                           arch,
+</span><span id="__span-10-200"><a id="__codelineno-10-200" name="__codelineno-10-200" href="#__codelineno-10-200"></a>                                           &#39;{}-{}-{}&#39;.format(PACKAGE_NAME, version, iteration))
+</span><span id="__span-10-201"><a id="__codelineno-10-201" name="__codelineno-10-201" href="#__codelineno-10-201"></a>                 os.makedirs(build_root)
+</span><span id="__span-10-202"><a id="__codelineno-10-202" name="__codelineno-10-202" href="#__codelineno-10-202"></a>                 # Copy packaging scripts to build directory
+</span><span id="__span-10-203"><a id="__codelineno-10-203" name="__codelineno-10-203" href="#__codelineno-10-203"></a>                 if platform == &quot;windows&quot; or static or &quot;static_&quot; in arch:
+</span><span id="__span-10-204"><a id="__codelineno-10-204" name="__codelineno-10-204" href="#__codelineno-10-204"></a>                     # For windows and static builds, just copy
+</span><span id="__span-10-205"><a id="__codelineno-10-205" name="__codelineno-10-205" href="#__codelineno-10-205"></a>@@ -609,7 +626,7 @@ def package(build_output, pkg_name, version, nightly=False, iteration=1, static=
+</span><span id="__span-10-206"><a id="__codelineno-10-206" name="__codelineno-10-206" href="#__codelineno-10-206"></a>                 else:
+</span><span id="__span-10-207"><a id="__codelineno-10-207" name="__codelineno-10-207" href="#__codelineno-10-207"></a>                     create_package_fs(build_root)
+</span><span id="__span-10-208"><a id="__codelineno-10-208" name="__codelineno-10-208" href="#__codelineno-10-208"></a>                     package_scripts(build_root)
+</span><span id="__span-10-209"><a id="__codelineno-10-209" name="__codelineno-10-209" href="#__codelineno-10-209"></a>-
+</span><span id="__span-10-210"><a id="__codelineno-10-210" name="__codelineno-10-210" href="#__codelineno-10-210"></a>+                
+</span><span id="__span-10-211"><a id="__codelineno-10-211" name="__codelineno-10-211" href="#__codelineno-10-211"></a>                 for binary in targets:
+</span><span id="__span-10-212"><a id="__codelineno-10-212" name="__codelineno-10-212" href="#__codelineno-10-212"></a>                     # Copy newly-built binaries to packaging directory
+</span><span id="__span-10-213"><a id="__codelineno-10-213" name="__codelineno-10-213" href="#__codelineno-10-213"></a>                     if platform == &#39;windows&#39;:
+</span><span id="__span-10-214"><a id="__codelineno-10-214" name="__codelineno-10-214" href="#__codelineno-10-214"></a>@@ -624,7 +641,26 @@ def package(build_output, pkg_name, version, nightly=False, iteration=1, static=
+</span><span id="__span-10-215"><a id="__codelineno-10-215" name="__codelineno-10-215" href="#__codelineno-10-215"></a>                         fr = os.path.join(current_location, binary)
+</span><span id="__span-10-216"><a id="__codelineno-10-216" name="__codelineno-10-216" href="#__codelineno-10-216"></a>                         # Where the binary should go in the package filesystem
+</span><span id="__span-10-217"><a id="__codelineno-10-217" name="__codelineno-10-217" href="#__codelineno-10-217"></a>                         to = os.path.join(build_root, INSTALL_ROOT_DIR[1:], binary)
+</span><span id="__span-10-218"><a id="__codelineno-10-218" name="__codelineno-10-218" href="#__codelineno-10-218"></a>+                        logging.info(&quot;fr={} to= {}&quot;.format(fr,to))
+</span><span id="__span-10-219"><a id="__codelineno-10-219" name="__codelineno-10-219" href="#__codelineno-10-219"></a>                     shutil.copy(fr, to)
+</span><span id="__span-10-220"><a id="__codelineno-10-220" name="__codelineno-10-220" href="#__codelineno-10-220"></a>+                #将依赖软件fluxc的二进制复制
+</span><span id="__span-10-221"><a id="__codelineno-10-221" name="__codelineno-10-221" href="#__codelineno-10-221"></a>+                #fr = os.path.join(&quot;/&quot;,FLUX_DIR[1:], &quot;fluxc&quot;)
+</span><span id="__span-10-222"><a id="__codelineno-10-222" name="__codelineno-10-222" href="#__codelineno-10-222"></a>+                #to = os.path.join(build_root, FLUX_DIR[1:], &quot;fluxc&quot;)
+</span><span id="__span-10-223"><a id="__codelineno-10-223" name="__codelineno-10-223" href="#__codelineno-10-223"></a>+                #logging.info(&quot;fr={},to= {}&quot;.format(fr,to))
+</span><span id="__span-10-224"><a id="__codelineno-10-224" name="__codelineno-10-224" href="#__codelineno-10-224"></a>+                #shutil.copy(fr, to)
+</span><span id="__span-10-225"><a id="__codelineno-10-225" name="__codelineno-10-225" href="#__codelineno-10-225"></a>+                #将依赖库文件libflux.so复制
+</span><span id="__span-10-226"><a id="__codelineno-10-226" name="__codelineno-10-226" href="#__codelineno-10-226"></a>+                fr = os.path.join(&quot;/&quot;,LIB_DIR[1:], &quot;libflux.so&quot;)
+</span><span id="__span-10-227"><a id="__codelineno-10-227" name="__codelineno-10-227" href="#__codelineno-10-227"></a>+                to = os.path.join(build_root, DEF_LIB_DIR[1:], &quot;libflux.so&quot;)
+</span><span id="__span-10-228"><a id="__codelineno-10-228" name="__codelineno-10-228" href="#__codelineno-10-228"></a>+                #to = os.path.join(build_root, LIB_DIR[1:], &quot;libflux.so&quot;)
+</span><span id="__span-10-229"><a id="__codelineno-10-229" name="__codelineno-10-229" href="#__codelineno-10-229"></a>+                logging.info(&quot;fr={},to= {}&quot;.format(fr,to))
+</span><span id="__span-10-230"><a id="__codelineno-10-230" name="__codelineno-10-230" href="#__codelineno-10-230"></a>+                shutil.copy(fr, to)
+</span><span id="__span-10-231"><a id="__codelineno-10-231" name="__codelineno-10-231" href="#__codelineno-10-231"></a>+                
+</span><span id="__span-10-232"><a id="__codelineno-10-232" name="__codelineno-10-232" href="#__codelineno-10-232"></a>+                to = os.path.join(build_root, LIB_DIR[1:], &quot;libflux.so&quot;)
+</span><span id="__span-10-233"><a id="__codelineno-10-233" name="__codelineno-10-233" href="#__codelineno-10-233"></a>+                logging.info(&quot;fr={},to= {}&quot;.format(fr,to))
+</span><span id="__span-10-234"><a id="__codelineno-10-234" name="__codelineno-10-234" href="#__codelineno-10-234"></a>+                shutil.copy(fr, to)
+</span><span id="__span-10-235"><a id="__codelineno-10-235" name="__codelineno-10-235" href="#__codelineno-10-235"></a>+                
+</span><span id="__span-10-236"><a id="__codelineno-10-236" name="__codelineno-10-236" href="#__codelineno-10-236"></a>+                to = os.path.join(build_root, LIB64_DIR[1:], &quot;libflux.so&quot;)
+</span><span id="__span-10-237"><a id="__codelineno-10-237" name="__codelineno-10-237" href="#__codelineno-10-237"></a>+                shutil.copy(fr, to)
+</span><span id="__span-10-238"><a id="__codelineno-10-238" name="__codelineno-10-238" href="#__codelineno-10-238"></a>
+</span><span id="__span-10-239"><a id="__codelineno-10-239" name="__codelineno-10-239" href="#__codelineno-10-239"></a>                 for package_type in supported_packages[platform]:
+</span><span id="__span-10-240"><a id="__codelineno-10-240" name="__codelineno-10-240" href="#__codelineno-10-240"></a>                     # Package the directory structure for each package type for the platform
+</span><span id="__span-10-241"><a id="__codelineno-10-241" name="__codelineno-10-241" href="#__codelineno-10-241"></a>@@ -672,6 +708,7 @@ def package(build_output, pkg_name, version, nightly=False, iteration=1, static=
+</span><span id="__span-10-242"><a id="__codelineno-10-242" name="__codelineno-10-242" href="#__codelineno-10-242"></a>                                                             platform,
+</span><span id="__span-10-243"><a id="__codelineno-10-243" name="__codelineno-10-243" href="#__codelineno-10-243"></a>                                                             package_arch)
+</span><span id="__span-10-244"><a id="__codelineno-10-244" name="__codelineno-10-244" href="#__codelineno-10-244"></a>                         current_location = os.path.join(os.getcwd(), current_location)
+</span><span id="__span-10-245"><a id="__codelineno-10-245" name="__codelineno-10-245" href="#__codelineno-10-245"></a>                         if package_type == &#39;tar&#39;:
+</span><span id="__span-10-246"><a id="__codelineno-10-246" name="__codelineno-10-246" href="#__codelineno-10-246"></a>                             tar_command = &quot;cd {} &amp;&amp; tar -cvzf {}.tar.gz --owner=root --group=root ./*&quot;.format(package_build_root, name)
+</span><span id="__span-10-247"><a id="__codelineno-10-247" name="__codelineno-10-247" href="#__codelineno-10-247"></a>                             run(tar_command, shell=True)
+</span><span id="__span-10-248"><a id="__codelineno-10-248" name="__codelineno-10-248" href="#__codelineno-10-248"></a>@@ -697,7 +734,8 @@ def package(build_output, pkg_name, version, nightly=False, iteration=1, static=
+</span><span id="__span-10-249"><a id="__codelineno-10-249" name="__codelineno-10-249" href="#__codelineno-10-249"></a>                             package_build_root,
+</span><span id="__span-10-250"><a id="__codelineno-10-250" name="__codelineno-10-250" href="#__codelineno-10-250"></a>                             current_location)
+</span><span id="__span-10-251"><a id="__codelineno-10-251" name="__codelineno-10-251" href="#__codelineno-10-251"></a>                         if package_type == &quot;rpm&quot;:
+</span><span id="__span-10-252"><a id="__codelineno-10-252" name="__codelineno-10-252" href="#__codelineno-10-252"></a>-                            fpm_command += &quot;--depends coreutils --depends shadow-utils --rpm-posttrans {}&quot;.format(POSTINST_SCRIPT)
+</span><span id="__span-10-253"><a id="__codelineno-10-253" name="__codelineno-10-253" href="#__codelineno-10-253"></a>+                            fpm_command += &quot; --depends coreutils --depends shadow-utils --rpm-posttrans {}&quot;.format(POSTINST_SCRIPT)
+</span><span id="__span-10-254"><a id="__codelineno-10-254" name="__codelineno-10-254" href="#__codelineno-10-254"></a>                         out = run(fpm_command, shell=True)
+</span><span id="__span-10-255"><a id="__codelineno-10-255" name="__codelineno-10-255" href="#__codelineno-10-255"></a>                         matches = re.search(&#39;:path=&gt;&quot;(.*)&quot;&#39;, out)
+</span><span id="__span-10-256"><a id="__codelineno-10-256" name="__codelineno-10-256" href="#__codelineno-10-256"></a>                         outfile = None
+</span><span id="__span-10-257"><a id="__codelineno-10-257" name="__codelineno-10-257" href="#__codelineno-10-257"></a>@@ -720,7 +758,7 @@ def package(build_output, pkg_name, version, nightly=False, iteration=1, static=
+</span><span id="__span-10-258"><a id="__codelineno-10-258" name="__codelineno-10-258" href="#__codelineno-10-258"></a>
+</span><span id="__span-10-259"><a id="__codelineno-10-259" name="__codelineno-10-259" href="#__codelineno-10-259"></a> def main(args):
+</span><span id="__span-10-260"><a id="__codelineno-10-260" name="__codelineno-10-260" href="#__codelineno-10-260"></a>     global PACKAGE_NAME
+</span><span id="__span-10-261"><a id="__codelineno-10-261" name="__codelineno-10-261" href="#__codelineno-10-261"></a>     if args.release and args.nightly:
+</span><span id="__span-10-262"><a id="__codelineno-10-262" name="__codelineno-10-262" href="#__codelineno-10-262"></a>         logging.error(&quot;Cannot be both a nightly and a release.&quot;)
+</span><span id="__span-10-263"><a id="__codelineno-10-263" name="__codelineno-10-263" href="#__codelineno-10-263"></a>         return 1
+</span><span id="__span-10-264"><a id="__codelineno-10-264" name="__codelineno-10-264" href="#__codelineno-10-264"></a>@@ -785,13 +823,14 @@ def main(args):
+</span><span id="__span-10-265"><a id="__codelineno-10-265" name="__codelineno-10-265" href="#__codelineno-10-265"></a>
+</span><span id="__span-10-266"><a id="__codelineno-10-266" name="__codelineno-10-266" href="#__codelineno-10-266"></a>     for platform in platforms:
+</span><span id="__span-10-267"><a id="__codelineno-10-267" name="__codelineno-10-267" href="#__codelineno-10-267"></a>         build_output.update( { platform : {} } )
+</span><span id="__span-10-268"><a id="__codelineno-10-268" name="__codelineno-10-268" href="#__codelineno-10-268"></a>         archs = []
+</span><span id="__span-10-269"><a id="__codelineno-10-269" name="__codelineno-10-269" href="#__codelineno-10-269"></a>         if args.arch == &quot;all&quot;:
+</span><span id="__span-10-270"><a id="__codelineno-10-270" name="__codelineno-10-270" href="#__codelineno-10-270"></a>             single_build = False
+</span><span id="__span-10-271"><a id="__codelineno-10-271" name="__codelineno-10-271" href="#__codelineno-10-271"></a>             archs = supported_builds.get(platform)
+</span><span id="__span-10-272"><a id="__codelineno-10-272" name="__codelineno-10-272" href="#__codelineno-10-272"></a>         else:
+</span><span id="__span-10-273"><a id="__codelineno-10-273" name="__codelineno-10-273" href="#__codelineno-10-273"></a>             archs = [args.arch]
+</span><span id="__span-10-274"><a id="__codelineno-10-274" name="__codelineno-10-274" href="#__codelineno-10-274"></a>         for arch in archs:
+</span><span id="__span-10-275"><a id="__codelineno-10-275" name="__codelineno-10-275" href="#__codelineno-10-275"></a>             od = args.outdir
+</span><span id="__span-10-276"><a id="__codelineno-10-276" name="__codelineno-10-276" href="#__codelineno-10-276"></a>             if not single_build:
+</span><span id="__span-10-277"><a id="__codelineno-10-277" name="__codelineno-10-277" href="#__codelineno-10-277"></a>@@ -807,12 +846,15 @@ def main(args):
+</span><span id="__span-10-278"><a id="__codelineno-10-278" name="__codelineno-10-278" href="#__codelineno-10-278"></a>                          static=args.static):
+</span><span id="__span-10-279"><a id="__codelineno-10-279" name="__codelineno-10-279" href="#__codelineno-10-279"></a>                 return 1
+</span><span id="__span-10-280"><a id="__codelineno-10-280" name="__codelineno-10-280" href="#__codelineno-10-280"></a>             build_output.get(platform).update( { arch : od } )
+</span><span id="__span-10-281"><a id="__codelineno-10-281" name="__codelineno-10-281" href="#__codelineno-10-281"></a>-
+</span><span id="__span-10-282"><a id="__codelineno-10-282" name="__codelineno-10-282" href="#__codelineno-10-282"></a>     # Build packages
+</span><span id="__span-10-283"><a id="__codelineno-10-283" name="__codelineno-10-283" href="#__codelineno-10-283"></a>     if args.package:
+</span><span id="__span-10-284"><a id="__codelineno-10-284" name="__codelineno-10-284" href="#__codelineno-10-284"></a>         if not check_path_for(&quot;fpm&quot;):
+</span><span id="__span-10-285"><a id="__codelineno-10-285" name="__codelineno-10-285" href="#__codelineno-10-285"></a>             logging.error(&quot;FPM ruby gem required for packaging. Stopping.&quot;)
+</span><span id="__span-10-286"><a id="__codelineno-10-286" name="__codelineno-10-286" href="#__codelineno-10-286"></a>             return 1
+</span><span id="__span-10-287"><a id="__codelineno-10-287" name="__codelineno-10-287" href="#__codelineno-10-287"></a>         packages = package(build_output,
+</span><span id="__span-10-288"><a id="__codelineno-10-288" name="__codelineno-10-288" href="#__codelineno-10-288"></a>                            args.name,
+</span><span id="__span-10-289"><a id="__codelineno-10-289" name="__codelineno-10-289" href="#__codelineno-10-289"></a>                            args.version,
+</span><span id="__span-10-290"><a id="__codelineno-10-290" name="__codelineno-10-290" href="#__codelineno-10-290"></a>@@ -820,7 +862,7 @@ def main(args):
+</span><span id="__span-10-291"><a id="__codelineno-10-291" name="__codelineno-10-291" href="#__codelineno-10-291"></a>                            iteration=args.iteration,
+</span><span id="__span-10-292"><a id="__codelineno-10-292" name="__codelineno-10-292" href="#__codelineno-10-292"></a>                            static=args.static,
+</span><span id="__span-10-293"><a id="__codelineno-10-293" name="__codelineno-10-293" href="#__codelineno-10-293"></a>                            release=args.release)
+</span><span id="__span-10-294"><a id="__codelineno-10-294" name="__codelineno-10-294" href="#__codelineno-10-294"></a>         if args.package_udfs:
+</span><span id="__span-10-295"><a id="__codelineno-10-295" name="__codelineno-10-295" href="#__codelineno-10-295"></a>             packages += package_udfs(args.version, args.outdir)
+</span><span id="__span-10-296"><a id="__codelineno-10-296" name="__codelineno-10-296" href="#__codelineno-10-296"></a>
+</span><span id="__span-10-297"><a id="__codelineno-10-297" name="__codelineno-10-297" href="#__codelineno-10-297"></a>@@ -869,7 +911,7 @@ if __name__ == &#39;__main__&#39;:
+</span><span id="__span-10-298"><a id="__codelineno-10-298" name="__codelineno-10-298" href="#__codelineno-10-298"></a>     log_format = &#39;[%(levelname)s] %(funcName)s: %(message)s&#39;
+</span><span id="__span-10-299"><a id="__codelineno-10-299" name="__codelineno-10-299" href="#__codelineno-10-299"></a>     logging.basicConfig(level=LOG_LEVEL,
+</span><span id="__span-10-300"><a id="__codelineno-10-300" name="__codelineno-10-300" href="#__codelineno-10-300"></a>                         format=log_format)
+</span><span id="__span-10-301"><a id="__codelineno-10-301" name="__codelineno-10-301" href="#__codelineno-10-301"></a>     parser = argparse.ArgumentParser(description=&#39;InfluxDB build and packaging script.&#39;)
+</span><span id="__span-10-302"><a id="__codelineno-10-302" name="__codelineno-10-302" href="#__codelineno-10-302"></a>     parser.add_argument(&#39;--verbose&#39;,&#39;-v&#39;,&#39;--debug&#39;,
+</span><span id="__span-10-303"><a id="__codelineno-10-303" name="__codelineno-10-303" href="#__codelineno-10-303"></a>                         action=&#39;store_true&#39;,
+</span><span id="__span-10-304"><a id="__codelineno-10-304" name="__codelineno-10-304" href="#__codelineno-10-304"></a>@@ -885,15 +927,17 @@ if __name__ == &#39;__main__&#39;:
+</span><span id="__span-10-305"><a id="__codelineno-10-305" name="__codelineno-10-305" href="#__codelineno-10-305"></a>                         type=str,
+</span><span id="__span-10-306"><a id="__codelineno-10-306" name="__codelineno-10-306" href="#__codelineno-10-306"></a>                         help=&#39;Name to use for package name (when package is specified)&#39;)
+</span><span id="__span-10-307"><a id="__codelineno-10-307" name="__codelineno-10-307" href="#__codelineno-10-307"></a>     parser.add_argument(&#39;--arch&#39;,
+</span><span id="__span-10-308"><a id="__codelineno-10-308" name="__codelineno-10-308" href="#__codelineno-10-308"></a>-                        metavar=&#39;&lt;amd64|arm64|all&gt;&#39;,
+</span><span id="__span-10-309"><a id="__codelineno-10-309" name="__codelineno-10-309" href="#__codelineno-10-309"></a>+                        metavar=&#39;&lt;amd64|arm64|loongarch64|all&gt;&#39;,
+</span><span id="__span-10-310"><a id="__codelineno-10-310" name="__codelineno-10-310" href="#__codelineno-10-310"></a>                         type=str,
+</span><span id="__span-10-311"><a id="__codelineno-10-311" name="__codelineno-10-311" href="#__codelineno-10-311"></a>                         default=get_system_arch(),
+</span><span id="__span-10-312"><a id="__codelineno-10-312" name="__codelineno-10-312" href="#__codelineno-10-312"></a>                         help=&#39;Target architecture for build output&#39;)
+</span><span id="__span-10-313"><a id="__codelineno-10-313" name="__codelineno-10-313" href="#__codelineno-10-313"></a>     parser.add_argument(&#39;--platform&#39;,
+</span><span id="__span-10-314"><a id="__codelineno-10-314" name="__codelineno-10-314" href="#__codelineno-10-314"></a>                         metavar=&#39;&lt;linux|darwin|windows|all&gt;&#39;,
+</span><span id="__span-10-315"><a id="__codelineno-10-315" name="__codelineno-10-315" href="#__codelineno-10-315"></a>                         type=str,
+</span><span id="__span-10-316"><a id="__codelineno-10-316" name="__codelineno-10-316" href="#__codelineno-10-316"></a>                         default=get_system_platform(),
+</span><span id="__span-10-317"><a id="__codelineno-10-317" name="__codelineno-10-317" href="#__codelineno-10-317"></a>                         help=&#39;Target platform for build output&#39;)
+</span><span id="__span-10-318"><a id="__codelineno-10-318" name="__codelineno-10-318" href="#__codelineno-10-318"></a>     parser.add_argument(&#39;--branch&#39;,
+</span><span id="__span-10-319"><a id="__codelineno-10-319" name="__codelineno-10-319" href="#__codelineno-10-319"></a>                         metavar=&#39;&lt;branch&gt;&#39;,
+</span><span id="__span-10-320"><a id="__codelineno-10-320" name="__codelineno-10-320" href="#__codelineno-10-320"></a>                         type=str,
+</span><span id="__span-10-321"><a id="__codelineno-10-321" name="__codelineno-10-321" href="#__codelineno-10-321"></a>@@ -988,4 +1032,5 @@ if __name__ == &#39;__main__&#39;:
+</span><span id="__span-10-322"><a id="__codelineno-10-322" name="__codelineno-10-322" href="#__codelineno-10-322"></a>                         help=&#39;Timeout for tests before failing&#39;)
+</span><span id="__span-10-323"><a id="__codelineno-10-323" name="__codelineno-10-323" href="#__codelineno-10-323"></a>     args = parser.parse_args()
+</span><span id="__span-10-324"><a id="__codelineno-10-324" name="__codelineno-10-324" href="#__codelineno-10-324"></a>     print_banner()
+</span><span id="__span-10-325"><a id="__codelineno-10-325" name="__codelineno-10-325" href="#__codelineno-10-325"></a>+    #package(&quot;&quot;,pkg_name=&quot;kapacitor-1.6.6&quot;, version=&quot;1.6.6&quot;)
+</span><span id="__span-10-326"><a id="__codelineno-10-326" name="__codelineno-10-326" href="#__codelineno-10-326"></a>     sys.exit(main(args))
+</span></code></pre></div>
+build.sh修改如下:
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>diff --git a/build.sh b/build.sh
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>index bb5e012..66b6f8a 100755
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>--- a/build.sh
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>+++ b/build.sh
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>@@ -1,7 +1,7 @@
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a> #!/bin/bash
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a> # Run the build utility via Docker
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>-set -e
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>+set -eux
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a> # Make sure our working dir is the dir of the script
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a> DIR=$(cd $(dirname ${BASH_SOURCE[0]}) &amp;&amp; pwd)
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>@@ -22,7 +22,9 @@ echo &quot;Running build.py&quot;
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a> docker run \
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>     --rm \
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>     -v &quot;$DIR:/kapacitor&quot; \
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>-    -e AWS_ACCESS_KEY_ID=&quot;$AWS_ACCESS_KEY_ID&quot; \
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>-    -e AWS_SECRET_ACCESS_KEY=&quot;$AWS_SECRET_ACCESS_KEY&quot; \
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>-    $imagename \
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>-    &quot;$@&quot;
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>+     $imagename \
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>+     &quot;$@&quot;
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>+    #-e AWS_ACCESS_KEY_ID=&quot;$AWS_ACCESS_KEY_ID&quot; \
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>+    #-e AWS_SECRET_ACCESS_KEY=&quot;$AWS_SECRET_ACCESS_KEY&quot; \
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>+    # $imagename \
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>+    # &quot;$@&quot;
+</span></code></pre></div>
+scripts/post-install.sh修改如下：
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>diff --git a/scripts/post-install.sh b/scripts/post-install.sh
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>index 6d0bd15..a2228d4 100644
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>--- a/scripts/post-install.sh
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>+++ b/scripts/post-install.sh
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>@@ -4,6 +4,9 @@ BIN_DIR=/usr/bin
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a> DATA_DIR=/var/lib/kapacitor
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a> LOG_DIR=/var/log/kapacitor
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a> SCRIPT_DIR=/usr/lib/kapacitor/scripts
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>+echo &quot;export LD_LIBRARY_PATH=/usr/lib&quot; &gt;&gt; /etc/profile
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>+source /etc/profile
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>+
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a> function install_init {
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>     cp -f $SCRIPT_DIR/init.sh /etc/init.d/kapacitor
+</span></code></pre></div>
+在进行修改后，执行build的shell脚本<code>./build.sh --package</code> 进行自动打包及镜像构建，需等待较长时间</p>
+<h2 id="_5">测试</h2>
+<p>更换主机，部署打包好的deb包和rpm包
+<code>sudo rpm -ivh --force kapacitor-1.6.6~7989708-0.loongarch64.rpm</code>
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>[wwj@node01 tmp]$ kapacitord
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>&#39;##:::&#39;##::::&#39;###::::&#39;########:::::&#39;###:::::&#39;######::&#39;####:&#39;########::&#39;#######::&#39;########::
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a> ##::&#39;##::::&#39;## ##::: ##.... ##:::&#39;## ##:::&#39;##... ##:. ##::... ##..::&#39;##.... ##: ##.... ##:
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a> ##:&#39;##::::&#39;##:. ##:: ##:::: ##::&#39;##:. ##:: ##:::..::: ##::::: ##:::: ##:::: ##: ##:::: ##:
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a> #####::::&#39;##:::. ##: ########::&#39;##:::. ##: ##:::::::: ##::::: ##:::: ##:::: ##: ########::
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a> ##. ##::: #########: ##.....::: #########: ##:::::::: ##::::: ##:::: ##:::: ##: ##.. ##:::
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a> ##:. ##:: ##.... ##: ##:::::::: ##.... ##: ##::: ##:: ##::::: ##:::: ##:::: ##: ##::. ##::
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a> ##::. ##: ##:::: ##: ##:::::::: ##:::: ##:. ######::&#39;####:::: ##::::. #######:: ##:::. ##:
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>..::::..::..:::::..::..:::::::::..:::::..:::......:::....:::::..::::::.......:::..:::::..::
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>2023/08/08 14:37:16 Using configuration at: /etc/kapacitor/kapacitor.conf
+</span></code></pre></div></p>
+<p><code>sudo dpkg -i  kapacitor_1.6.6~7989708-0_loongarch64.deb</code>
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>[wwj@node01 tmp]$ kapacitord
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>&#39;##:::&#39;##::::&#39;###::::&#39;########:::::&#39;###:::::&#39;######::&#39;####:&#39;########::&#39;#######::&#39;########::
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a> ##::&#39;##::::&#39;## ##::: ##.... ##:::&#39;## ##:::&#39;##... ##:. ##::... ##..::&#39;##.... ##: ##.... ##:
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a> ##:&#39;##::::&#39;##:. ##:: ##:::: ##::&#39;##:. ##:: ##:::..::: ##::::: ##:::: ##:::: ##: ##:::: ##:
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a> #####::::&#39;##:::. ##: ########::&#39;##:::. ##: ##:::::::: ##::::: ##:::: ##:::: ##: ########::
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a> ##. ##::: #########: ##.....::: #########: ##:::::::: ##::::: ##:::: ##:::: ##: ##.. ##:::
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a> ##:. ##:: ##.... ##: ##:::::::: ##.... ##: ##::: ##:: ##::::: ##:::: ##:::: ##: ##::. ##::
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a> ##::. ##: ##:::: ##: ##:::::::: ##:::: ##:. ######::&#39;####:::: ##::::. #######:: ##:::. ##:
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>..::::..::..:::::..::..:::::::::..:::::..:::......:::....:::::..::::::.......:::..:::::..::
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>2023/08/08 14:27:28 Using configuration at: /etc/kapacitor/kapacitor.conf
+</span></code></pre></div></p>
+<h2 id="_6">附录</h2>
+<p>剩余go.mod和go.sum部分变更如下：
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>diff --git a/go.mod b/go.mod
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>index e1a6e79..f5ded55 100644
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>--- a/go.mod
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>+++ b/go.mod
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>@@ -21,6 +21,7 @@ require (
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        github.com/google/go-cmp v0.5.7
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>        github.com/google/uuid v1.3.0
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>        github.com/gorhill/cronexpr v0.0.0-20180427100037-88b0669f7d75
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>+       github.com/h2non/gock v1.2.0
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>        github.com/influxdata/cron v0.0.0-20201006132531-4bb0a200dcbe
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        github.com/influxdata/flux v0.171.0
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>        github.com/influxdata/httprouter v1.3.1-0.20191122104820-ee83e2772f69
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>@@ -45,12 +46,12 @@ require (
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>        github.com/serenize/snaker v0.0.0-20161123064335-543781d2b79b
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>        github.com/shurcooL/markdownfmt v0.0.0-20170214213350-10aae0a270ab
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>        github.com/spaolacci/murmur3 v0.0.0-20180118202830-f09979ecbc72
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>-       github.com/stretchr/testify v1.7.0
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>+       github.com/stretchr/testify v1.8.1
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>        github.com/uber/jaeger-client-go v2.28.0+incompatible
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>        github.com/urfave/cli/v2 v2.3.0
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>        github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c
+</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>        github.com/zeebo/mwc v0.0.4
+</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>-       go.etcd.io/bbolt v1.3.5
+</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a>+       go.etcd.io/bbolt v1.3.7
+</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>        go.uber.org/zap v1.16.0
+</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a>        golang.org/x/crypto v0.0.0-20220214200702-86341886e292
+</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a>        golang.org/x/tools v0.1.11-0.20220513221640-090b14e8501f
+</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a>@@ -143,7 +144,6 @@ require (
+</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a>        github.com/googleapis/gax-go/v2 v2.0.5 // indirect
+</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>        github.com/googleapis/gnostic v0.4.1 // indirect
+</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>        github.com/gophercloud/gophercloud v0.17.0 // indirect
+</span><span id="__span-15-32"><a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a>-       github.com/h2non/gock v1.2.0 // indirect
+</span><span id="__span-15-33"><a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a>        github.com/h2non/parth v0.0.0-20190131123155-b4df798d6542 // indirect
+</span><span id="__span-15-34"><a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a>        github.com/hashicorp/consul/api v1.8.1 // indirect
+</span><span id="__span-15-35"><a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a>        github.com/hashicorp/errwrap v1.0.0 // indirect
+</span><span id="__span-15-36"><a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a>@@ -232,7 +232,7 @@ require (
+</span><span id="__span-15-37"><a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a>        golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2 // indirect
+</span><span id="__span-15-38"><a id="__codelineno-15-38" name="__codelineno-15-38" href="#__codelineno-15-38"></a>        golang.org/x/oauth2 v0.0.0-20210514164344-f6687ab2804c // indirect
+</span><span id="__span-15-39"><a id="__codelineno-15-39" name="__codelineno-15-39" href="#__codelineno-15-39"></a>        golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+</span><span id="__span-15-40"><a id="__codelineno-15-40" name="__codelineno-15-40" href="#__codelineno-15-40"></a>-       golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
+</span><span id="__span-15-41"><a id="__codelineno-15-41" name="__codelineno-15-41" href="#__codelineno-15-41"></a>+       golang.org/x/sys v0.10.0 // indirect
+</span><span id="__span-15-42"><a id="__codelineno-15-42" name="__codelineno-15-42" href="#__codelineno-15-42"></a>        golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
+</span><span id="__span-15-43"><a id="__codelineno-15-43" name="__codelineno-15-43" href="#__codelineno-15-43"></a>        golang.org/x/text v0.3.7 // indirect
+</span><span id="__span-15-44"><a id="__codelineno-15-44" name="__codelineno-15-44" href="#__codelineno-15-44"></a>        golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba // indirect
+</span><span id="__span-15-45"><a id="__codelineno-15-45" name="__codelineno-15-45" href="#__codelineno-15-45"></a>diff --git a/go.sum b/go.sum
+</span><span id="__span-15-46"><a id="__codelineno-15-46" name="__codelineno-15-46" href="#__codelineno-15-46"></a>index eb605ef..281944e 100644
+</span><span id="__span-15-47"><a id="__codelineno-15-47" name="__codelineno-15-47" href="#__codelineno-15-47"></a>--- a/go.sum
+</span><span id="__span-15-48"><a id="__codelineno-15-48" name="__codelineno-15-48" href="#__codelineno-15-48"></a>+++ b/go.sum
+</span><span id="__span-15-49"><a id="__codelineno-15-49" name="__codelineno-15-49" href="#__codelineno-15-49"></a>@@ -1038,6 +1038,7 @@ github.com/nats-io/nkeys v0.1.3/go.mod h1:xpnFELMwJABBLVhffcfd1MZx6VsNRFpEugbxzi
+</span><span id="__span-15-50"><a id="__codelineno-15-50" name="__codelineno-15-50" href="#__codelineno-15-50"></a> github.com/nats-io/nuid v1.0.0/go.mod h1:19wcPz3Ph3q0Jbyiqsd0kePYG7A95tJPxeL+1OSON2c=
+</span><span id="__span-15-51"><a id="__codelineno-15-51" name="__codelineno-15-51" href="#__codelineno-15-51"></a> github.com/nats-io/nuid v1.0.1 h1:5iA8DT8V7q8WK2EScv2padNa/rTESc1KdnPw4TC2paw=
+</span><span id="__span-15-52"><a id="__codelineno-15-52" name="__codelineno-15-52" href="#__codelineno-15-52"></a> github.com/nats-io/nuid v1.0.1/go.mod h1:19wcPz3Ph3q0Jbyiqsd0kePYG7A95tJPxeL+1OSON2c=
+</span><span id="__span-15-53"><a id="__codelineno-15-53" name="__codelineno-15-53" href="#__codelineno-15-53"></a>+github.com/nbio/st v0.0.0-20140626010706-e9e8d9816f32 h1:W6apQkHrMkS0Muv8G/TipAy/FJl/rCYT0+EuS8+Z0z4=
+</span><span id="__span-15-54"><a id="__codelineno-15-54" name="__codelineno-15-54" href="#__codelineno-15-54"></a> github.com/nbio/st v0.0.0-20140626010706-e9e8d9816f32/go.mod h1:9wM+0iRr9ahx58uYLpLIr5fm8diHn0JbqRycJi6w0Ms=
+</span><span id="__span-15-55"><a id="__codelineno-15-55" name="__codelineno-15-55" href="#__codelineno-15-55"></a> github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
+</span><span id="__span-15-56"><a id="__codelineno-15-56" name="__codelineno-15-56" href="#__codelineno-15-56"></a> github.com/nxadm/tail v1.4.4 h1:DQuhQpB1tVlglWS2hLQ5OV6B5r8aGxSrPc5Qo6uTN78=
+</span><span id="__span-15-57"><a id="__codelineno-15-57" name="__codelineno-15-57" href="#__codelineno-15-57"></a>@@ -1261,8 +1262,10 @@ github.com/streadway/amqp v0.0.0-20190827072141-edfb9018d271/go.mod h1:AZpEONHx3
+</span><span id="__span-15-58"><a id="__codelineno-15-58" name="__codelineno-15-58" href="#__codelineno-15-58"></a> github.com/streadway/handy v0.0.0-20190108123426-d5acb3125c2a/go.mod h1:qNTQ5P5JnDBl6z3cMAg/SywNDC5ABu5ApDIw6lUbRmI=
+</span><span id="__span-15-59"><a id="__codelineno-15-59" name="__codelineno-15-59" href="#__codelineno-15-59"></a> github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+</span><span id="__span-15-60"><a id="__codelineno-15-60" name="__codelineno-15-60" href="#__codelineno-15-60"></a> github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+</span><span id="__span-15-61"><a id="__codelineno-15-61" name="__codelineno-15-61" href="#__codelineno-15-61"></a>-github.com/stretchr/objx v0.2.0 h1:Hbg2NidpLE8veEBkEZTL3CvlkUIVzuU9jDplZO54c48=
+</span><span id="__span-15-62"><a id="__codelineno-15-62" name="__codelineno-15-62" href="#__codelineno-15-62"></a> github.com/stretchr/objx v0.2.0/go.mod h1:qt09Ya8vawLte6SNmTgCsAVtYtaKzEcn8ATUoHMkEqE=
+</span><span id="__span-15-63"><a id="__codelineno-15-63" name="__codelineno-15-63" href="#__codelineno-15-63"></a>+github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
+</span><span id="__span-15-64"><a id="__codelineno-15-64" name="__codelineno-15-64" href="#__codelineno-15-64"></a>+github.com/stretchr/objx v0.5.0 h1:1zr/of2m5FGMsad5YfcqgdqdWrIhu+EBEJRhR1U7z/c=
+</span><span id="__span-15-65"><a id="__codelineno-15-65" name="__codelineno-15-65" href="#__codelineno-15-65"></a>+github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpEOglKo=
+</span><span id="__span-15-66"><a id="__codelineno-15-66" name="__codelineno-15-66" href="#__codelineno-15-66"></a> github.com/stretchr/testify v1.2.0/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
+</span><span id="__span-15-67"><a id="__codelineno-15-67" name="__codelineno-15-67" href="#__codelineno-15-67"></a> github.com/stretchr/testify v1.2.1/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
+</span><span id="__span-15-68"><a id="__codelineno-15-68" name="__codelineno-15-68" href="#__codelineno-15-68"></a> github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
+</span><span id="__span-15-69"><a id="__codelineno-15-69" name="__codelineno-15-69" href="#__codelineno-15-69"></a>@@ -1270,8 +1273,11 @@ github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UV
+</span><span id="__span-15-70"><a id="__codelineno-15-70" name="__codelineno-15-70" href="#__codelineno-15-70"></a> github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
+</span><span id="__span-15-71"><a id="__codelineno-15-71" name="__codelineno-15-71" href="#__codelineno-15-71"></a> github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
+</span><span id="__span-15-72"><a id="__codelineno-15-72" name="__codelineno-15-72" href="#__codelineno-15-72"></a> github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+</span><span id="__span-15-73"><a id="__codelineno-15-73" name="__codelineno-15-73" href="#__codelineno-15-73"></a>-github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
+</span><span id="__span-15-74"><a id="__codelineno-15-74" name="__codelineno-15-74" href="#__codelineno-15-74"></a> github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+</span><span id="__span-15-75"><a id="__codelineno-15-75" name="__codelineno-15-75" href="#__codelineno-15-75"></a>+github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+</span><span id="__span-15-76"><a id="__codelineno-15-76" name="__codelineno-15-76" href="#__codelineno-15-76"></a>+github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
+</span><span id="__span-15-77"><a id="__codelineno-15-77" name="__codelineno-15-77" href="#__codelineno-15-77"></a>+github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
+</span><span id="__span-15-78"><a id="__codelineno-15-78" name="__codelineno-15-78" href="#__codelineno-15-78"></a>+github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
+</span><span id="__span-15-79"><a id="__codelineno-15-79" name="__codelineno-15-79" href="#__codelineno-15-79"></a> github.com/subosito/gotenv v1.2.0 h1:Slr1R9HxAlEKefgq5jn9U+DnETlIUa6HfgEzj0g5d7s=
+</span><span id="__span-15-80"><a id="__codelineno-15-80" name="__codelineno-15-80" href="#__codelineno-15-80"></a> github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
+</span><span id="__span-15-81"><a id="__codelineno-15-81" name="__codelineno-15-81" href="#__codelineno-15-81"></a> github.com/tcnksm/go-input v0.0.0-20180404061846-548a7d7a8ee8/go.mod h1:IlWNj9v/13q7xFbaK4mbyzMNwrZLaWSHx/aibKIZuIg=
+</span><span id="__span-15-82"><a id="__codelineno-15-82" name="__codelineno-15-82" href="#__codelineno-15-82"></a>@@ -1348,8 +1354,9 @@ github.com/zeebo/mwc v0.0.4/go.mod h1:qNHfgp/ZCpQNcJHwKcO5EP3VgaBrW6DPohsK4Qfyxx
+</span><span id="__span-15-83"><a id="__codelineno-15-83" name="__codelineno-15-83" href="#__codelineno-15-83"></a> github.com/zeebo/xxh3 v0.13.0/go.mod h1:AQY73TOrhF3jNsdiM9zZOb8MThrYbZONHj7ryDBaLpg=
+</span><span id="__span-15-84"><a id="__codelineno-15-84" name="__codelineno-15-84" href="#__codelineno-15-84"></a> go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
+</span><span id="__span-15-85"><a id="__codelineno-15-85" name="__codelineno-15-85" href="#__codelineno-15-85"></a> go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
+</span><span id="__span-15-86"><a id="__codelineno-15-86" name="__codelineno-15-86" href="#__codelineno-15-86"></a>-go.etcd.io/bbolt v1.3.5 h1:XAzx9gjCb0Rxj7EoqcClPD1d5ZBxZJk0jbuoPHenBt0=
+</span><span id="__span-15-87"><a id="__codelineno-15-87" name="__codelineno-15-87" href="#__codelineno-15-87"></a> go.etcd.io/bbolt v1.3.5/go.mod h1:G5EMThwa9y8QZGBClrRx5EY+Yw9kAhnjy3bSjsnlVTQ=
+</span><span id="__span-15-88"><a id="__codelineno-15-88" name="__codelineno-15-88" href="#__codelineno-15-88"></a>+go.etcd.io/bbolt v1.3.7 h1:j+zJOnnEjF/kyHlDDgGnVL/AIqIJPq8UoB2GSNfkUfQ=
+</span><span id="__span-15-89"><a id="__codelineno-15-89" name="__codelineno-15-89" href="#__codelineno-15-89"></a>+go.etcd.io/bbolt v1.3.7/go.mod h1:N9Mkw9X8x5fupy0IKsmuqVtoGDyxsaDlbk4Rd05IAQw=
+</span><span id="__span-15-90"><a id="__codelineno-15-90" name="__codelineno-15-90" href="#__codelineno-15-90"></a> go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738/go.mod h1:dnLIgRNXwCJa5e+c6mIZCrds/GIG4ncV9HhK5PX7jPg=
+</span><span id="__span-15-91"><a id="__codelineno-15-91" name="__codelineno-15-91" href="#__codelineno-15-91"></a> go.mongodb.org/mongo-driver v1.0.3/go.mod h1:u7ryQJ+DOzQmeO7zB6MHyr8jkEQvC8vH7qLUO4lqsUM=
+</span><span id="__span-15-92"><a id="__codelineno-15-92" name="__codelineno-15-92" href="#__codelineno-15-92"></a> go.mongodb.org/mongo-driver v1.1.1/go.mod h1:u7ryQJ+DOzQmeO7zB6MHyr8jkEQvC8vH7qLUO4lqsUM=
+</span><span id="__span-15-93"><a id="__codelineno-15-93" name="__codelineno-15-93" href="#__codelineno-15-93"></a>@@ -1679,8 +1686,9 @@ golang.org/x/sys v0.0.0-20210616045830-e2b7044e8c71/go.mod h1:oPkhp1MJrh7nUepCBc
+</span><span id="__span-15-94"><a id="__codelineno-15-94" name="__codelineno-15-94" href="#__codelineno-15-94"></a> golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+</span><span id="__span-15-95"><a id="__codelineno-15-95" name="__codelineno-15-95" href="#__codelineno-15-95"></a> golang.org/x/sys v0.0.0-20211025201205-69cdffdb9359/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+</span><span id="__span-15-96"><a id="__codelineno-15-96" name="__codelineno-15-96" href="#__codelineno-15-96"></a> golang.org/x/sys v0.0.0-20211117180635-dee7805ff2e1/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+</span><span id="__span-15-97"><a id="__codelineno-15-97" name="__codelineno-15-97" href="#__codelineno-15-97"></a>-golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e h1:fLOSk5Q00efkSvAm+4xcoXD+RRmLmmulPn5I3Y9F2EM=
+</span><span id="__span-15-98"><a id="__codelineno-15-98" name="__codelineno-15-98" href="#__codelineno-15-98"></a> golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+</span><span id="__span-15-99"><a id="__codelineno-15-99" name="__codelineno-15-99" href="#__codelineno-15-99"></a>+golang.org/x/sys v0.10.0 h1:SqMFp9UcQJZa+pmYuAKjd9xq1f0j5rLcDIk0mj4qAsA=
+</span><span id="__span-15-100"><a id="__codelineno-15-100" name="__codelineno-15-100" href="#__codelineno-15-100"></a>+golang.org/x/sys v0.10.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+</span><span id="__span-15-101"><a id="__codelineno-15-101" name="__codelineno-15-101" href="#__codelineno-15-101"></a> golang.org/x/term v0.0.0-20201117132131-f5c789dd3221/go.mod h1:Nr5EML6q2oocZ2LXRh80K7BxOlk5/8JxuGnuhpl+muw=
+</span><span id="__span-15-102"><a id="__codelineno-15-102" name="__codelineno-15-102" href="#__codelineno-15-102"></a> golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
+</span><span id="__span-15-103"><a id="__codelineno-15-103" name="__codelineno-15-103" href="#__codelineno-15-103"></a> golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 h1:JGgROgKl9N8DuW20oFS5gxc+lE67/N3FcwmBPMe7ArY=
+</span></code></pre></div></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.indexes", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.780af0f4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f11ae8b1.min.js"></script>
+      
+    
+  </body>
+</html>
