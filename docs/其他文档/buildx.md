@@ -60,7 +60,9 @@ systemctl restart docker
 #### 创建实例命令及对应参数  此处及之后的命令均使用builder 使用buildx效果相同
 ```
 docker builder create [参数] [内容|]
-docker builder create --name loongson --driver=docker-container --driver-opt=image=moby/buildkit:latest 
+docker builder create --name loongson --driver=docker-container --driver-opt=image=moby/buildkit:latest
+docker buildx create --name alpine   --driver docker-container   --driver-opt image=lcr.loongnix.cn/library/buildkit:0.12.3-alpine3.21    --config /etc/buildkit/buildkitd.toml
+buildkitd.toml 的介绍见https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/buildkitd.toml%20%E4%BB%8B%E7%BB%8D
 //创建名字为loongson的实例,指定构建器驱动程序为docker,指定驱动程序为buildkit，版本可选
 docker buildx inspect --bootstrap loongson && docker buildx use loongson
 //初始化并使用
