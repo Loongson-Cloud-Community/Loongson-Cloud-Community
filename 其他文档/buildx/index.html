@@ -1,0 +1,3916 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../assembly/">
+      
+      
+        <link rel="next" href="../debian-image-abi2.0/">
+      
+      
+      <link rel="icon" href="../../images/favicon.svg">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.2.0-b0">
+    
+    
+      
+        <title>buildx使用手册 - 龙芯云</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0c456da8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#buildx" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="龙芯云" class="md-header__button md-logo" aria-label="龙芯云" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            龙芯云
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              buildx使用手册
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Loongson-Cloud-Community
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../alpine-image-abi2.0/" class="md-tabs__link">
+          
+  
+    
+  
+  其他文档
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%AC%A7%E6%8B%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/faq/" class="md-tabs__link">
+          
+  
+    
+  
+  操作系统
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/" class="md-tabs__link">
+          
+  
+    
+  
+  移植手册
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/hadoop%2Bhbase%E4%BC%AA%E5%88%86%E5%B8%83%E9%83%A8%E7%BD%B2/" class="md-tabs__link">
+          
+  
+    
+  
+  部署文档
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="龙芯云" class="md-nav__button md-logo" aria-label="龙芯云" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    龙芯云
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Loongson-Cloud-Community
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    其他文档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            其他文档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alpine-image-abi2.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alpine image abi2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Assembly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    buildx使用手册
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    buildx使用手册
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    0. 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 部署环境
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    下载并创建目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 基本使用命令
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 基本使用命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    基本操作语句
+  </a>
+  
+    <nav class="md-nav" aria-label="基本操作语句">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#builder-buildx" class="md-nav__link">
+    创建实例命令及对应参数  此处及之后的命令均使用builder 使用buildx效果相同
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    查询　删除　切换驱动器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    构建镜像
+  </a>
+  
+    <nav class="md-nav" aria-label="构建镜像">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildxbakejson-yaml-hcl" class="md-nav__link">
+    buildx主要依赖bake命令来构建镜像，可以识别json 文件、.yaml 文件以及*.hcl文件来构建镜像，具体可识别的文件名字如下：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    具体构建命令如下：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hcl" class="md-nav__link">
+    hcl文件的配置解析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bake" class="md-nav__link">
+    Bake 文件支持以下属性类型：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bake_1" class="md-nav__link">
+    下面给出bake文件的常用样例:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 跨平台镜像批量构建功能
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 跨平台镜像批量构建功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    选用平台
+  </a>
+  
+    <nav class="md-nav" aria-label="选用平台">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#x86loongarch64" class="md-nav__link">
+    x86/loongarch64 (使用的镜像不同)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qemu" class="md-nav__link">
+    注册多架构qemu到内存中
+  </a>
+  
+    <nav class="md-nav" aria-label="注册多架构qemu到内存中">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    使用默认构建器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buildkit" class="md-nav__link">
+    使用buildkit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debian-image-abi2.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debian image abi2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flink
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    go 项目通用移植参考
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kubevirt单节点部署参考文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modify-container-image-metadata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    修改容器镜像元数据的方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_logging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python日志处理(logging模块介绍)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨平台编译运行
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    欧拉操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            欧拉操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%AC%A7%E6%8B%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉操作系统FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    龙蜥操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            龙蜥操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%BE%99%E8%9C%A5%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    龙蜥操作系统FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    移植手册
+  </span>
+  
+
+            </a>
+            
+              <label class="md-nav__link " for="__nav_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            移植手册
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/alluxio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alluxio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/ambari/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ambari
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/bazel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bazel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/bind9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bind9
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/binfmt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    binfmt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/bitshuffle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kiyo-masui/bitshuffle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/bookkeeper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bookkeeper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/brpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    brpc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/buildah/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    buildah
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/calico-node/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    calico-node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/cilium-envoy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cilium-envoy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/conscrypt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    conscrypt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/containerd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    containerd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/cri-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cri-tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/deepflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    deepflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/druid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    druid
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/ebpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cilium-ebpf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/elasticsearch-analysis-ansj/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch-analysis-ansj
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/elasticsearch-analysis-ik/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch-analysis-ik
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/elasticsearch-analysis-pinyin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch-analysis-pinyin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/elasticsearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    elasticsearch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/envoy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    envoy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/etcd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    etcd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/flink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flink
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/flume/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flume
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/flux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/grafana/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grafana
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/grpc-java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grpc-java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/grpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grpc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/hadoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hadoop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/harbor-operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    harbor-operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/hbase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hbase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/hive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/incus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    incus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/jansi-native/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jansi-native
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/jffi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jffi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/jna/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jna
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kapacitor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kapacitor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kiali/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kiali
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kibana/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kibana移植文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kubernetes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kubevirt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/logstash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    logstash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/loki/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    loki
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxc-alpine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc & lxc-templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxc-loongnixdebian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc & lxc-templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxc-loongnixserver/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc & lxc-templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxc 指导手册
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lxcfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lxcfs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/lz4-java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lz4-java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/mahout/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mahout
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/metrics-server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    metrics-server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/migrate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    migrate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/minio-mc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minio-mc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/minio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/ml-cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ml-cpp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/moby/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    moby
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/mongo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mongo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/nacos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nacos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/nerdctl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nerdctl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/netty-tcnative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    netty-tcnative
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/netty/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    netty
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/node-re2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    node-re2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/onlyoffice/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    onlyoffice-documentserver
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/openresty/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openresty
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/pdns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    powerdns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/portainer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    portainer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/protobuf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    protobuf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/protoc-java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    protoc-java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/pulsar-manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pulsar-manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/pulsar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pulsar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/runc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    runc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/seaweedfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    seaweedfs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/sigar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sigar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/sofa-pbrpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    baidu/sofa-pbrpc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/spark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/telegraf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    telegraf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/telepresence/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    telepresence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/tikv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tikv
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/weaveworks-scope/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    weaveworks-scope
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/weaveworks-weave/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    weaveworks-weave
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/wildfly-openssl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    wildfly-openssl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/xtrabackup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    xtrabackup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/xx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    xx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/zookeeper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zookeeper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A7%BB%E6%A4%8D%E6%89%8B%E5%86%8C/zstd-jni/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zdtd-jni
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    部署文档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            部署文档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/hadoop%2Bhbase%E4%BC%AA%E5%88%86%E5%B8%83%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hadoop+hbase伪分布部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/hadoop%2Bhbase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hadoop+hbase完全分布式部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/harbor_deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Harbor deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/k8s-1.29.0%E9%83%A8%E7%BD%B2%E5%8F%82%E8%80%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s-1.29.0部署参考
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/k8s1.20.0%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s1.20.0 部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/k8s%E5%8D%95%E8%8A%82%E7%82%B9%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s单节点部署.md
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/openstack-Wallby-%E5%A4%9A%E8%8A%82%E7%82%B9%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openstack-Wallby 多节点部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/openstack-Wallby%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8%E6%8C%87%E5%AF%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openstack-Wallby常用功能使用指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/%E5%8D%95%E8%8A%82%E7%82%B9%E7%8B%AC%E7%AB%8B%E5%90%AF%E5%8A%A8hbase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    单节点独立启动hbase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    0. 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 部署环境
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    下载并创建目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 基本使用命令
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 基本使用命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    基本操作语句
+  </a>
+  
+    <nav class="md-nav" aria-label="基本操作语句">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#builder-buildx" class="md-nav__link">
+    创建实例命令及对应参数  此处及之后的命令均使用builder 使用buildx效果相同
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    查询　删除　切换驱动器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    构建镜像
+  </a>
+  
+    <nav class="md-nav" aria-label="构建镜像">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildxbakejson-yaml-hcl" class="md-nav__link">
+    buildx主要依赖bake命令来构建镜像，可以识别json 文件、.yaml 文件以及*.hcl文件来构建镜像，具体可识别的文件名字如下：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    具体构建命令如下：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hcl" class="md-nav__link">
+    hcl文件的配置解析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bake" class="md-nav__link">
+    Bake 文件支持以下属性类型：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bake_1" class="md-nav__link">
+    下面给出bake文件的常用样例:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 跨平台镜像批量构建功能
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 跨平台镜像批量构建功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    选用平台
+  </a>
+  
+    <nav class="md-nav" aria-label="选用平台">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#x86loongarch64" class="md-nav__link">
+    x86/loongarch64 (使用的镜像不同)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qemu" class="md-nav__link">
+    注册多架构qemu到内存中
+  </a>
+  
+    <nav class="md-nav" aria-label="注册多架构qemu到内存中">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    使用默认构建器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buildkit" class="md-nav__link">
+    使用buildkit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/edit/main/docs/其他文档/buildx.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/raw/main/docs/其他文档/buildx.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="buildx">buildx使用手册</h1>
+<h2 id="0">0. 简介</h2>
+<p>Buildx是Docker官方提供的一种构建工具，优势:
+    (1) 可以在不同平台上构建多架构的Docker镜像，支持Dockerfile和OCI镜像格式;
+    (2) 支持hcl语法，批量构建镜像
+    (3) 还可以使用多种构建器，如BuildKit、Docker-CLI、Buildah等。
+Buildx的主要优势在于可以将不同架构的Docker镜像打包到同一个镜像中，从而支持多平台部署，提高了Docker镜像的可移植性和兼容性。</p>
+<h2 id="1">1. 部署环境</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[yzw@bogon ~]$ cat /etc/os-release 
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>NAME=&quot;Anolis OS&quot;
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>VERSION=&quot;23&quot;
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>ID=&quot;anolis&quot;
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>VERSION_ID=&quot;23&quot;
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>PLATFORM_ID=&quot;platform:an23&quot;
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>PRETTY_NAME=&quot;Anolis OS 23&quot;
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>ANSI_COLOR=&quot;0;31&quot;
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>HOME_URL=&quot;https://openanolis.cn/&quot;
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>BUG_REPORT_URL=&quot;https://bugzilla.openanolis.cn/&quot;
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>[yzw@bogon ~]$ uname -a
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Linux bogon 5.10.134-15.1.an23.loongarch64 #1 SMP Thu Sep 7 02:30:41 UTC 2023 loongarch64 GNU/Linux
+</span></code></pre></div>
+<h2 id="2">2. 安装</h2>
+<h3 id="_1">下载并创建目录</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>wget http://cloud.loongnix.xa/docker/buildx%2F0.12.0/docker-buildx-0.12.0-rc1_Linux_Loong64.tar.gz
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>mkdir -p ~/.docker/cli-plugins/
+</span></code></pre></div>
+<h3 id="_2">安装</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>install docker-buildx ~/.docker/cli-plugins/
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>chmod a+x ~/.docker/cli-plugins/docker-buildx
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>+docker buildx install //使用docker builder 代替docker buildx  执行docker buildx uninstall取消
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>由于需要开启实验模式才可以使用buildx,两种设置方法
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>vi ~/.docker/config.json 或　vi /etc/docker/daemon.json
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>&quot;experimental&quot;: &quot;enabled&quot;
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>或
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>设置环境变量　DOCKER_CLI_EXPERIMENTAL=enabled
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>重启docker使配置生效
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>systemctl daemon-reload
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>systemctl restart docker
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>测试: docker buildx  -h 
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>      docker builder -h
+</span></code></pre></div>
+<h2 id="3">3. 基本使用命令</h2>
+<h3 id="_3">基本操作语句</h3>
+<h4 id="builder-buildx">创建实例命令及对应参数  此处及之后的命令均使用builder 使用buildx效果相同</h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker builder create [参数] [内容|]
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>docker builder create --name loongson --driver=docker-container --driver-opt=image=moby/buildkit:latest
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>docker buildx create --name alpine   --driver docker-container   --driver-opt image=lcr.loongnix.cn/library/buildkit:0.12.3-alpine3.21    --config /etc/buildkit/buildkitd.toml
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>buildkitd.toml 的介绍见https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/buildkitd.toml%20%E4%BB%8B%E7%BB%8D
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>//创建名字为loongson的实例,指定构建器驱动程序为docker,指定驱动程序为buildkit，版本可选
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>//如果需要支持多架构，则在create时指定需要的架构，否则之后在/proc/sys/fs/binfmt_misc/注册其他架构的qemu-register时会失效 --platform linux/amd64,linux/arm64,linux/riscv64,linux/loong64
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>docker buildx inspect --bootstrap loongson &amp;&amp; docker buildx use loongson
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>//初始化并使用
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>构建器类型
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>++++++++++++++++++++++++++++++++++++++++
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>docker           + default buildkit    +
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>docker-container + buildkit 　　　      +
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>kubernetes       + k8s pod　           +
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>remote           + local use buildctl  +
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>++++++++++++++++++++++++++++++++++++++++
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>主要使用前两个
+</span></code></pre></div>
+<h4 id="_4">查询　删除　切换驱动器</h4>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker builder ls 
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>docker builder rm &lt;name&gt;
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>docker builder use &lt;name&gt;
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>docker builder inspect --bootstrap &lt;name&gt;
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>docker builder 
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>docker builder 
+</span></code></pre></div>
+具体命令手册见(https://github.com/docker/buildx/blob/master/docs/reference/buildx_create.md)[https://github.com/docker/buildx/blob/master/docs/reference/buildx_create.md]</p>
+<h4 id="_5">构建镜像</h4>
+<h5 id="buildxbakejson-yaml-hcl">buildx主要依赖bake命令来构建镜像，可以识别<em>json 文件、</em>.yaml 文件以及*.hcl文件来构建镜像，具体可识别的文件名字如下：</h5>
+<ul>
+<li>docker-bake.override.hcl</li>
+<li>docker-bake.hcl</li>
+<li>docker-bake.override.json</li>
+<li>docker-bake.json</li>
+<li>docker-compose.yaml</li>
+<li>docker-compose.yml</li>
+</ul>
+<h5 id="_6">具体构建命令如下：</h5>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker builder bake --file=../docker/bake.hcl
+</span></code></pre></div>
+<h5 id="hcl">hcl文件的配置解析</h5>
+<h5 id="bake">Bake 文件支持以下属性类型：</h5>
+<ul>
+<li>target: 构建目标</li>
+<li>group: 构建目标的集合</li>
+<li>variable: 构建时的参数及值</li>
+<li>function: 自定义函数
+不同属性类型下可以定义的属性如下：
+Name                Type    描述        <br />
+args                Map 构建参数  --build-arg
+attest              List    安全特性设置
+cache-from      List    指定构建时的缓存源
+cache-to        List    指定构建时存储的缓存目标
+context             String  指定构建上下文位置 代替.
+contexts            Map Additional build contexts
+dockerfile-inline   String  内联Dockerfile
+dockerfile      String  --file
+inherits        List    声明inherits可以从其他标签继承属性，当从多个目标继承属性并且存在冲突时，继承列表中最后出现的目标优先
+labels          Map 声明构建镜像的标签
+matrix          Map 使用矩阵在一个target下同时声明多个待构建镜像
+name            String  Override the target name when using a matrix.
+no-cache-filter     List    Disable build cache for specific stages
+no-cache        Boolean Disable build cache completely
+output          List    Output destinations
+platforms       List    镜像对应的目标架构
+pull            Boolean Always pull images
+secret          List    Secrets to expose to the build
+ssh         List    SSH agent sockets or keys to expose to the build
+tags            List    -tags
+target          String  Target build stage</li>
+</ul>
+<h5 id="bake_1">下面给出bake文件的常用样例:</h5>
+<ol>
+<li>
+<p>您可以在 Bake 文件中分层定义属性，并可以给属性分配1至多个值，可以将冗长的docker build命令写入文件进行构建。
+例子: 
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker build \
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  --build-arg HTTP_PROXY=http://10.20.30.2:1234 \
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  --build-arg GO_VERSION=1.20.1 \
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  --file=Dockerfile.hello \
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  --tag=lcr.loongnix.cn/library/hello:latest \
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  https://github.com/hello
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>target &quot;hello&quot; {
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  args={
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    HTTP_PROXY=http://10.20.30.2:1234
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    GO_VERSION=1.20.1
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  }
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  dockerfile = &quot;Dockerfile.hello&quot;
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  tags = [&quot;lcr.loongnix.cn/library/hello:latest&quot;]
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  context = &quot;https://github.com/hello&quot;
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>}
+</span></code></pre></div></p>
+</li>
+<li>
+<p>下面给出一个简单的 Bake 文件。其中定义了三个属性：变量、组和目标。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>variable &quot;TAG&quot; {
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  default = &quot;latest&quot;
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>}
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>group &quot;default&quot; {
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  targets = [&quot;hello&quot;]
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>}
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>target &quot;hello&quot; {
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  dockerfile = &quot;Dockerfile&quot;
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  tags = [&quot;cr.loongnix.cn/library/hello:${TAG}&quot;]
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>}
+</span></code></pre></div></p>
+</li>
+<li>
+<p>多阶段构建
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># docker-bake.hcl
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>target &quot;base&quot; {
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    dockerfile = &quot;baseapp.Dockerfile&quot;
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>}
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>target &quot;app&quot; {
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    contexts = {
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        baseapp = &quot;target:base&quot;
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    }
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>}
+</span></code></pre></div></p>
+</li>
+<li>
+<p>函数
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a># docker-bake.hcl
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>function &quot;increment&quot; {
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  params = [number]
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  result = number + 1
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>}
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>target &quot;webapp-dev&quot; {
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>  dockerfile = &quot;webtest.Dockerfile&quot;
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>  tags = [&quot;lcr.loongnix.cn/library/webapp:latest&quot;]
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>  args = {
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    buildno = &quot;${increment(123)}&quot;
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>  }
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>}
+</span></code></pre></div></p>
+</li>
+<li>常用命令
+|            命令           |          描述        | 注释 |
+| ------------------------- | -------------------- | ---- |
+|  docker buildx bake       | 从hcl文件构建        | - |
+|  docker buildx build      | 从Dockerfile构建     | - |
+|  docker buildx create     | 创建builder实例      | - |
+|  docker buildx ls         | 列出 builder实例     | - |
+|  docker buildx inspect    | 当前builder实例      | - |
+|  docker buildx rm         | 删除 builder实例     | - |
+|  docker buildx use        | 切换 builder 实例    | - |
+|  docker buildx stop       | 停止 builder实例     | - |
+|  docker buildx prune      | 移除构建缓存         | - |
+|  docker buildx du         | 磁盘使用情况         | - |
+|  docker buildx imagetools | 在registry中处理镜像 | - |
+|  docker buildx version    | buildx版本信息       | - |</li>
+</ol>
+<p>更具体的参数及样例见<a href="https://docs.docker.com/build/bake/reference/">https://docs.docker.com/build/bake/reference/</a></p>
+<h2 id="4">4. 跨平台镜像批量构建功能</h2>
+<h4 id="_7">选用平台</h4>
+<h5 id="x86loongarch64">x86/loongarch64 (使用的镜像不同)</h5>
+<h5 id="qemu">注册多架构qemu到内存中</h5>
+<p>x86架构
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>docker run --privileged --rm tonistiigi/binfmt --install all
+</span></code></pre></div>
+abi 1.0 (linux kernel &lt; 5.10)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>docker run --privileged --rm cr.loongnix.cn/library/tonistiigi/binfmt:latest --install all
+</span></code></pre></div>
+abi 2.0 (linux kernel &gt;= 5.10)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>docker run --privileged --rm lcr.loongnix.cn/library/tonistiigi/binfmt:latest --install all
+</span></code></pre></div>
+注册完毕后查看目录binfmt_misc 确认对应的模拟器是否被注册，例 在x86架构
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ls /proc/sys/fs/binfmt_misc
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>llvm-14-runtime.binfmt  qemu-arm      qemu-mips64el  qemu-s390x
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>python3.11      qemu-loongarch64  qemu-ppc64le   register
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>qemu-aarch64        qemu-mips64   qemu-riscv64   status
+</span></code></pre></div>
+确认对应loongarch的emulator已经被注册</p>
+<h6 id="_8">使用默认构建器</h6>
+<p>一次只能构建一个架构的镜像，无法将多个架构镜像同时存储在同一个manifest中
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$ docker buildx build --platform linux/arm64 
+</span></code></pre></div></p>
+<h6 id="buildkit">使用buildkit</h6>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>$ docker builder create --name loongson　--driver=docker --driver-opt=moby/buildkit:v0.11.3
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>$ docker buildx build --push --platform linux/arm64,linux/loongarch64 -t cr.loongnix.cn/library/test:latest -f Dockerfile .
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>注意：构建单一架构(single arch)下镜像时使用--load --platform linux/arm64 组合
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>而多架构只能使用--push --platform linux/arm64,linux/loongarch64
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>--load 表示构建到本地
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>--push则直接push到dockerhub
+</span></code></pre></div>
+构建完毕后，查看构建的多架构镜像信息：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>docker buildx imagetools inspect jianghushinian/hello-go
+</span></code></pre></div></p>
+<p>交叉编译可以使用的参数
+　　变量    说明
+TARGETPLATFORM  构建镜像的目标平台，如：linux/amd64，linux/arm/v7，windows/amd64。
+TARGETOS    TARGETPLATFORM 的操作系统，如：linux、windows。
+TARGETARCH  TARGETPLATFORM 的架构类型，如：amd64、arm。
+TARGETVARIANT   TARGETPLATFORM 的变体，如：v7。
+BUILDPLATFORM   执行构建所在的节点平台。
+BUILDOS 　　　　BUILDPLATFORM 的操作系统。
+BUILDARCH   BUILDPLATFORM 的架构类型。
+BUILDVARIANT    BUILDPLATFORM 的变体。</p>
+<p>如希望在x86下编译loongarch:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Dockerfile
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>FROM --platform=$BUILDPLATFORM golang:1.20-alpine AS builder
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>ARG TARGETOS
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>ARG TARGETARCH
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>WORKDIR /app
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>ADD . .
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o hello .
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>FROM lcr.loongnix.cn/library/alpine:v3.18.4-base
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>WORKDIR /app
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>COPY --from=builder /app/hello .
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>CMD [&quot;./hello&quot;]
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>docker-bake.hcl
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>variable &quot;TARGETPLATFORM&quot; {
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>  default = &quot;loong64&quot;
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>}
+</span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>variable &quot;BUILDPLATFORM&quot; {
+</span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>  default = &quot;amd64&quot;
+</span><span id="__span-18-20"><a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>}
+</span><span id="__span-18-21"><a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>variable &quot;TARGETOS&quot; {
+</span><span id="__span-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>  default = &quot;linux&quot;
+</span><span id="__span-18-23"><a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>}
+</span><span id="__span-18-24"><a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a>variable &quot;TARGETARCH&quot; {
+</span><span id="__span-18-25"><a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>  default = &quot;loong64&quot;
+</span><span id="__span-18-26"><a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a>}
+</span></code></pre></div>
+上述代码中目标平台若为loongarch，则需要调用lcr龙芯官方镜像源的基础镜像</p>
+<p>如果想在Dockerfile中使用前端构建器，在(龙芯镜像官网)[https://cr.loongnix.cn/search] 搜索dockerfile 查看当前前端构建器版本(experiment)，暂时只适配了buildkit/0.12.3 下的前端构建器，支持大部分新的Dockerfile DSL语法，使用示例
+(frontend原理)[https://www.yuque.com/yzewei/rb4gmw/px44zok1xgklc0if?singleDoc# 《云原生 Docker Buildkit 二》]
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Dockerfile
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a># syntax=cr.loongnix.cn/library/dockerfile:experiment
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>FROM golang:1.20-alpine AS builder
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>WORKDIR /app
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>ADD . .
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>#ADD main.go main.go
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>RUN --mount=type=cache,target=/root/.cache/go-build \
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>    go build -ldflags=&quot;-w&quot; -o ./hello hello.go
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>FROM debian:buster
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>#FROM alpine:latest
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>WORKDIR /app
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>#ADD . .
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>COPY --link --from=builder /app/hello .
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>CMD [&quot;./hello&quot;]
+</span></code></pre></div></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.indexes", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.780af0f4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f11ae8b1.min.js"></script>
+      
+    
+  </body>
+</html>
