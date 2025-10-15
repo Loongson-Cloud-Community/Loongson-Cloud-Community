@@ -64,6 +64,7 @@ docker builder create --name loongson --driver=docker-container --driver-opt=ima
 docker buildx create --name alpine   --driver docker-container   --driver-opt image=lcr.loongnix.cn/library/buildkit:0.12.3-alpine3.21    --config /etc/buildkit/buildkitd.toml
 buildkitd.toml 的介绍见https://github.com/Loongson-Cloud-Community/Loongson-Cloud-Community/blob/main/docs/%E5%85%B6%E4%BB%96%E6%96%87%E6%A1%A3/buildkitd.toml%20%E4%BB%8B%E7%BB%8D
 //创建名字为loongson的实例,指定构建器驱动程序为docker,指定驱动程序为buildkit，版本可选
+//如果需要支持多架构，则在create时指定需要的架构，否则之后在/proc/sys/fs/binfmt_misc/注册其他架构的qemu-register时会失效 --platform linux/amd64,linux/arm64,linux/riscv64,linux/loong64
 docker buildx inspect --bootstrap loongson && docker buildx use loongson
 //初始化并使用
 构建器类型
